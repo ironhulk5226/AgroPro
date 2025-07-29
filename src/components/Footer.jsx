@@ -9,19 +9,19 @@ const Footer = () => {
           <div className="flex flex-col gap-6 px-5 py-10 text-center">
             <div className="flex flex-wrap items-center justify-center gap-6 sm:flex-row sm:justify-around">
               <a
-                className="text-[#618961] text-base font-normal leading-normal min-w-40 hover:text-green-700"
+                className="black text-base font-bold leading-normal min-w-40 hover:text-green-700"
                 href="#"
               >
                 Privacy Policy
               </a>
               <a
-                className="text-[#618961] text-base font-normal leading-normal min-w-40 hover:text-green-700"
+                className="black text-base font-bold leading-normal min-w-40 hover:text-green-700"
                 href="#"
               >
                 Terms of Service
               </a>
               <a
-                className="text-[#618961] text-base font-normal leading-normal min-w-40 hover:text-green-700"
+                className="black text-base font-bold leading-normal min-w-40 hover:text-green-700"
                 href="#"
               >
                 Contact Us
