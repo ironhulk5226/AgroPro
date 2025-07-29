@@ -1,12 +1,18 @@
 import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { HiOutlineChartBar } from "react-icons/hi";
+import { FaLeaf } from "react-icons/fa";
+import { FaRobot } from "react-icons/fa";
+import StickyButtons from "../components/StickyButtons";
 
 const Hero = () => {
   return (
     <div>
       {/*Nav Bar*/}
       <Header />
+      {/* StickyButtons */}
+      <StickyButtons/>
       {/*Hero Section*/}
       <div className="px-40 flex flex-1 justify-center py-5">
         <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
@@ -59,15 +65,9 @@ const Hero = () => {
               <div className="flex flex-1 gap-3 rounded-lg border border-[#dbe6db] bg-white p-4 flex-col">
                 <div className="text-[#111811]">
                   {/* Leaf Icon */}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24px"
-                    height="24px"
-                    fill="currentColor"
-                    viewBox="0 0 256 256"
-                  >
-                    <path d="M223.45,40.07a8,8,0,0,0-7.52-7.52..." />
-                  </svg>
+                  <div className="p-2 text-green-700">
+                    <FaLeaf className="w-6 h-6" />
+                  </div>
                 </div>
                 <div className="flex flex-col gap-1">
                   <h2 className="text-[#111811] text-base font-bold leading-tight">
@@ -84,15 +84,9 @@ const Hero = () => {
               <div className="flex flex-1 gap-3 rounded-lg border border-[#dbe6db] bg-white p-4 flex-col">
                 <div className="text-[#111811]">
                   {/* Robot Icon */}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24px"
-                    height="24px"
-                    fill="currentColor"
-                    viewBox="0 0 256 256"
-                  >
-                    <path d="M200,48H136V16a8,8,0,0,0-16,0V48..." />
-                  </svg>
+                  <div className="p-2 text-green-700">
+                    <FaRobot className="w-6 h-6" />
+                  </div>
                 </div>
                 <div className="flex flex-col gap-1">
                   <h2 className="text-[#111811] text-base font-bold leading-tight">
@@ -109,15 +103,9 @@ const Hero = () => {
               <div className="flex flex-1 gap-3 rounded-lg border border-[#dbe6db] bg-white p-4 flex-col">
                 <div className="text-[#111811]">
                   {/* Chart Icon */}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24px"
-                    height="24px"
-                    fill="currentColor"
-                    viewBox="0 0 256 256"
-                  >
-                    <path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48..." />
-                  </svg>
+                  <div className="p-2 text-green-700">
+                    <HiOutlineChartBar className="w-6 h-6" />
+                  </div>
                 </div>
                 <div className="flex flex-col gap-1">
                   <h2 className="text-[#111811] text-base font-bold leading-tight">
@@ -135,7 +123,7 @@ const Hero = () => {
       </div>
 
       {/*Footer*/}
-      <Footer/>
+      <Footer />
     </div>
   );
 };
