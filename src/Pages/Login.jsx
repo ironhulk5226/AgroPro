@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "./Header";
+import Header from "../components/Header";
 const Login = () => (
   <div
     className="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden"
