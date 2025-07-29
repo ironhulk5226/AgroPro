@@ -33,7 +33,7 @@ function Header() {
         <a
           key={label}
           href={path}
-          className="text-[#131613] text-sm font-medium leading-normal"
+          className="text-[#131613] text-sm font-medium leading-normal hover:text-green-700"
         >
           {label}
         </a>
@@ -41,13 +41,13 @@ function Header() {
     </nav>
           </div>
           <div className="flex gap-2">
-            <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#daf0da] text-[#131613] text-sm font-bold leading-normal tracking-[0.015em]">
+            <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#daf0da] text-[#131613] text-sm font-bold leading-normal tracking-[0.015em] hover:bg-green-700">
               <span className="truncate">Login/Register</span>
             </button>
             <button className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 bg-[#f1f3f1] text-[#131613] gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
               <div className="text-[#131613]">
                 {/* Sun SVG */}
-                <div className="p-2  text-green-600 hover:bg-green-100 rounded-full transition">
+                <div className="p-1 text-green-600 hover:bg-green-300 rounded-full transition">
       <BsSun size={24} />
     </div>
               </div>
