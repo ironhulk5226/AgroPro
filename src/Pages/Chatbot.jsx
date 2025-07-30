@@ -20,7 +20,7 @@ function Chatbot() {
             assistant is here to help you optimize your farming practices.
           </p>
 
-          {/* Input Field Centered */}
+          {/* Input Field  */}
           <div className="flex justify-center px-4 py-3">
             <label className="flex flex-col w-full max-w-[600px]">
               <input
