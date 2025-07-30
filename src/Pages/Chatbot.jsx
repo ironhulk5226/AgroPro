@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { BiLeaf, BiWater, BiSun } from "react-icons/bi"; // Import react-icons
+import { BiLeaf, BiWater, BiSun } from "react-icons/bi"; 
 
 function Chatbot() {
   const [question, setQuestion] = useState("");
