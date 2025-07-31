@@ -18,18 +18,6 @@ function Chatbot() {
   const [messages, setMessages] = useState([]);
   const chatContainerRef = useRef(null);
 
-  const sendingData = {
-    "contents": [
-      {
-        "parts": [
-          {
-            "text": question
-          }
-        ]
-      }
-    ]
-  }
-
   const getData = () => {
   if (!question.trim()) return;
 
