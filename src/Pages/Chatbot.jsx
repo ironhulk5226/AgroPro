@@ -33,8 +33,6 @@ function Chatbot() {
   const getData = () => {
   if (!question.trim()) return;
 
-  // Add system instruction as the first part of contents
-  const systemPrompt = "You are a helpful agricultural specialist AI. Always answer questions with expertise in farming, crops, soil, water management, and related agriculture topics, answer in clear concise and simple manner so that any user can understand easily";
 
   const payload = {
     contents: [
