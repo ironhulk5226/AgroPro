@@ -1,1 +1,116 @@
-@import 'tailwindcss'
+@import 'tailwindcss';
+
+/* Custom scrollbar styles */
+/* For Webkit browsers (Chrome, Safari, etc.) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #14b714;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0e8e0e;
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #14b714 #f1f5f1;
+}
+
+/* Markdown content styling */
+.markdown-content h1, 
+.markdown-content h2, 
+.markdown-content h3, 
+.markdown-content h4, 
+.markdown-content h5, 
+.markdown-content h6 {
+  color: #14b714;
+  font-weight: bold;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.markdown-content h1 {
+  font-size: 1.5rem;
+}
+
+.markdown-content h2 {
+  font-size: 1.25rem;
+}
+
+.markdown-content h3 {
+  font-size: 1.125rem;
+}
+
+.markdown-content p {
+  margin-bottom: 0.75rem;
+}
+
+.markdown-content ul, 
+.markdown-content ol {
+  margin-left: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.markdown-content ul {
+  list-style-type: disc;
+}
+
+.markdown-content ol {
+  list-style-type: decimal;
+}
+
+.markdown-content a {
+  color: #14b714;
+  text-decoration: underline;
+}
+
+.markdown-content code {
+  background-color: #f1f5f1;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-family: monospace;
+}
+
+.markdown-content pre {
+  background-color: #f1f5f1;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin-bottom: 0.75rem;
+}
+
+.markdown-content blockquote {
+  border-left: 4px solid #14b714;
+  padding-left: 1rem;
+  margin-left: 0;
+  margin-right: 0;
+  font-style: italic;
+  color: #638863;
+}
+
+.markdown-content table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+
+.markdown-content th,
+.markdown-content td {
+  border: 1px solid #dce5dc;
+  padding: 0.5rem;
+}
+
+.markdown-content th {
+  background-color: #e6f7e6;
+  font-weight: bold;
+}
