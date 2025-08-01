@@ -6,7 +6,7 @@ function Header() {
   { label: "Home", path: "/" },
   { label: "About", path: "/about" },
   { label: "Solutions", path: "/solutions" },
-  { label: "Resources", path: "/resources" },
+  { label: "Features", path: "/features" },
   { label: "Contact", path: "/contact" },
 ];
 

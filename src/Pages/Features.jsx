@@ -5,12 +5,12 @@ import Footer from "../components/Footer";
 function Features() {
   const [search, setSearch] = useState("");
 
-  const categories = [
-    "All Categories",
-    "Crop Management",
-    "Technology",
-    "Sustainability",
-  ];
+  // const categories = [
+  //   "All Categories",
+  //   "Crop Management",
+  //   "Technology",
+  //   "Sustainability",
+  // ];
 
   const resources = [
     {
@@ -56,10 +56,10 @@ function Features() {
         <Header />
         <div className="flex flex-col gap-3 p-4">
           <h1 className="text-[#111811] tracking-wide text-[32px] font-bold leading-tight">
-            Resources
+            Features
           </h1>
           <p className="text-[#618961] text-sm leading-normal">
-            Explore our comprehensive resources to enhance your smart farming
+            Explore our comprehensive Features to enhance your smart farming
             practices. Find guides, tips, and tools to optimize your farm's
             productivity and sustainability.
           </p>
@@ -82,7 +82,7 @@ function Features() {
             </span>
             <input
               type="text"
-              placeholder="Search resources"
+              placeholder="Search Features"
               className="flex-1 bg-transparent outline-none text-[#111811] placeholder:text-[#618961] px-2"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -91,7 +91,7 @@ function Features() {
         </div>
 
         {/* Category Buttons */}
-        <div className="flex gap-3 p-3 flex-wrap">
+        {/* <div className="flex gap-3 p-3 flex-wrap">
           {categories.map((cat, idx) => (
             <button
               key={idx}
@@ -109,7 +109,7 @@ function Features() {
               </svg>
             </button>
           ))}
-        </div>
+        </div> */}
 
         {/* Resource Cards */}
         <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 p-4">
