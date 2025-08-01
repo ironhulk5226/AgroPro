@@ -46,7 +46,7 @@ function Header() {
             </button>
             <button className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 bg-[#f1f3f1] text-[#131613] gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
               <div className="text-[#131613]">
-                {/* Sun SVG */}
+                {/* Sun SVG - light/dark mode */}
                 <div className="p-1 text-green-600 hover:bg-green-300 rounded-full transition">
       <BsSun size={24} />
     </div>
