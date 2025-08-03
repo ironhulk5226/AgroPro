@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -65,9 +66,11 @@ function Login() {
               </button>
             </div>
 
-            <p className="text-[#6c7f6c] cursor-pointer text-sm font-normal leading-normal pb-3 pt-1 px-4 text-center underline hover:text-black">
+            <Link to="/signup">
+              <p className="text-[#6c7f6c] cursor-pointer text-sm font-normal leading-normal pb-3 pt-1 px-4 text-center underline hover:text-black">
               Don’t have an account? Sign Up
             </p>
+            </Link>
           </div>
         </div>
 
