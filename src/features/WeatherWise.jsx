@@ -113,7 +113,7 @@ const WeatherWise = () => {
 
         {/* Weather Display */}
         {!isLoading && weatherData && (
-          <div className="bg-white rounded-xl shadow-lg p-6 mb-10 max-w-xl mx-auto">
+          <div className="bg-white rounded-xl shadow-[0_10px_25px_rgba(0,0,0,0.4)] p-6 mb-10 max-w-xl mx-auto">
             <h2 className="text-2xl font-bold text-green-400 text-center mb-6">
               Weather in {submittedCity}
             </h2>
