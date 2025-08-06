@@ -18,6 +18,7 @@ function App() {
         <Route path="/features" element={<Features/>} />
         <Route path="/about" element={<AboutTifan/>} />
         <Route path="/chatbot" element={<Chatbot/>} />
+         <Route path="*" element={<Hero/>} />
       </Routes>
    </BrowserRouter>
      

@@ -50,10 +50,11 @@ function Features() {
   );
 
   return (
+    <>
+      <Header />
     <div className="px-10 flex flex-1 justify-center py-5">
       <div className="flex flex-col max-w-[960px] flex-1">
         {/* Header */}
-        <Header />
         <div className="flex flex-col gap-3 p-4">
           <h1 className="text-[#111811] tracking-wide text-[32px] font-bold leading-tight">
             Features
@@ -133,6 +134,7 @@ function Features() {
         <Footer />
       </div>
     </div>
+    </>
   );
 }
 
