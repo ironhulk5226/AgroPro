@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { SyncLoader } from "react-spinners";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 // url : https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
 
 const WeatherWise = () => {
   const [city, setCity] = useState("");
   const [submittedCity, setSubmittedCity] = useState("");
   const [weatherData, setWeatherData] = useState(null);
-  const [isLoading,SetisLoading] = useState(false)
+  const [isLoading,SetisLoading] = useState(false);
 
   const API_KEY = "6758d9c84d9f9d0f2a48d6cf155e670d";
 
@@ -72,9 +74,11 @@ const WeatherWise = () => {
   };
 
   return (
-    <div className="min-h-screen bg-green-50 text-gray-800 p-6">
+   <>
+    <Header/>
+    <div className="min-h-screen bg-white text-gray-800 p-6">
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl md:text-4xl font-bold text-center text-green-700 mb-6">
+        <h1 className="text-3xl md:text-4xl font-bold text-center text-green-400 mb-6">
           🌾 Weather Wise
         </h1>
 
@@ -88,12 +92,12 @@ const WeatherWise = () => {
             placeholder="Enter city name"
             value={city}
             onChange={(e) => setCity(e.target.value)}
-            className="px-4 py-2 border border-green-400 rounded-lg shadow w-full md:w-2/3 focus:outline-none focus:ring-2 focus:ring-green-300"
+            className="px-4 py-2 border border-green-100 rounded-lg shadow w-full md:w-2/3 focus:outline-none focus:ring-2 focus:ring-green-300"
             required
           />
           <button
             type="submit"
-            className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition duration-300"
+            className="bg-[#4fa74f] hover:bg-green-700 text-white px-6 py-2 rounded-lg transition duration-300"
           >
             Get Weather
           </button>
@@ -110,7 +114,7 @@ const WeatherWise = () => {
         {/* Weather Display */}
         {!isLoading && weatherData && (
           <div className="bg-white rounded-xl shadow-lg p-6 mb-10 max-w-xl mx-auto">
-            <h2 className="text-2xl font-bold text-green-700 text-center mb-6">
+            <h2 className="text-2xl font-bold text-green-400 text-center mb-6">
               Weather in {submittedCity}
             </h2>
             <div className="flex flex-col items-center justify-center">
@@ -151,7 +155,7 @@ const WeatherWise = () => {
         {/* Personalized Recommendations */}
         {!isLoading && weatherData && (
           <div className="bg-green-100 border border-green-300 rounded-lg shadow-md p-6">
-            <h2 className="text-xl font-bold text-green-800 mb-4">
+            <h2 className="text-xl font-bold text-green-400 mb-4">
               🌱 Personalized Farming Tips
             </h2>
             <ul className="list-disc pl-6 space-y-2 text-green-900">
@@ -164,6 +168,8 @@ const WeatherWise = () => {
         )}
       </div>
     </div>
+    <Footer/>
+   </>
   );
 };
 
