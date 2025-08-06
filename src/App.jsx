@@ -20,7 +20,7 @@ function App() {
         <Route path="/chatbot" element={<Chatbot/>} />
       </Routes>
    </BrowserRouter>
-    
+     
   )
 }
 
