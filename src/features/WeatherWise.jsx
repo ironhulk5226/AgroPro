@@ -79,7 +79,7 @@ const WeatherWise = () => {
     <Header/>
     <div className="min-h-screen bg-white text-gray-800 p-6">
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl md:text-4xl font-bold text-center text-green-400 mb-6">
+        <h1 className="text-3xl md:text-4xl font-bold text-center text-[#111811] mb-6">
           ⛅ Weather Wise
         </h1>
 
@@ -93,7 +93,7 @@ const WeatherWise = () => {
             placeholder="Enter city name"
             value={city}
             onChange={(e) => setCity(e.target.value)}
-            className="px-4 py-2 border border-green-100 rounded-lg shadow w-full md:w-2/3 focus:outline-none focus:ring-2 focus:ring-green-300"
+            className="px-4 py-2 border border-[#14b714] rounded-lg shadow w-full md:w-2/3 focus:outline-none focus:ring-2 focus:ring-green-300"
             required
           />
           <button
@@ -115,7 +115,7 @@ const WeatherWise = () => {
         {/* Weather Display */}
         {!isLoading && weatherData && (
           <div className="bg-white rounded-xl shadow-[0_10px_25px_rgba(0,0,0,0.4)] p-6 mb-10 max-w-xl mx-auto">
-            <h2 className="text-2xl font-bold text-green-400 text-center mb-6">
+            <h2 className="text-2xl font-bold text-[#14b714] text-center mb-6">
               Weather in {submittedCity}
             </h2>
             <div className="flex flex-col items-center justify-center">
@@ -156,7 +156,7 @@ const WeatherWise = () => {
         {/* Personalized Recommendations */}
         {!isLoading && weatherData && (
           <div className="bg-green-100 border border-green-300 rounded-lg shadow-md p-6">
-            <h2 className="text-xl font-bold text-green-400 mb-4">
+            <h2 className="text-xl font-bold text-[#14b714] mb-4">
               🌱 Personalized Farming Tips
             </h2>
             <ul className="list-disc pl-6 space-y-2 text-green-900">
