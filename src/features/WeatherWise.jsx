@@ -4,6 +4,7 @@ import { SyncLoader } from "react-spinners";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 // url : https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
+// API key : 6758d9c84d9f9d0f2a48d6cf155e670d
 
 const WeatherWise = () => {
   const [city, setCity] = useState("");
