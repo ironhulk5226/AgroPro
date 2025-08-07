@@ -11,7 +11,7 @@ const WeatherWise = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [isLoading,SetisLoading] = useState(false);
 
-  const API_KEY = "6758d9c84d9f9d0f2a48d6cf155e670d";
+  const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
   const weatherIcons = {
     Clear: "/weather-icons/Clear.png",
@@ -79,7 +79,7 @@ const WeatherWise = () => {
     <div className="min-h-screen bg-white text-gray-800 p-6">
       <div className="max-w-3xl mx-auto">
         <h1 className="text-3xl md:text-4xl font-bold text-center text-green-400 mb-6">
-          🌾 Weather Wise
+          ⛅ Weather Wise
         </h1>
 
         {/* City Input */}
