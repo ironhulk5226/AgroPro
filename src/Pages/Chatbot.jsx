@@ -105,7 +105,7 @@ function Chatbot() {
              className="flex flex-col w-full max-w-[600px] mx-auto mb-4 h-[400px] overflow-y-auto border border-[#dce5dc] rounded-xl  bg-green-300 p-4"
            >
             {messages.length === 0 ? (
-              <div className="flex items-center justify-center h-full text-[#638863] text-lg">
+              <div className="flex items-center justify-center h-full text-black text-lg">
                 <p>Ask a question to get started!</p>
               </div>
             ) : (
