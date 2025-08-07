@@ -52,7 +52,7 @@ function Header() {
           </div>
           <div className="flex gap-2">
             <Link to="/Login">
-              <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#daf0da] text-[#131613] text-sm font-bold leading-normal tracking-[0.015em] hover:bg-green-700">
+              <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#daf0da] text-[#131613] text-sm font-bold leading-normal tracking-[0.015em] hover:bg-green-400">
               <span className="truncate">Login/Register</span>
             </button>
             </Link>

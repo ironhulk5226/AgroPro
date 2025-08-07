@@ -3,6 +3,8 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { FaSearch } from 'react-icons/fa';
 import WeatherWise from '../assets/Feature_Images/Weather-Wise.jpeg';
+import GrowSmart from '../assets/Feature_Images/GrowSmart.png';
+import AgroChat from '../assets/Feature_Images/AgroChat.png';
 import { Link } from "react-router-dom";
 
 
@@ -17,16 +19,16 @@ function Features() {
       path:'/weatherwise'
     },
     {
-      title: "Pest Control",
-      desc: "Discover strategies for controlling pests and protecting your crops.",
-      img: "",
-      path:''
+      title: "Grow Smart",
+      desc: "GrowSmart helps farmers plan the best planting layout for their land to maximize yield using smart spacing methods.",
+      img: GrowSmart,
+      path:'/growsmart'
     },
     {
-      title: "Irrigation Tips",
-      desc: "Optimize your irrigation systems for efficient water use.",
-      img: "https://picsum.photos/300/300?random=3",
-      path:''
+      title: "AgroChat",
+      desc: "A smart assistant that answers farming questions, gives crop tips, and supports better decisions in real-time.",
+      img: AgroChat,
+      path:'/chatbot'
     },
     {
       title: "Soil Health",
