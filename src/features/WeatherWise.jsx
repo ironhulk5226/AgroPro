@@ -12,7 +12,7 @@ const WeatherWise = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [isLoading,SetisLoading] = useState(false);
 
-  const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
+  const API_KEY = "6758d9c84d9f9d0f2a48d6cf155e670d";
 
   const weatherIcons = {
     Clear: "/weather-icons/Clear.png",

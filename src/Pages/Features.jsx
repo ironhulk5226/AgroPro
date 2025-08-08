@@ -1,47 +1,48 @@
-import React, { useState } from "react";
-import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
+import { FaSearch } from 'react-icons/fa';
+import GrowSmart from '../assets/Feature_Images/GrowSmart.png';
+import AgroChat from '../assets/Feature_Images/AgroChat.png';
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import Schemes from "../features/Schemes";
+import schemesImg from  '../assets/Feature_Images/schemes.png'
+import weatherImg from '../assets/Feature_Images/weather-wise.png'
+
 
 function Features() {
   const [search, setSearch] = useState("");
 
-  // const categories = [
-  //   "All Categories",
-  //   "Crop Management",
-  //   "Technology",
-  //   "Sustainability",
-  // ];
-
   const resources = [
     {
-      title: "Crop Diseases",
-      desc: "Learn to identify and manage common crop diseases effectively.",
-      img: "https://picsum.photos/300/300?random=1",
+      title: "Weather Wise",
+      desc: "Stay ahead with accurate weather forecasts and farming advice tailored to your crops and location.",
+      img: weatherImg,
+      path:'/weatherwise'
     },
     {
-      title: "Pest Control",
-      desc: "Discover strategies for controlling pests and protecting your crops.",
-      img: "https://picsum.photos/300/300?random=2",
+      title: "Schemes",
+      desc: "..",
+      img: schemesImg,
+      path:'/schemes',
     },
     {
-      title: "Irrigation Tips",
-      desc: "Optimize your irrigation systems for efficient water use.",
-      img: "https://picsum.photos/300/300?random=3",
+      title: "Grow Smart",
+      desc: "GrowSmart helps farmers plan the best planting layout for their land to maximize yield using smart spacing methods.",
+      img: GrowSmart,
+      path:'/growsmart'
     },
     {
-      title: "Soil Health",
-      desc: "Improve soil quality and fertility for better crop yields.",
-      img: "https://picsum.photos/300/300?random=4",
+      title: "AgroChat",
+      desc: "A smart assistant that answers farming questions, gives crop tips, and supports better decisions in real-time.",
+      img: AgroChat,
+      path:'/chatbot'
     },
     {
-      title: "Weather Monitoring",
-      desc: "Stay informed with real-time weather data and forecasts.",
-      img: "https://picsum.photos/300/300?random=5",
-    },
-    {
-      title: "Market Insights",
-      desc: "Access market trends and insights to make informed decisions.",
-      img: "https://picsum.photos/300/300?random=6",
+      title: "Title",
+      desc: "Description",
+      img: "",
+      path:''
     },
   ];
 
@@ -90,10 +91,9 @@ function Features() {
           {filtered.map((item, idx) => (
             <Link key={idx} to={item.path}>
             <div
-              key={idx}
               className="flex flex-col gap-2 rounded-xl shadow-sm p-2 bg-white"
             >
-              
+
               <div
                 className="w-full aspect-square rounded-xl bg-cover bg-center"
                 style={{ backgroundImage: `url(${item.img})` }}
