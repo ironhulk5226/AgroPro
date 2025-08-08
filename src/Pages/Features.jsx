@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { useNavigate } from "react-router-dom";
 
 function Features() {
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
   // const categories = [
   //   "All Categories",
@@ -14,34 +16,40 @@ function Features() {
 
   const resources = [
     {
-      title: "Crop Diseases",
+      title: "Schemes",
       desc: "Learn to identify and manage common crop diseases effectively.",
       img: "https://picsum.photos/300/300?random=1",
+      link: "/schemes"
     },
     {
       title: "Pest Control",
       desc: "Discover strategies for controlling pests and protecting your crops.",
       img: "https://picsum.photos/300/300?random=2",
+      link: "/xyz"
     },
     {
       title: "Irrigation Tips",
       desc: "Optimize your irrigation systems for efficient water use.",
       img: "https://picsum.photos/300/300?random=3",
+      link: "/xyz"
     },
     {
       title: "Soil Health",
       desc: "Improve soil quality and fertility for better crop yields.",
       img: "https://picsum.photos/300/300?random=4",
+      link: "/xyz"
     },
     {
       title: "Weather Monitoring",
       desc: "Stay informed with real-time weather data and forecasts.",
       img: "https://picsum.photos/300/300?random=5",
+      link: "/xyz"
     },
     {
       title: "Market Insights",
       desc: "Access market trends and insights to make informed decisions.",
       img: "https://picsum.photos/300/300?random=6",
+      link: "/xyz"
     },
   ];
 
@@ -116,6 +124,7 @@ function Features() {
         <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 p-4">
           {filtered.map((item, idx) => (
             <div
+              onClick={() => navigate(item.link)}
               key={idx}
               className="flex flex-col gap-2 rounded-xl shadow-sm p-2 bg-white"
             >

@@ -4,6 +4,7 @@ import Hero from "./Pages/Hero";
 import Login from "./Pages/Login";
 import SignUp from "./Pages/SignUp";
 import AboutTifan from "./Pages/AboutTifan";
+import Schemes from "./Pages/Schemes";
 import { BrowserRouter, Route, Routes} from "react-router-dom";
 
 
@@ -18,7 +19,8 @@ function App() {
         <Route path="/features" element={<Features/>} />
         <Route path="/about" element={<AboutTifan/>} />
         <Route path="/chatbot" element={<Chatbot/>} />
-         <Route path="*" element={<Hero/>} />
+        <Route path="*" element={<Hero/>} />
+        <Route path="/schemes" element={<Schemes />} />
       </Routes>
    </BrowserRouter>
      
