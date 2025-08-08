@@ -9,8 +9,8 @@ import ReactMarkdown from "react-markdown";
 //'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyAdTDHfDBd0OsXkOJWPXzJ4dmC1uqOOc24'
 
 function Chatbot() {
-  const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
-  const API_KEY = "AIzaSyAdTDHfDBd0OsXkOJWPXzJ4dmC1uqOOc24";
+  const url = import.meta.env.VITE_GEMINI_API_URL;
+  const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
   
   const [question, setQuestion] = useState("");
   const [ans, setAns] = useState("");
@@ -102,10 +102,10 @@ function Chatbot() {
           {/* Chat Messages Display */}
            <div 
              ref={chatContainerRef}
-             className="flex flex-col w-full max-w-[600px] mx-auto mb-4 h-[400px] overflow-y-auto border border-[#dce5dc] rounded-xl bg-white p-4"
+             className="flex flex-col w-full max-w-[600px] mx-auto mb-4 h-[400px] overflow-y-auto border border-[#dce5dc] rounded-xl  bg-green-300 p-4"
            >
             {messages.length === 0 ? (
-              <div className="flex items-center justify-center h-full text-[#638863] text-lg">
+              <div className="flex items-center justify-center h-full text-black text-lg">
                 <p>Ask a question to get started!</p>
               </div>
             ) : (
@@ -119,7 +119,7 @@ function Chatbot() {
                     {message.type === 'question' ? (
                       <p className="whitespace-pre-wrap break-words">{message.content}</p>
                     ) : (
-                      <div className="markdown-content text-[#14b714]">
+                      <div className="markdown-content text-black">
                         <ReactMarkdown>{message.content}</ReactMarkdown>
                       </div>
                     )}
