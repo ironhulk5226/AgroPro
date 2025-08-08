@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import Schemes from "../features/Schemes";
 import schemesImg from  '../assets/Feature_Images/schemes.png'
-import weatherImg from '../assets/Feature_Images/weather-wise.png'
+import weatherImg from '../assets/Feature_Images/weather-wise.png';
+import { FiFileText } from 'react-icons/fi';
 
 
 function Features() {
@@ -93,7 +94,7 @@ function Features() {
             <div
               className="flex flex-col gap-2 rounded-xl shadow-sm p-2 bg-white"
             >
-
+              
               <div
                 className="w-full aspect-square rounded-xl bg-cover bg-center"
                 style={{ backgroundImage: `url(${item.img})` }}
