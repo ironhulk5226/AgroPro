@@ -32,9 +32,11 @@ function Header() {
               ></path>
             </svg>
           </div>
-          <h2 className="text-[#131613] text-lg font-bold leading-tight tracking-[-0.015em]">
+          <Link to='/home'>
+          <h2 className="text-[#131613] text-lg font-bold leading-tight tracking-[-0.015em] cursor-pointer">
             TIFAN
           </h2>
+          </Link>
         </div>
         <div className="flex flex-1 justify-end gap-8">
           <div className="flex items-center gap-9">

@@ -102,7 +102,7 @@ function Chatbot() {
           {/* Chat Messages Display */}
            <div 
              ref={chatContainerRef}
-             className="flex flex-col w-full max-w-[600px] mx-auto mb-4 h-[400px] overflow-y-auto border border-[#dce5dc] rounded-xl  bg-green-300 p-4"
+             className="flex flex-col w-[800px] max-w-[800px] mx-auto mb-4 h-[600px] overflow-y-auto border border-[#dce5dc] rounded-xl  bg-green-300 p-4"
            >
             {messages.length === 0 ? (
               <div className="flex items-center justify-center h-full text-black text-lg">
@@ -136,7 +136,7 @@ function Chatbot() {
 
           {/* Input Field and Send Button */}
           <div className="flex justify-center px-4 py-3">
-            <div className="flex w-full max-w-[600px] relative">
+            <div className="flex w-[800px] max-w-[800px] relative">
               <input
                 placeholder="Hello! How Can I Help You?"
                 className="form-input w-full rounded-xl text-[#111811] focus:outline-0 focus:ring-0 border border-[#dce5dc] bg-white focus:border-[#14b714] h-16 placeholder:text-[#638863] p-[18px] pr-[60px] text-lg font-normal leading-normal"

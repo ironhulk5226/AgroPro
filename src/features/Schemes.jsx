@@ -72,7 +72,8 @@ const Schemes = () => {
                       >
                   <div
                     key={index}
-                    className="flex flex-col sm:flex-row items-start sm:items-stretch gap-4 rounded-lg bg-white p-4 shadow-[0_0_4px_rgba(0,0,0,0.1)] hover:bg-[#daf0da] w-full h-[190px]"
+                    className="flex flex-col sm:flex-row items-start sm:items-stretch gap-4 rounded-lg bg-white p-4 shadow-[0_0_4px_rgba(0,0,0,0.1)] transition-all duration-300 ease-in-out 
+                   hover:shadow-lg hover:-translate-y-1 hover:bg-[#e7f7e7]"
                   >
                     {/* Icon */}
                     <div className="flex items-center justify-center w-10 h-10 rounded-full bg-[#f0f4f0] flex-shrink-0">
