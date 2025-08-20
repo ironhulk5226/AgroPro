@@ -8,6 +8,7 @@ import Schemes from "./features/Schemes";
 import { BrowserRouter, Route, Routes} from "react-router-dom";
 import WeatherWise from "./features/WeatherWise";
 import GrowSmart from "./features/GrowSmart";
+import MultiStepForm from "./features/multiStepForm";
 
 
 
@@ -25,7 +26,8 @@ function App() {
         <Route path="/weatherwise" element={<WeatherWise/>} />
         <Route path="/growsmart" element={<GrowSmart/>} />
         <Route path="/schemes" element={<Schemes/>}/>
-         <Route path="*" element={<Hero/>} />
+        <Route path="/form" element={<MultiStepForm/>}/>
+        <Route path="*" element={<Hero/>} />
       </Routes>
    </BrowserRouter>
      
