@@ -52,7 +52,7 @@ const MultiStepForm = () => {
     } else if (currentStep === Page.Step2) {
       setCurrentStep(currentStep + 1);
     } else {
-      alert("From submitted");
+      alert("Form submitted");
       console.log(inputs)
     }
   }

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { BiLeaf, BiWater, BiSun, BiSend } from "react-icons/bi"; 
+import { BiLeaf, BiWater, BiSun, BiSend } from "react-icons/bi";
 import axios from "axios";
 import { SyncLoader } from "react-spinners";
 import ReactMarkdown from "react-markdown";
@@ -9,9 +9,10 @@ import ReactMarkdown from "react-markdown";
 //'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent'
 
 function Chatbot() {
-  const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+  const url =
+    "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
   const API_KEY = "AIzaSyAdTDHfDBd0OsXkOJWPXzJ4dmC1uqOOc24";
-  
+
   const [question, setQuestion] = useState("");
   const [ans, setAns] = useState("");
   const [loader, setLoader] = useState(false);
@@ -19,69 +20,71 @@ function Chatbot() {
   const chatContainerRef = useRef(null);
 
   const getData = () => {
-  if (!question.trim()) return;
+    if (!question.trim()) return;
 
-
-  const payload = {
-    contents: [
-      {
-        role: "user",
-        parts: [{ text: question }]
-      }
-    ],
-    systemInstruction: {
-      role: "system",
-      parts: [
+    const payload = {
+      contents: [
         {
-          text:
-            "You are a helpful agricultural specialist AI. Always answer questions with expertise in farming, crops, soil, water management, and related agriculture topics, answer in clear concise but detailed and simple manner so that any user can understand easily"
-        }
-      ]
-    }
+          role: "user",
+          parts: [{ text: question }],
+        },
+      ],
+      systemInstruction: {
+        role: "system",
+        parts: [
+          {
+            text: "You are a helpful agricultural specialist AI. Always answer questions with expertise in farming, crops, soil, water management, and related agriculture topics, answer in clear concise but detailed and simple manner so that any user can understand easily",
+          },
+        ],
+      },
+    };
+
+    // Add user question to chat UI
+    const newUserMessage = { type: "question", content: question };
+    setMessages((prev) => [...prev, newUserMessage]);
+
+    setLoader(true);
+
+    axios
+      .post(url, payload, {
+        headers: {
+          "Content-Type": "application/json",
+          "X-goog-api-key": API_KEY,
+        },
+      })
+      .then((res) => {
+        const answer = res.data.candidates[0].content.parts[0].text;
+        setAns(answer);
+        const newAIMessage = { type: "answer", content: answer };
+        setMessages((prev) => [...prev, newAIMessage]);
+        setQuestion("");
+      })
+      .catch((e) => {
+        console.log(e);
+        const errorMessage = {
+          type: "answer",
+          content: "Sorry, I couldn't process your request. Please try again.",
+        };
+        setMessages((prev) => [...prev, errorMessage]);
+      })
+      .finally(() => setLoader(false));
   };
-
-  // Add user question to chat UI
-  const newUserMessage = { type: 'question', content: question };
-  setMessages(prev => [...prev, newUserMessage]);
-
-  setLoader(true);
-
-  axios.post(url, payload, {
-    headers: {
-      "Content-Type": "application/json",
-      "X-goog-api-key": API_KEY
-    }
-  })
-  .then(res => {
-    const answer = res.data.candidates[0].content.parts[0].text;
-    setAns(answer);
-    const newAIMessage = { type: 'answer', content: answer };
-    setMessages(prev => [...prev, newAIMessage]);
-    setQuestion("");
-  })
-  .catch(e => {
-    console.log(e);
-    const errorMessage = { type: 'answer', content: "Sorry, I couldn't process your request. Please try again." };
-    setMessages(prev => [...prev, errorMessage]);
-  })
-  .finally(() => setLoader(false));
-};
-
 
   const handleInput = (e) => {
     setQuestion(e.target.value);
-  }
-  
+  };
+
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       getData();
     }
-  }
-  
+  };
+
   useEffect(() => {
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
     }
   }, [messages]);
 
@@ -100,24 +103,33 @@ function Chatbot() {
           </p>
 
           {/* Chat Messages Display */}
-           <div 
-             ref={chatContainerRef}
-             className="flex flex-col w-[800px] max-w-[800px] mx-auto mb-4 h-[600px] overflow-y-auto border border-[#dce5dc] rounded-xl  bg-green-300 p-4"
-           >
+          <div
+            ref={chatContainerRef}
+            className="flex flex-col w-[800px] max-w-[800px] mx-auto mb-4 h-[600px] overflow-y-auto border border-[#dce5dc] rounded-xl  bg-green-300 p-4"
+          >
             {messages.length === 0 ? (
               <div className="flex items-center justify-center h-full text-black text-lg">
                 <p>Ask a question to get started!</p>
               </div>
             ) : (
               messages.map((message, index) => (
-                <div key={index} className={`mb-4 ${message.type === 'question' ? 'self-end' : 'self-start'}`}>
-                  <div 
-                    className={`p-3 rounded-lg max-w-[80%] ${message.type === 'question' 
-                      ? 'bg-[#e6f7e6] text-[#111811] ml-auto' 
-                      : 'bg-[#f1f5f1] text-[#111811]'}`}
+                <div
+                  key={index}
+                  className={`mb-4 ${
+                    message.type === "question" ? "self-end" : "self-start"
+                  }`}
+                >
+                  <div
+                    className={`p-3 rounded-lg max-w-[80%] ${
+                      message.type === "question"
+                        ? "bg-[#e6f7e6] text-[#111811] ml-auto"
+                        : "bg-[#f1f5f1] text-[#111811]"
+                    }`}
                   >
-                    {message.type === 'question' ? (
-                      <p className="whitespace-pre-wrap break-words">{message.content}</p>
+                    {message.type === "question" ? (
+                      <p className="whitespace-pre-wrap break-words">
+                        {message.content}
+                      </p>
                     ) : (
                       <div className="markdown-content text-black">
                         <ReactMarkdown>{message.content}</ReactMarkdown>
@@ -153,8 +165,7 @@ function Chatbot() {
                   <SyncLoader color="#ffffff" size={4} margin={2} />
                 ) : (
                   <>
-                  
-                  <BiSend size={20} />
+                    <BiSend size={20} />
                   </>
                 )}
               </button>
@@ -168,7 +179,13 @@ function Chatbot() {
 
           <div className="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
             {/* Example 1 */}
-            <div className="flex flex-1 gap-3 rounded-lg border border-[#dce5dc] bg-white p-4 items-center  hover:bg-[#e6f7e6] cursor-pointer" onClick={()=>setQuestion("What are the best crops for my soil type?")}>
+            <div
+              className="flex flex-1 gap-3 rounded-lg border border-[#dce5dc] bg-white p-4 items-center  transition-all duration-300 ease-in-out 
+                   hover:shadow-lg hover:-translate-y-1 hover:bg-[#e7f7e7] cursor-pointer"
+              onClick={() =>
+                setQuestion("What are the best crops for my soil type?")
+              }
+            >
               <div className="text-[#14b714] text-2xl">
                 <BiLeaf />
               </div>
@@ -178,7 +195,11 @@ function Chatbot() {
             </div>
 
             {/* Example 2 */}
-            <div className="flex flex-1 gap-3 rounded-lg border border-[#dce5dc] bg-white p-4 items-center  hover:bg-[#e6f7e6] cursor-pointer" onClick={()=>setQuestion("How much water does this crop need?")}>
+            <div
+              className="flex flex-1 gap-3 rounded-lg border border-[#dce5dc] bg-white p-4 items-center  transition-all duration-300 ease-in-out 
+                   hover:shadow-lg hover:-translate-y-1 hover:bg-[#e7f7e7] cursor-pointer"
+              onClick={() => setQuestion("How much water does this crop need?")}
+            >
               <div className="text-[#14b714] text-2xl">
                 <BiWater />
               </div>
@@ -188,7 +209,16 @@ function Chatbot() {
             </div>
 
             {/* Example 3 */}
-            <div className="flex flex-1 gap-3 rounded-lg border border-[#dce5dc] bg-white p-4 items-center hover:bg-[#e6f7e6] cursor-pointer" onClick={()=>setQuestion("What's the optimal sunlight exposure for tomatoes?")}>
+            <div
+              className="flex flex-1 gap-3 rounded-lg border border-[#dce5dc] bg-white p-4 items-center  transition-all duration-300 ease-in-out 
+                   hover:shadow-lg hover:-translate-y-1 hover:bg-[#e7f7e7] 
+                   cursor-pointer"
+              onClick={() =>
+                setQuestion(
+                  "What's the optimal sunlight exposure for tomatoes?"
+                )
+              }
+            >
               <div className="text-[#14b714] text-2xl">
                 <BiSun />
               </div>

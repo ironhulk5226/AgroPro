@@ -18,12 +18,13 @@ const Schemes = () => {
 
 
   return (
+    <>
+      <Header />
     <div
       className="relative flex min-h-screen flex-col bg-white overflow-x-hidden"
       style={{ fontFamily: '"Public Sans", "Noto Sans", sans-serif' }}
     >
       <div className="flex h-full grow flex-col">
-        <Header />
 
         {/* Page container */}
         <div className="px-4 sm:px-8 md:px-20 lg:px-40 flex flex-1 justify-center py-5">
@@ -105,6 +106,7 @@ const Schemes = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

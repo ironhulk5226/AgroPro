@@ -22,7 +22,7 @@ function Features() {
     },
     {
       title: "Schemes",
-      desc: "..",
+      desc: "Access all government schemes for farmers in one place — simplified, updated, and easy to understand, helping you make the most of available benefits.",
       img: schemesImg,
       path: "/schemes",
     },
