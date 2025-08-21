@@ -89,15 +89,15 @@ function Chatbot() {
   }, [messages]);
 
   return (
-    <div>
+    <div className="bg-white dark:bg-gray-900 transition-colors duration-200">
       <Header />
 
-      <div className="px-40 flex flex-1 justify-center py-5">
+      <div className="px-40 flex flex-1 justify-center py-5 bg-white dark:bg-gray-900 transition-colors duration-200">
         <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
-          <h2 className="text-[#111811] tracking-light text-[28px] font-bold leading-tight px-4 text-center pb-3 pt-5">
+          <h2 className="text-[#111811] dark:text-white tracking-light text-[28px] font-bold leading-tight px-4 text-center pb-3 pt-5 transition-colors duration-200">
             Ask AgroChat
           </h2>
-          <p className="text-[#111811] text-base font-normal leading-normal pb-3 pt-1 px-4 text-center">
+          <p className="text-[#111811] dark:text-gray-300 text-base font-normal leading-normal pb-3 pt-1 px-4 text-center transition-colors duration-200">
             Get instant answers to your crop-related questions. Our AI-powered
             assistant is here to help you optimize your farming practices.
           </p>
@@ -105,10 +105,10 @@ function Chatbot() {
           {/* Chat Messages Display */}
           <div
             ref={chatContainerRef}
-            className="flex flex-col w-[800px] max-w-[800px] mx-auto mb-4 h-[600px] overflow-y-auto border border-[#dce5dc] rounded-xl  bg-green-300 p-4"
+            className="flex flex-col w-[800px] max-w-[800px] mx-auto mb-4 h-[600px] overflow-y-auto border border-[#dce5dc] dark:border-gray-700 rounded-xl bg-green-300 dark:bg-gray-800 p-4 transition-colors duration-200"
           >
             {messages.length === 0 ? (
-              <div className="flex items-center justify-center h-full text-black text-lg">
+              <div className="flex items-center justify-center h-full text-black dark:text-white text-lg transition-colors duration-200">
                 <p>Ask a question to get started!</p>
               </div>
             ) : (
@@ -120,10 +120,10 @@ function Chatbot() {
                   }`}
                 >
                   <div
-                    className={`p-3 rounded-lg max-w-[80%] ${
+                    className={`p-3 rounded-lg max-w-[80%] transition-colors duration-200 ${
                       message.type === "question"
-                        ? "bg-[#e6f7e6] text-[#111811] ml-auto"
-                        : "bg-[#f1f5f1] text-[#111811]"
+                        ? "bg-[#e6f7e6] dark:bg-green-700 text-[#111811] dark:text-white ml-auto"
+                        : "bg-[#f1f5f1] dark:bg-gray-700 text-[#111811] dark:text-white"
                     }`}
                   >
                     {message.type === "question" ? (
@@ -131,7 +131,7 @@ function Chatbot() {
                         {message.content}
                       </p>
                     ) : (
-                      <div className="markdown-content text-black">
+                      <div className="markdown-content text-black dark:text-white transition-colors duration-200">
                         <ReactMarkdown>{message.content}</ReactMarkdown>
                       </div>
                     )}
@@ -140,7 +140,7 @@ function Chatbot() {
               ))
             )}
             {loader && (
-              <div className="self-start p-3 rounded-lg bg-[#f1f5f1] text-[#14b714]">
+              <div className="self-start p-3 rounded-lg bg-[#f1f5f1] dark:bg-gray-700 text-[#14b714] dark:text-green-400 transition-colors duration-200">
                 <SyncLoader color="#14b714" size={8} margin={2} />
               </div>
             )}
@@ -151,13 +151,13 @@ function Chatbot() {
             <div className="flex w-[800px] max-w-[800px] relative">
               <input
                 placeholder="Hello! How Can I Help You?"
-                className="form-input w-full rounded-xl text-[#111811] focus:outline-0 focus:ring-0 border border-[#dce5dc] bg-white focus:border-[#14b714] h-16 placeholder:text-[#638863] p-[18px] pr-[60px] text-lg font-normal leading-normal"
+                className="form-input w-full rounded-xl text-[#111811] dark:text-white focus:outline-0 focus:ring-0 border border-[#dce5dc] dark:border-gray-700 bg-white dark:bg-gray-800 focus:border-[#14b714] dark:focus:border-green-500 h-16 placeholder:text-[#638863] dark:placeholder:text-gray-400 p-[18px] pr-[60px] text-lg font-normal leading-normal transition-colors duration-200"
                 value={question}
                 onChange={handleInput}
                 onKeyPress={handleKeyPress}
               />
               <button
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center justify-center w-10 h-10 rounded-full bg-[#14b714] text-white cursor-pointer"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center justify-center w-10 h-10 rounded-full bg-[#14b714] dark:bg-green-600 text-white cursor-pointer transition-colors duration-200 hover:bg-green-600 dark:hover:bg-green-700"
                 onClick={getData}
                 disabled={loader}
               >
@@ -173,56 +173,52 @@ function Chatbot() {
           </div>
 
           {/* Example Questions */}
-          <h3 className="text-[#111811] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
+          <h3 className="text-[#111811] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4 transition-colors duration-200">
             Example Questions
           </h3>
 
           <div className="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
             {/* Example 1 */}
             <div
-              className="flex flex-1 gap-3 rounded-lg border border-[#dce5dc] bg-white p-4 items-center  transition-all duration-300 ease-in-out 
-                   hover:shadow-lg hover:-translate-y-1 hover:bg-[#e7f7e7] cursor-pointer"
+              className="flex flex-1 gap-3 rounded-lg border border-[#dce5dc] dark:border-gray-700 bg-white dark:bg-gray-800 p-4 items-center transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:bg-[#e7f7e7] dark:hover:bg-gray-700 cursor-pointer"
               onClick={() =>
                 setQuestion("What are the best crops for my soil type?")
               }
             >
-              <div className="text-[#14b714] text-2xl">
+              <div className="text-[#14b714] dark:text-green-500 text-2xl transition-colors duration-200">
                 <BiLeaf />
               </div>
-              <h2 className="text-[#111811] text-base font-bold leading-tight">
+              <h2 className="text-[#111811] dark:text-white text-base font-bold leading-tight transition-colors duration-200">
                 What are the best crops for my soil type?
               </h2>
             </div>
 
             {/* Example 2 */}
             <div
-              className="flex flex-1 gap-3 rounded-lg border border-[#dce5dc] bg-white p-4 items-center  transition-all duration-300 ease-in-out 
-                   hover:shadow-lg hover:-translate-y-1 hover:bg-[#e7f7e7] cursor-pointer"
+              className="flex flex-1 gap-3 rounded-lg border border-[#dce5dc] dark:border-gray-700 bg-white dark:bg-gray-800 p-4 items-center transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:bg-[#e7f7e7] dark:hover:bg-gray-700 cursor-pointer"
               onClick={() => setQuestion("How much water does this crop need?")}
             >
-              <div className="text-[#14b714] text-2xl">
+              <div className="text-[#14b714] dark:text-green-500 text-2xl transition-colors duration-200">
                 <BiWater />
               </div>
-              <h2 className="text-[#111811] text-base font-bold leading-tight">
+              <h2 className="text-[#111811] dark:text-white text-base font-bold leading-tight transition-colors duration-200">
                 How much water does this crop need?
               </h2>
             </div>
 
             {/* Example 3 */}
             <div
-              className="flex flex-1 gap-3 rounded-lg border border-[#dce5dc] bg-white p-4 items-center  transition-all duration-300 ease-in-out 
-                   hover:shadow-lg hover:-translate-y-1 hover:bg-[#e7f7e7] 
-                   cursor-pointer"
+              className="flex flex-1 gap-3 rounded-lg border border-[#dce5dc] dark:border-gray-700 bg-white dark:bg-gray-800 p-4 items-center transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:bg-[#e7f7e7] dark:hover:bg-gray-700 cursor-pointer"
               onClick={() =>
                 setQuestion(
                   "What's the optimal sunlight exposure for tomatoes?"
                 )
               }
             >
-              <div className="text-[#14b714] text-2xl">
+              <div className="text-[#14b714] dark:text-green-500 text-2xl transition-colors duration-200">
                 <BiSun />
               </div>
-              <h2 className="text-[#111811] text-base font-bold leading-tight">
+              <h2 className="text-[#111811] dark:text-white text-base font-bold leading-tight transition-colors duration-200">
                 What's the optimal sunlight exposure for tomatoes?
               </h2>
             </div>

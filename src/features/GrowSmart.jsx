@@ -144,18 +144,18 @@ const GrowSmart = () => {
     const areaInCm = area * 10000;
 
     setResult(
-      <div className="mt-8 p-6 pl-2.5 bg-green-100 border border-green-300 rounded-2xl shadow-md">
-        <h2 className="text-xl font-semibold text-green-800 mb-2">
+      <div className="mt-8 p-6 pl-2.5 bg-green-100 dark:bg-gray-700 border border-green-300 dark:border-gray-600 rounded-2xl shadow-md transition-colors duration-200">
+        <h2 className="text-xl font-semibold text-green-800 dark:text-green-400 mb-2 transition-colors duration-200">
            <strong>Calculation Results:</strong>
         </h2>
-        <p className="text-base text-gray-700 mb-1">
+        <p className="text-base text-gray-700 dark:text-gray-300 mb-1 transition-colors duration-200">
           📐 <strong>Total Area:</strong> {areaInCm.toFixed(2)} cm²
         </p>
-        <p className="text-base text-gray-700 mb-1">
+        <p className="text-base text-gray-700 dark:text-gray-300 mb-1 transition-colors duration-200">
           🌿 <strong>Spacing Between Plants:</strong> {spacingInCm.toFixed(0)}{" "}
           cm
         </p>
-        <p className="text-base text-gray-700">
+        <p className="text-base text-gray-700 dark:text-gray-300 transition-colors duration-200">
           ✅ <strong>Number of Plants:</strong> {totalPlants}
         </p>
       </div>
@@ -171,19 +171,19 @@ const GrowSmart = () => {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-white text-gray-800 p-6">
-        <div className="max-w-3xl mx-auto bg-green-100 rounded-xl shadow-xl p-8">
-          <h2 className="text-3xl font-bold text-[#111811] text-center mb-6">
+      <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-800 dark:text-white p-6 transition-colors duration-200">
+        <div className="max-w-3xl mx-auto bg-green-100 dark:bg-gray-800 rounded-xl shadow-xl p-8 transition-colors duration-200">
+          <h2 className="text-3xl font-bold text-[#111811] dark:text-white text-center mb-6 transition-colors duration-200">
             🌱 Grow Smart: Crop Cultivation Calculator
           </h2>
 
           <div className="space-y-4">
             <div>
-              <label className="block font-semibold mb-1">
+              <label className="block font-semibold mb-1 text-gray-800 dark:text-gray-200 transition-colors duration-200">
                 Planting Method:
               </label>
               <select
-                className="w-full p-2 border border-green-400 rounded"
+                className="w-full p-2 border border-green-400 dark:border-green-500 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white transition-all duration-200 hover:border-green-500 dark:hover:border-green-400 hover:shadow-md"
                 value={plantingMethod}
                 onChange={(e) => setPlantingMethod(e.target.value)}
               >
@@ -203,7 +203,7 @@ const GrowSmart = () => {
 
             {["Length of Land", "Width of Land", "Border"].map((label, i) => (
               <div key={label}>
-                <label className="block font-semibold mb-1">{label}:</label>
+                <label className="block font-semibold mb-1 text-gray-800 dark:text-gray-200 transition-colors duration-200">{label}:</label>
                 <input
                   type="number"
                   value={i === 0 ? length : i === 1 ? width : border}
@@ -214,16 +214,16 @@ const GrowSmart = () => {
                       ? setWidth(e.target.value)
                       : setBorder(e.target.value)
                   }
-                  className="w-full p-2 border border-green-400 rounded"
+                  className="w-full p-2 border border-green-400 dark:border-green-500 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 transition-all duration-200 hover:border-green-500 dark:hover:border-green-400 hover:shadow-md"
                   placeholder={`Enter ${label.toLowerCase()}`}
                 />
               </div>
             ))}
 
             <div>
-              <label className="block font-semibold mb-1">Land Unit:</label>
+              <label className="block font-semibold mb-1 text-gray-800 dark:text-gray-200 transition-colors duration-200">Land Unit:</label>
               <select
-                className="w-full p-2 border border-green-400 rounded"
+                className="w-full p-2 border border-green-400 dark:border-green-500 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white transition-all duration-200 hover:border-green-500 dark:hover:border-green-400 hover:shadow-md"
                 value={unit}
                 onChange={(e) => setUnit(e.target.value)}
               >
@@ -234,22 +234,22 @@ const GrowSmart = () => {
             </div>
 
             <div>
-              <label className="block font-semibold mb-1">
+              <label className="block font-semibold mb-1 text-gray-800 dark:text-gray-200 transition-colors duration-200">
                 Spacing Between Plants (Plant to Plant Distance):
               </label>
               <input
                 type="number"
                 value={spacing}
                 onChange={(e) => setSpacing(e.target.value)}
-                className="w-full p-2 border border-green-400 rounded"
+                className="w-full p-2 border border-green-400 dark:border-green-500 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 transition-all duration-200 hover:border-green-500 dark:hover:border-green-400 hover:shadow-md"
                 placeholder="Enter spacing"
               />
             </div>
 
             <div>
-              <label className="block font-semibold mb-1">Distance Unit:</label>
+              <label className="block font-semibold mb-1 text-gray-800 dark:text-gray-200 transition-colors duration-200">Distance Unit:</label>
               <select
-                className="w-full p-2 border border-green-400 rounded"
+                className="w-full p-2 border border-green-400 dark:border-green-500 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white transition-all duration-200 hover:border-green-500 dark:hover:border-green-400 hover:shadow-md"
                 value={distanceUnit}
                 onChange={(e) => setDistanceUnit(e.target.value)}
               >
@@ -261,13 +261,13 @@ const GrowSmart = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 mt-4 justify-center">
               <button
-                className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg"
+                className="bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 text-white font-bold py-2 px-6 rounded-lg transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1"
                 onClick={calculatePlants}
               >
                 Calculate
               </button>
               <button
-                className="bg-white border border-green-500 text-green-700 font-semibold py-2 px-6 rounded-lg hover:bg-green-300"
+                className="bg-white dark:bg-gray-700 border border-green-500 dark:border-green-400 text-green-700 dark:text-green-400 font-semibold py-2 px-6 rounded-lg hover:bg-green-300 dark:hover:bg-gray-600 transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1"
                 onClick={handleShowExample}
               >
                 Show Example
@@ -275,13 +275,13 @@ const GrowSmart = () => {
             </div>
 
             {result && (
-              <div className="mt-6 text-center font-medium text-green-900 text-xl">
+              <div className="mt-6 text-center font-medium text-green-900 dark:text-green-400 text-xl transition-colors duration-200">
                 {result}
               </div>
             )}
 
             {showExample && (
-              <div className="mt-6 bg-white border border-green-300 rounded p-4 text-green-800 font-medium space-y-2">
+              <div className="mt-6 bg-white dark:bg-gray-700 border border-green-300 dark:border-gray-600 rounded p-4 text-green-800 dark:text-green-400 font-medium space-y-2 transition-colors duration-200">
                 {exampleMap[plantingMethod]}
               </div>
             )}

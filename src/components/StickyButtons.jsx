@@ -29,7 +29,7 @@ const StickyButtons = () => {
           key={index}
           href={btn.href}
           target='_blank'
-          className={`group relative h-14 w-14 hover:w-40 rounded-full flex items-center justify-start pl-4 text-white text-base font-medium shadow-md transition-all duration-300 ease-in-out overflow-hidden ${btn.bg}`}
+          className={`group relative h-14 w-14 hover:w-40 rounded-full flex items-center justify-start pl-4 text-white text-base font-medium shadow-md dark:shadow-lg transition-all duration-300 ease-in-out overflow-hidden ${btn.bg} dark:opacity-90 dark:hover:opacity-100`}
         >
           {/* Icon */}
           <span className="absolute left-4 transition-all duration-300 ease-in-out opacity-100 group-hover:opacity-0 text-xl">

@@ -1,10 +1,107 @@
-import React from "react";
-import { BsSun } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { BsSun, BsMoon } from "react-icons/bs";
+import axios from "axios";
+import { ToastContainer, toast, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Header() {
+  const location = useLocation();
+  const [darkMode, setDarkMode] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const response = await axios.get(
+        `https://login-register-api-sn3f.onrender.com/api/user/logout`,
+        {
+          withCredentials: true,
+        }
+      );
+
+      toast(` ${response.data.message}`, {
+        position: "top-center",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+        className: "agricultural-toast",
+        bodyClassName: "agricultural-toast-body",
+        style: {
+          background: "#f0f8e6",
+          border: "1px solid #4caf50",
+          borderLeft: "5px solid #4caf50",
+        },
+        bodyStyle: {
+          color: "#2e7d32",
+          fontWeight: "500",
+        },
+      });
+
+      // Navigate only after successful toast
+      setTimeout(() => navigate("/login"), 1500);
+    } catch (error) {
+      const errorMessage = error?.response?.data?.message || "Logout failed.";
+
+      toast(` ${errorMessage}`, {
+        position: "top-center",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+        className: "agricultural-toast",
+        bodyClassName: "agricultural-toast-body",
+        style: {
+          background: "#fdf3f2",
+          border: "1px solid #e57373",
+          borderLeft: "5px solid #e57373",
+        },
+        bodyStyle: {
+          color: "#c62828",
+          fontWeight: "500",
+        },
+      });
+
+      console.error("Logout error:", error);
+    }
+  };
+
+  useEffect(() => {
+    // Check if user has a saved theme preference
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      setDarkMode(true);
+      document.documentElement.setAttribute("data-theme", "dark");
+    } else {
+      // Default to light mode if no preference or light preference
+      setDarkMode(false);
+      document.documentElement.removeAttribute("data-theme");
+      localStorage.setItem("theme", "light");
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    if (darkMode) {
+      setDarkMode(false);
+      document.documentElement.removeAttribute("data-theme");
+      localStorage.setItem("theme", "light");
+    } else {
+      setDarkMode(true);
+      document.documentElement.setAttribute("data-theme", "dark");
+      localStorage.setItem("theme", "dark");
+    }
+  };
+
   const navItems = [
-    { label: "Home", path: "/" },
+    { label: "Home", path: "/home" },
     { label: "About", path: "/about" },
     { label: "Solutions", path: "/solutions" },
     { label: "Features", path: "/features" },
@@ -13,9 +110,39 @@ function Header() {
 
   return (
     <>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={true}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+        icon={({ type }) => (
+          <div style={{ fontSize: "24px" }}>
+            {type === "success"
+              ? "🌱"
+              : type === "error"
+              ? "🍂"
+              : type === "warning"
+              ? "🌾"
+              : "🌿"}
+          </div>
+        )}
+        toastStyle={{
+          borderRadius: "8px",
+          background: "#f0f8e6",
+          boxShadow: "0 4px 12px rgba(76, 175, 80, 0.15)",
+        }}
+      />
+
       {/* Header */}
-      <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f1f3f1] px-10 py-3">
-        <div className="flex items-center gap-4 text-[#131613]">
+      <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f1f3f1] dark:border-b-gray-800 px-10 py-3 bg-white dark:bg-gray-900 transition-colors duration-200">
+        <div className="flex items-center gap-4 text-[#131613] dark:text-white transition-colors duration-200">
           <div className="size-4">
             {/* Logo SVG */}
             <svg viewBox="0 0 48 48" fill="none">
@@ -32,40 +159,48 @@ function Header() {
               ></path>
             </svg>
           </div>
-          <Link to='/home'>
-          <h2 className="text-[#131613] text-lg font-bold leading-tight tracking-[-0.015em] cursor-pointer">
+          <h2 className="text-[#131613] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] transition-colors duration-200">
             TIFAN
           </h2>
-          </Link>
         </div>
         <div className="flex flex-1 justify-end gap-8">
           <div className="flex items-center gap-9">
             <nav className="flex space-x-4">
               {navItems.map(({ label, path }) => (
-                <a
+                <Link
                   key={label}
-                  href={path}
-                  className="text-[#131613] text-sm font-medium leading-normal hover:text-green-700"
+                  to={path}
+                  className={`text-[#131613] dark:text-white text-sm font-medium leading-normal hover:text-green-700 dark:hover:text-green-400 transition-colors duration-200 ${
+                    location.pathname === path
+                      ? "text-green-700 dark:text-green-400"
+                      : ""
+                  }`}
                 >
                   {label}
-                </a>
+                </Link>
               ))}
             </nav>
           </div>
           <div className="flex gap-2">
-            <Link to="/Login">
-              <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#daf0da] text-[#131613] text-sm font-bold leading-normal tracking-[0.015em] hover:bg-green-400">
-              <span className="truncate">Login/Register</span>
-            </button>
-            </Link>
-            <button className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 bg-[#f1f3f1] text-[#131613] gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
-              <div className="text-[#131613]">
+            <div className="flex gap-2">
+              <button
+                onClick={() => handleLogout()}
+                className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#daf0da] dark:bg-green-700 text-[#131613] dark:text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-green-600 dark:hover:bg-green-600 transition-colors duration-200"
+              >
+                logout
+              </button>
+            </div>
+            <div className="flex max-w-[480px] items-center justify-center overflow-hidden rounded-full h-10 bg-[#f1f3f1] dark:bg-gray-800 text-[#131613] dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 transition-colors duration-200">
+              <div className="text-[#131613] dark:text-white transition-colors duration-200">
                 {/* Sun SVG - light/dark mode */}
-                <div className="p-1 text-green-600 hover:bg-green-300 rounded-full transition">
-                  <BsSun size={24} />
-                </div>
+                <button
+                  onClick={toggleTheme}
+                  className="p-1 cursor-pointer text-green-600 dark:text-green-400 hover:bg-green-300 dark:hover:bg-green-700 rounded-full transition-all duration-200"
+                >
+                  {darkMode ? <BsMoon size={24} /> : <BsSun size={24} />}
+                </button>
               </div>
-            </button>
+            </div>
           </div>
         </div>
       </header>
