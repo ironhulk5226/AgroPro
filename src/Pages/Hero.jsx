@@ -37,7 +37,7 @@ const Hero = () => {
                   </h2>
                 </div>
                 <div className="flex-wrap gap-3 flex justify-center">
-                  <Link to="/about">
+                  <Link to="/form">
                     <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#11d411] dark:bg-green-600 text-[#111811] dark:text-white text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em] transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:bg-green-600 dark:hover:bg-green-700">
                     <span className="truncate">Explore TIFAN</span>
                   </button>
