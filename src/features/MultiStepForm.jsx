@@ -72,6 +72,8 @@ const MultiStepForm = () => {
   }
 
   return (
+    <>
+      <Header />
     <div
       className="relative flex size-full min-h-screen flex-col bg-white dark:bg-gray-900 group/design-root overflow-x-hidden transition-colors duration-200"
       style={{
@@ -81,7 +83,6 @@ const MultiStepForm = () => {
       }}
     >
       <div className="layout-container flex h-full grow flex-col">
-        <Header />
 
         {/* Content */}
         <div className="px-40 flex flex-1 justify-center py-5 bg-white dark:bg-gray-900 transition-colors duration-200">
@@ -145,6 +146,7 @@ const MultiStepForm = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
