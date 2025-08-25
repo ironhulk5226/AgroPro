@@ -18,11 +18,6 @@ function SignUp() {
    const [showPassword, setShowPassword] = useState(false);
    const [isLoading, setIsLoading] = useState(false);
 
-  //  const payload = {
-  //   name,
-  //   email,
-  //   password
-  //  }
 
    const handleSubmit = async(e) => {
      e.preventDefault();
