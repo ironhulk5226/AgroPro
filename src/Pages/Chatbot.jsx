@@ -11,7 +11,7 @@ import ReactMarkdown from "react-markdown";
 function Chatbot() {
   const url =
     "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
-  const API_KEY = "AIzaSyAdTDHfDBd0OsXkOJWPXzJ4dmC1uqOOc24";
+  const API_KEY = "AIzaSyCJsujgcsTaIHu4sqqXa639UEi7dcaGkpw";
 
   const [question, setQuestion] = useState("");
   const [ans, setAns] = useState("");

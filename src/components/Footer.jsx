@@ -22,7 +22,7 @@ const Footer = () => {
               </a>
               <a
                 className="text-black dark:text-white text-base font-bold leading-normal min-w-40 hover:text-green-700 dark:hover:text-green-400 transition-colors duration-200"
-                href="#"
+                href="/contact"
               >
                 Contact Us
               </a>

@@ -9,6 +9,7 @@ import { BrowserRouter, Route, Routes,Navigate} from "react-router-dom";
 import WeatherWise from "./features/WeatherWise";
 import GrowSmart from "./features/GrowSmart";
 import MultiStepForm from "./features/multiStepForm";
+import ContactUs from "./Pages/ContactUs";
 
 
 
@@ -17,12 +18,13 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/signup" replace />} />
-        <Route path="/home" element={<Hero />} />
+        {/* <Route path="/" element={<Navigate to="/signup" replace />} /> */}
+        <Route path="/" element={<Hero />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/features" element={<Features/>} />
         <Route path="/about" element={<AboutTifan/>} />
+        <Route path="/contact" element={<ContactUs/>} />
         <Route path="/chatbot" element={<Chatbot/>} />
         <Route path="/weatherwise" element={<WeatherWise/>} />
         <Route path="/growsmart" element={<GrowSmart/>} />
