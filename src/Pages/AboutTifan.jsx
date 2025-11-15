@@ -1,7 +1,7 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import React from "react";
-
+import MainImg from "../assets/About/Main.png"
 function AboutTifan() {
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
@@ -25,7 +25,7 @@ function AboutTifan() {
                 className="w-full bg-center bg-no-repeat bg-cover aspect-auto rounded-none flex-1"
                 style={{
                   backgroundImage:
-                    'url("https://lh3.googleusercontent.com/aida-public/AB6AXuDyN8Oc62C74mFgCv9viEKqETwlPtIPsAz6LwhEavNny9_E9hF7ouprad59Ynhdy3zIgUWGmhpcSq0n3ek0tg28UUVGmGvgUG5nZU9gMffJGfeqbfBCAQOa3BeQ9bG6r18S6ZxVOXF4pelNlH6Vxn8oKDiz8BAeQWTNXEs1gglbLCcSGR38xKbzJRPeICM9V0r3lVs9Hpb_K7TUoVBvUAQ8xraZlz1TKy3o328oXO8D8R2gSyovzhocJLEDu_Dbq-zRLZq-Tzlk4NQ5")',
+                    `url(${MainImg})`,
                 }}
               ></div>
             </div>
