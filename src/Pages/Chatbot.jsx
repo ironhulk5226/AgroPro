@@ -10,8 +10,8 @@ import ReactMarkdown from "react-markdown";
 
 function Chatbot() {
   const url =
-    "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
-  const API_KEY = "AIzaSyCJsujgcsTaIHu4sqqXa639UEi7dcaGkpw";
+    "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent";
+  const API_KEY = "AIzaSyDvnJHX8zpD-WsC0OOzWHukQZpQHmvtWb0";
 
   const [question, setQuestion] = useState("");
   const [ans, setAns] = useState("");
@@ -20,7 +20,7 @@ function Chatbot() {
   const chatContainerRef = useRef(null);
 
   const getData = () => {
-    if (!question.trim()) return;
+    if (!question.trim() || loader) return; // 🔥 prevent spam calls
 
     const payload = {
       contents: [
@@ -60,7 +60,7 @@ function Chatbot() {
         setQuestion("");
       })
       .catch((e) => {
-        console.log(e);
+        console.log(e.message);
         const errorMessage = {
           type: "answer",
           content: "Sorry, I couldn't process your request. Please try again.",

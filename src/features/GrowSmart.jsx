@@ -17,7 +17,7 @@ const GrowSmart = () => {
     "Centimeter (cm)": 0.01,
     "Meter (m)": 1,
     "Feet (ft)": 0.3048,
-    Acres: 63.61, // For square plot (sqrt of 4046.86)
+    Acres: "acre", // handle separately
   };
 
   const imageMap = {
@@ -70,8 +70,8 @@ const GrowSmart = () => {
           🔺 <strong>Spacing Factor</strong> ≈ 0.866
         </p>
         <p>
-          🌿 <strong>Total Plants</strong> = (Area / (Spacing² × 0.866)) = 100 /
-          (1 × 0.866) ≈ 115
+          🌿 <strong>Total Plants</strong> =
+          100 / (1 × 0.866) ≈ 115
         </p>
       </>
     ),
@@ -108,7 +108,8 @@ const GrowSmart = () => {
       return;
     }
 
-    if (b >= l / 2 || b >= w / 2) {
+    // Border check only when using linear units
+    if (unit !== "Acres" && (b >= l / 2 || b >= w / 2)) {
       setResult("Border value must be less than half of length and width.");
       return;
     }
@@ -118,26 +119,36 @@ const GrowSmart = () => {
       return;
     }
 
-    const unitFactor = unitToMeters[unit] || 1;
+    // spacing conversion to meters
     const spacingFactor = unitToMeters[distanceUnit] || 1;
-
-    const usableLength = (l - 2 * b) * unitFactor;
-    const usableWidth = (w - 2 * b) * unitFactor;
     const spacingMeters = s * spacingFactor;
 
-    const area = usableLength * usableWidth;
     let totalPlants = 0;
+    let area = 0;
 
-    if (plantingMethod === "Triangle Planting") {
-      totalPlants = Math.floor(area / (spacingMeters * spacingMeters * 0.866));
-    } else if (plantingMethod === "Paired Row Planting") {
-      const rows = Math.floor(usableLength / spacingMeters);
-      const pairs = Math.floor(usableWidth / (spacingMeters * 1.5));
-      totalPlants = rows * pairs;
+    // ⭐ Correct Acre Handling
+    if (unit === "Acres") {
+      const areaInM2 = l * w * 4046.86; // area conversion
+      area = areaInM2;
+
+      if (plantingMethod === "Triangle Planting") {
+        totalPlants = Math.floor(areaInM2 / (spacingMeters * spacingMeters * 0.866));
+      } else {
+        totalPlants = Math.floor(areaInM2 / (spacingMeters * spacingMeters));
+      }
     } else {
-      const rows = Math.floor(usableWidth / spacingMeters);
-      const columns = Math.floor(usableLength / spacingMeters);
-      totalPlants = rows * columns;
+      const unitFactor = unitToMeters[unit] || 1;
+      const usableLength = (l - 2 * b) * unitFactor;
+      const usableWidth = (w - 2 * b) * unitFactor;
+      area = usableLength * usableWidth;
+
+      if (plantingMethod === "Triangle Planting") {
+        totalPlants = Math.floor(area / (spacingMeters * spacingMeters * 0.866));
+      } else {
+        const rows = Math.floor(usableWidth / spacingMeters);
+        const columns = Math.floor(usableLength / spacingMeters);
+        totalPlants = rows * columns;
+      }
     }
 
     const spacingInCm = spacingMeters * 100;
@@ -146,14 +157,13 @@ const GrowSmart = () => {
     setResult(
       <div className="mt-8 p-6 pl-2.5 bg-green-100 dark:bg-gray-700 border border-green-300 dark:border-gray-600 rounded-2xl shadow-md transition-colors duration-200">
         <h2 className="text-xl font-semibold text-green-800 dark:text-green-400 mb-2 transition-colors duration-200">
-           <strong>Calculation Results:</strong>
+          <strong>Calculation Results:</strong>
         </h2>
         <p className="text-base text-gray-700 dark:text-gray-300 mb-1 transition-colors duration-200">
           📐 <strong>Total Area:</strong> {areaInCm.toFixed(2)} cm²
         </p>
         <p className="text-base text-gray-700 dark:text-gray-300 mb-1 transition-colors duration-200">
-          🌿 <strong>Spacing Between Plants:</strong> {spacingInCm.toFixed(0)}{" "}
-          cm
+          🌿 <strong>Spacing Between Plants:</strong> {spacingInCm.toFixed(0)} cm
         </p>
         <p className="text-base text-gray-700 dark:text-gray-300 transition-colors duration-200">
           ✅ <strong>Number of Plants:</strong> {totalPlants}
@@ -203,7 +213,9 @@ const GrowSmart = () => {
 
             {["Length of Land", "Width of Land", "Border"].map((label, i) => (
               <div key={label}>
-                <label className="block font-semibold mb-1 text-gray-800 dark:text-gray-200 transition-colors duration-200">{label}:</label>
+                <label className="block font-semibold mb-1 text-gray-800 dark:text-gray-200 transition-colors duration-200">
+                  {label}:
+                </label>
                 <input
                   type="number"
                   value={i === 0 ? length : i === 1 ? width : border}
@@ -221,7 +233,9 @@ const GrowSmart = () => {
             ))}
 
             <div>
-              <label className="block font-semibold mb-1 text-gray-800 dark:text-gray-200 transition-colors duration-200">Land Unit:</label>
+              <label className="block font-semibold mb-1 text-gray-800 dark:text-gray-200 transition-colors duration-200">
+                Land Unit:
+              </label>
               <select
                 className="w-full p-2 border border-green-400 dark:border-green-500 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white transition-all duration-200 hover:border-green-500 dark:hover:border-green-400 hover:shadow-md"
                 value={unit}
@@ -235,7 +249,7 @@ const GrowSmart = () => {
 
             <div>
               <label className="block font-semibold mb-1 text-gray-800 dark:text-gray-200 transition-colors duration-200">
-                Spacing Between Plants (Plant to Plant Distance):
+                Spacing Between Plants:
               </label>
               <input
                 type="number"
@@ -247,7 +261,9 @@ const GrowSmart = () => {
             </div>
 
             <div>
-              <label className="block font-semibold mb-1 text-gray-800 dark:text-gray-200 transition-colors duration-200">Distance Unit:</label>
+              <label className="block font-semibold mb-1 text-gray-800 dark:text-gray-200 transition-colors duration-200">
+                Distance Unit:
+              </label>
               <select
                 className="w-full p-2 border border-green-400 dark:border-green-500 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white transition-all duration-200 hover:border-green-500 dark:hover:border-green-400 hover:shadow-md"
                 value={distanceUnit}

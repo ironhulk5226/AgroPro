@@ -212,6 +212,7 @@ function Header() {
             src="/Team-Indra-Logo.png" 
             alt="Team Indra Logo" 
             className="w-15 h-15 object-contain rounded-lg hover:scale-110 transition-all duration-200 cursor-pointer shadow-md border border-gray-200 dark:border-gray-600 p-1 bg-white dark:bg-gray-700"
+            onClick={()=>navigate('/home')}
           />
           <h2 className="text-[#131613] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] transition-colors duration-200">
             TEAM INDRA
