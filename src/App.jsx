@@ -10,6 +10,9 @@ import WeatherWise from "./features/WeatherWise";
 import GrowSmart from "./features/GrowSmart";
 import MultiStepForm from "./features/multiStepForm";
 import ContactUs from "./Pages/ContactUs";
+import Feedback from "./Pages/Feedback";
+import Achievements from "./Pages/Achievements";
+import Gallery from "./Pages/Gallery";
 
 
 
@@ -30,6 +33,9 @@ function App() {
         <Route path="/growsmart" element={<GrowSmart/>} />
         <Route path="/schemes" element={<Schemes/>}/>
         <Route path="/form" element={<MultiStepForm/>}/>
+        <Route path="/feedback" element={<Feedback/>}/>
+        <Route path="/achievements" element={<Achievements/>}/>
+        <Route path="/gallery" element={<Gallery/>}/>
         <Route path="*" element={<Hero/>} />
       </Routes>
    </BrowserRouter>

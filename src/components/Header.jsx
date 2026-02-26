@@ -167,8 +167,9 @@ function Header() {
   const navItems = [
     { label: "Home", path: "/home" },
     { label: "About", path: "/about" },
-    { label: "Solutions", path: "/solutions" },
     { label: "Features", path: "/features" },
+    { label: "Achievements", path: "/achievements" },
+    { label: "Feedback", path: "/feedback" },
     { label: "Contact", path: "/contact" },
   ];
 

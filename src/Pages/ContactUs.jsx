@@ -24,7 +24,7 @@ const ContactUs = () => {
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 border border-gray-200 dark:border-gray-700">
               <div className="w-full flex justify-center">
                 <iframe
-                  src="https://docs.google.com/forms/d/e/1FAIpQLScrcZrOiSW-xBgFWtbBNROkb52pZEPSeLwKKmHX9P91jwtMBQ/viewform?embedded=true"
+                  src="https://docs.google.com/forms/d/e/1FAIpQLSclU9PW71MC-2X1ZRByCo5v0HpFW-90Vhiy8xm_zwZIcecm-Q/viewform?usp=publish-editor"
                   width="100%"
                   height="700"
                   frameBorder="0"
