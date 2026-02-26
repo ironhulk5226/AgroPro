@@ -14,7 +14,7 @@ function AboutTifan() {
           {/* Heading */}
           <div className="flex flex-wrap justify-between gap-3 p-4">
             <p className="text-[#111811] dark:text-white tracking-light text-[32px] font-bold leading-tight min-w-72 transition-colors duration-200">
-              TIFAN: Revolutionizing Agriculture
+               INDRA AGROTECH Pvt. Ltd.
             </p>
           </div>
 
@@ -33,86 +33,35 @@ function AboutTifan() {
 
           {/* Sections */}
           <h2 className="text-[#111811] dark:text-white text-[22px] font-bold px-4 pb-3 pt-5 transition-colors duration-200">
-            What is TIFAN?
+            Establishment in 2023 | Based in Karad, Satara
           </h2>
           <p className="text-[#111811] dark:text-gray-300 text-base px-4 pb-3 pt-1 transition-colors duration-200">
-            TIFAN is an innovative smart farming solution developed by the
-            college&apos;s innovation club. It integrates advanced sensors,
-            robotics, and AI to optimize crop yields, reduce resource
-            consumption, and promote sustainable agricultural practices.
+            Indra Agrotech Pvt. Ltd. is an emerging agricultural equipment manufacturing company. We are committed to modernizing agriculture with advanced machinery that enhances farm productivity and reduces labor efforts.
           </p>
 
           <h2 className="text-[#111811] dark:text-white text-[22px] font-bold px-4 pb-3 pt-5 transition-colors duration-200">
             The Development Story
           </h2>
           <p className="text-[#111811] dark:text-gray-300 text-base px-4 pb-3 pt-1 transition-colors duration-200">
-            The journey of TIFAN began with a vision to address the challenges
-            faced by modern agriculture. Our team of passionate students and
-            mentors collaborated to design and build a system that combines
-            cutting-edge technology with practical farming needs.
+           Established in 2023 in Karad, Satara, Indra Agrotech Pvt. Ltd. is a growing manufacturer of modern agricultural equipment, specializing in harvesters and transplanters.
+
+After the successful launch of our VAJRA Sapling Transplanter in April 2025, we are now gearing up to introduce our new Vegetable Transplanter in 2026 — designed to make vegetable plantation faster, easier, and more efficient.
+
+Indra Agrotech — Modern Machines for Modern Farming.
           </p>
 
           <h2 className="text-[#111811] dark:text-white text-[22px] font-bold px-4 pb-3 pt-5 transition-colors duration-200">
-            Our Goals
+            Our Vision
           </h2>
           <ul className="text-[#111811] dark:text-gray-300 text-base px-8 pb-3 pt-1 list-disc transition-colors duration-200">
-            <li>Enhance crop productivity and quality</li>
-            <li>Minimize water and fertilizer usage</li>
-            <li>Reduce labor costs through automation</li>
-            <li>Provide real-time data and insights</li>
-            <li>Foster a community of innovative farmers</li>
+            <li>Empower farmers through innovative agricultural equipment</li>
+            <li>Enhance farm productivity using advanced and efficient technology</li>
+            <li>Promote sustainable farming practices</li>
+            <li>Provide eco-friendly agricultural solutions</li>
+            <li>Contribute to the growth of the agricultural economy</li>
           </ul>
 
-          <h2 className="text-[#111811] dark:text-white text-[22px] font-bold px-4 pb-3 pt-5 transition-colors duration-200">
-            Explore TIFAN
-          </h2>
-
-          {/* Scrollable Cards */}
-          <div className="flex overflow-y-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            <div className="flex items-stretch p-4 gap-3">
-              {/* Card 1 */}
-              <div className="flex h-full flex-1 flex-col gap-4 rounded-lg min-w-60 cursor-pointer transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 dark:hover:bg-gray-700">
-                <div
-                  className="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
-                  style={{
-                    backgroundImage:
-                      'url("https://lh3.googleusercontent.com/aida-public/AB6AXuA6MXCSA7MO5QPvjd1ApQ_ioNYfy7sP4oBxFpS7ObtC0oxFbnCL3JNV-WMyquDs2gG5JKinMp5iV0y6zrHnIj6HjF8XmB_58WQj_PIwHASU8VHSGpQ20X18jq0z65YCLLIxgIWkFbHQIua_aAnSHfHwLKmn0r28lWZfpjpYX_uM62d8r5LKAY49gfzoIgtraq8z7dTs-BkX-uMOIvBuwRZpDescNo-4zM81t_OGMprmHuv_gFK5mNx-VUuHXMRjwtNUpTYOQdxWgL7g")',
-                  }}
-                ></div>
-                <p className="text-[#111811] dark:text-white text-base font-medium transition-colors duration-200">
-                  TIFAN in Action
-                </p>
-              </div>
-
-              {/* Card 2 */}
-              <div className="flex h-full flex-1 flex-col gap-4 rounded-lg min-w-60 cursor-pointer transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 dark:hover:bg-gray-700">
-                <div
-                  className="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
-                  style={{
-                    backgroundImage:
-                      'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBzPNk2UKvIRgWYEKtjLrkBdRSqlcgmKL8Km_WEnHQnJ-0gGaZwR9DdFhKJImh9bGe3tR7f0XmC-BRwKGxFkCLLIxgIWkFbHQIua_aAnSHfHwLKmn0r28lWZfpjpYX_uM62d8r5LKAY49gfzoIgtraq8z7dTs-BkX-uMOIvBuwRZpDescNo-4zM81t_OGMprmHuv_gFK5mNx-VUuHXMRjwtNUpTYOQdxWgL7g")',
-                  }}
-                ></div>
-                <p className="text-[#111811] dark:text-white text-base font-medium transition-colors duration-200">
-                  TIFAN Components
-                </p>
-              </div>
-
-              {/* Card 3 */}
-              <div className="flex h-full flex-1 flex-col gap-4 rounded-lg min-w-60 cursor-pointer transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 dark:bg-gray-700">
-                <div
-                  className="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
-                  style={{
-                    backgroundImage:
-                      'url("https://lh3.googleusercontent.com/aida-public/AB6AXuCIOucptQsc7poXWrC_AfGvxlBWWyN4EJrLCP1hh1oPqGc5Ulsd2nyICvsT9uhBGOMRxKVMcIkwkX5wzRKNSrhnvoyMCh6hMJbiWDpr5H5EJgNExPjsTqXoIHM3T1LVmmH6iKiZCm6DZwu0DGsejoRQTskueOT-MEiw-ZCmAH1VdOErhznasZM8xELAkqYT1D8z_F04Jek12w5kH4SQ25B1RYbG5vhgOIkeX7CP0_Wy6FN2U8vbQFqs7ATrEWRAzpxugyfBG430ZRic")',
-                  }}
-                ></div>
-                <p className="text-[#111811] dark:text-white text-base font-medium transition-colors duration-200">
-                  TIFAN Data Insights
-                </p>
-              </div>
-            </div>
-          </div>
+          
         </div>
       </main>
 
