@@ -13,6 +13,7 @@ import ContactUs from "./Pages/ContactUs";
 import Feedback from "./Pages/Feedback";
 import Achievements from "./Pages/Achievements";
 import Gallery from "./Pages/Gallery";
+import Roadmap from "./features/Roadmap";
 
 
 
@@ -36,6 +37,7 @@ function App() {
         <Route path="/feedback" element={<Feedback/>}/>
         <Route path="/achievements" element={<Achievements/>}/>
         <Route path="/gallery" element={<Gallery/>}/>
+        <Route path="/roadmap" element={<Roadmap/>}/>
         <Route path="*" element={<Hero/>} />
       </Routes>
    </BrowserRouter>

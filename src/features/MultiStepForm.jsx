@@ -3,6 +3,9 @@ import Header from "../components/Header.jsx";
 import Step1 from "../components/formSteps/Step1.jsx";
 import Step2 from "../components/formSteps/Step2.jsx";
 import Step3 from "../components/formSteps/Step3.jsx";
+import Roadmap from "./Roadmap.jsx";
+import axios from "axios";
+import { SyncLoader } from "react-spinners";
 
 const Page = {
   Step1: 1,
@@ -12,6 +15,12 @@ const Page = {
 const Final_Step = Page.Step3;
 const MultiStepForm = () => {
   const [currentStep, setCurrentStep] = useState(Page.Step1);
+  const [showRoadmap, setShowRoadmap] = useState(false);
+  const [roadmapData, setRoadmapData] = useState(null);
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent";
+  const GEMINI_API_KEY = "AIzaSyDvnJHX8zpD-WsC0OOzWHukQZpQHmvtWb0";
 
   const [inputs, setInputs] = useState({
     step1Ip: {
@@ -46,14 +55,119 @@ const MultiStepForm = () => {
   const submitButtonText =
     Final_Step === currentStep ? "Create Roadmap" : "Next";
 
+  async function generateRoadmapFromAI() {
+    console.log("Generating roadmap with inputs:", inputs);
+    setIsGenerating(true);
+
+    // Create a detailed prompt for Gemini
+    const prompt = `You are an expert agricultural advisor. Based on the following farming data, create a comprehensive cultivation roadmap from planting to harvest.
+
+Farming Data:
+- Crop Type: ${inputs.step1Ip.cropType}
+- Planting Date: ${inputs.step1Ip.plantingDate}
+- Area: ${inputs.step1Ip.area} acres
+- Genetically Modified: ${inputs.step1Ip.modified ? 'Yes' : 'No'}
+- Soil Test Available: ${inputs.step2Ip.soilTest ? 'Yes' : 'No'}
+${inputs.step2Ip.soilTest ? `- Nitrogen (N): ${inputs.step2Ip.nitrogen}
+- Phosphorus (P): ${inputs.step2Ip.phosphorus}
+- Potassium (K): ${inputs.step2Ip.potassium}
+- pH Level: ${inputs.step2Ip.pH}
+- Organic Carbon: ${inputs.step2Ip.carbon}%
+- Soil Type: ${inputs.step2Ip.soilType}` : ''}
+- Water Source: ${inputs.step3Ip.waterSource}
+- Irrigation Type: ${inputs.step3Ip.irrigationType}
+- Watering Frequency: ${inputs.step3Ip.wateringFreq}
+
+Provide a detailed roadmap in the following JSON format:
+{
+  "cropName": "crop name",
+  "plantingDate": "date",
+  "harvestDate": "calculated harvest date",
+  "totalDuration": "X days",
+  "currentPhase": "first phase name",
+  "phases": [
+    {
+      "id": 1,
+      "name": "Phase Name",
+      "duration": "X-Y days",
+      "startDay": 0,
+      "endDay": number,
+      "status": "in-progress",
+      "tasks": [
+        {
+          "id": unique_id,
+          "title": "Task title",
+          "day": "Day X or Day X-Y",
+          "completed": false,
+          "description": "Detailed description",
+          "category": "fertilizer" or "pest-control" or "disease-control" (optional),
+          "recurring": true/false (optional)
+        }
+      ]
+    }
+  ]
+}
+
+Include phases like: Land Preparation, Sowing/Transplanting, Vegetative Growth, Flowering & Fruiting, and Harvesting. Each phase should have 4-8 detailed tasks with specific day numbers and actionable descriptions. Make it specific to the ${inputs.step1Ip.cropType} crop and consider the soil and water conditions provided. Return ONLY valid JSON, no markdown or additional text.`;
+
+    const payload = {
+      contents: [
+        {
+          role: "user",
+          parts: [{ text: prompt }],
+        },
+      ],
+      systemInstruction: {
+        role: "system",
+        parts: [
+          {
+            text: "You are an agricultural expert AI that provides detailed, accurate farming roadmaps. Always respond with valid JSON only, no additional text or markdown formatting.",
+          },
+        ],
+      },
+    };
+
+    try {
+      console.log("Sending prompt to Gemini API:", prompt);
+      const response = await axios.post(GEMINI_API_URL, payload, {
+        headers: {
+          "Content-Type": "application/json",
+          "X-goog-api-key": GEMINI_API_KEY,
+        },
+      });
+
+      const aiResponse = response.data.candidates[0].content.parts[0].text;
+      
+      // Clean the response to extract JSON
+      let cleanedResponse = aiResponse.trim();
+      
+      // Remove markdown code blocks if present
+      if (cleanedResponse.startsWith('```json')) {
+        cleanedResponse = cleanedResponse.replace(/```json\n?/g, '').replace(/```\n?/g, '');
+      } else if (cleanedResponse.startsWith('```')) {
+        cleanedResponse = cleanedResponse.replace(/```\n?/g, '');
+      }
+      
+      const parsedData = JSON.parse(cleanedResponse);
+      setRoadmapData(parsedData);
+      setShowRoadmap(true);
+    } catch (error) {
+      console.error("Error generating roadmap:", error);
+      alert("Failed to generate roadmap. Please try again.");
+    } finally {
+      setIsGenerating(false);
+    }
+  }
+
   function handleNext() {
     if (currentStep === Page.Step1) {
       setCurrentStep(currentStep + 1);
     } else if (currentStep === Page.Step2) {
       setCurrentStep(currentStep + 1);
     } else {
-      alert("Form submitted");
-      console.log(inputs)
+      // Final step - generate roadmap from AI
+      console.log("Form submitted with data:", inputs);
+      generateRoadmapFromAI();
     }
   }
 
@@ -69,6 +183,31 @@ const MultiStepForm = () => {
     oldIp[stepKey][inputKey] = value;
 
     setInputs(oldIp);
+  }
+
+  // Show loading state while generating roadmap
+  if (isGenerating) {
+    return (
+      <>
+        <Header />
+        <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-green-50 to-white dark:from-gray-900 dark:to-gray-800">
+          <div className="text-center">
+            <SyncLoader color="#14b714" size={15} margin={5} />
+            <h2 className="mt-6 text-2xl font-bold text-gray-800 dark:text-white">
+              🌾 Generating Your Personalized Roadmap...
+            </h2>
+            <p className="mt-2 text-gray-600 dark:text-gray-400">
+              Our AI is analyzing your farm data and creating a custom cultivation plan
+            </p>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  // Show roadmap after form submission
+  if (showRoadmap && roadmapData) {
+    return <Roadmap formData={inputs} roadmapData={roadmapData} />;
   }
 
   return (
