@@ -1,8 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Loader from "../components/Loader";
 
 const GrowSmart = () => {
+  const [isPageLoading, setIsPageLoading] = useState(true);
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    // Hide loader after delay
+    const timer = setTimeout(() => {
+      setIsPageLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
   const [plantingMethod, setPlantingMethod] = useState("Square Grid Planting");
   const [length, setLength] = useState("");
   const [width, setWidth] = useState("");
@@ -180,6 +193,7 @@ const GrowSmart = () => {
 
   return (
     <>
+      {isPageLoading && <Loader />}
       <Header />
       <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-800 dark:text-white p-6 transition-colors duration-200">
         <div className="max-w-3xl mx-auto bg-green-100 dark:bg-gray-800 rounded-xl shadow-xl p-8 transition-colors duration-200">

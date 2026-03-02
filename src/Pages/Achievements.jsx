@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Loader from '../components/Loader';
 import { FaCalendarAlt, FaTrophy, FaMedal, FaAward } from 'react-icons/fa';
 
 const Achievements = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    // Hide loader after delay
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
   const achievements = [
     {
       id: 1,
@@ -48,6 +61,7 @@ const Achievements = () => {
 
   return (
     <div className="bg-white dark:bg-gray-900 min-h-screen transition-colors duration-200">
+      {isLoading && <Loader />}
       <Header />
 
       <div className="px-2 sm:px-4 lg:px-8 xl:px-16 py-8">

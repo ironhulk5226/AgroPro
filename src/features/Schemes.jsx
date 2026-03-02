@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
+import Loader from "../components/Loader";
 import { schemesData } from "../data/schemes";
 import { FiFileText } from "react-icons/fi";
-import { useState } from "react";
 import { FaSearch } from 'react-icons/fa';
 
 
 const Schemes = () => {
+  const [isPageLoading, setIsPageLoading] = useState(true);
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    // Hide loader after delay
+    const timer = setTimeout(() => {
+      setIsPageLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
   const [search, setSearch] = useState("");
 
   const filtered = schemesData.filter((item) =>
@@ -19,6 +31,7 @@ const Schemes = () => {
 
   return (
     <>
+      {isPageLoading && <Loader />}
       <Header />
     <div
       className="relative flex min-h-screen flex-col bg-white dark:bg-gray-900 overflow-x-hidden transition-colors duration-200"

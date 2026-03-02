@@ -1,10 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import Loader from '../components/Loader'
 
 const ContactUs = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    // Hide loader after delay
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="bg-white dark:bg-gray-900 transition-colors duration-200">
+      {isLoading && <Loader />}
       <Header />
       <div className="min-h-screen bg-white dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
@@ -70,7 +84,7 @@ const ContactUs = () => {
           </div>
 
           {/* Contact Info Section */}
-          <div className="grid md:grid-cols-2 gap-8 mt-12">
+          <div className="grid md:grid-cols-1 gap-8 mt-12">
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
                 Contact Information
@@ -91,7 +105,7 @@ const ContactUs = () => {
               </div>
             </div>
 
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+            {/* <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
                 Office Hours
               </h3>
@@ -109,7 +123,7 @@ const ContactUs = () => {
                   <span>Closed</span>
                 </p>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

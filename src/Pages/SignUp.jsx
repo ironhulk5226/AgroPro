@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { FaSpinner } from "react-icons/fa";
 import axios from "axios";
@@ -10,6 +11,17 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 function SignUp() {
+   const [isPageLoading, setIsPageLoading] = useState(true);
+
+   // Scroll to top when component mounts and hide loader
+   useEffect(() => {
+     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+     const timer = setTimeout(() => {
+       setIsPageLoading(false);
+     }, 1000);
+     return () => clearTimeout(timer);
+   }, []);
+
    const navigate = useNavigate();
    const [name, setName] = useState("");
    const [email, setEmail] = useState("");
@@ -100,6 +112,7 @@ function SignUp() {
     className="relative flex size-full min-h-screen flex-col bg-white dark:bg-gray-900 group/design-root overflow-x-hidden transition-colors duration-200"
     style={{ fontFamily: 'Lexend, "Noto Sans", sans-serif' }}
   >
+    {isPageLoading && <Loader />}
     
             <ToastContainer
         position="top-right"

@@ -1,15 +1,27 @@
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import Loader from "../components/Loader";
 import { FaSearch } from "react-icons/fa";
 import GrowSmart from "../assets/Feature_Images/GrowSmart.png";
 import AgroChat from "../assets/Feature_Images/AgroChat.png";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import schemesImg from "../assets/Feature_Images/schemes.png";
 import weatherImg from "../assets/Feature_Images/weather-wise.png";
 
 function Features() {
   const [search, setSearch] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    // Hide loader after delay
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const resources = [
     {
@@ -50,6 +62,7 @@ function Features() {
 
   return (
     <div className="bg-white dark:bg-gray-900 transition-colors duration-200">
+      {isLoading && <Loader />}
       <Header />
       <div className="px-10 flex flex-1 justify-center py-5 bg-white dark:bg-gray-900 transition-colors duration-200">
         <div className="flex flex-col max-w-[960px] flex-1">

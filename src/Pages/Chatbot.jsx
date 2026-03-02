@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Loader from "../components/Loader";
 import { BiLeaf, BiWater, BiSun, BiSend } from "react-icons/bi";
 import axios from "axios";
 import { SyncLoader } from "react-spinners";
@@ -9,6 +10,18 @@ import ReactMarkdown from "react-markdown";
 //'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent'
 
 function Chatbot() {
+  const [isPageLoading, setIsPageLoading] = useState(true);
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    // Hide loader after delay
+    const timer = setTimeout(() => {
+      setIsPageLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
   const url =
     "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent";
   const API_KEY = "AIzaSyDvnJHX8zpD-WsC0OOzWHukQZpQHmvtWb0";
@@ -90,6 +103,7 @@ function Chatbot() {
 
   return (
     <div className="bg-white dark:bg-gray-900 transition-colors duration-200">
+      {isPageLoading && <Loader />}
       <Header />
 
       <div className="px-40 flex flex-1 justify-center py-5 bg-white dark:bg-gray-900 transition-colors duration-200">

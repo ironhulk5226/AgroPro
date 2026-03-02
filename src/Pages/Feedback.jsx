@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Loader from '../components/Loader';
 import { FaStar, FaQuoteLeft, FaUser, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { IoMdSend } from 'react-icons/io';
 
 const Feedback = () => {
+  const [isPageLoading, setIsPageLoading] = useState(true);
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    // Hide loader after delay
+    const timer = setTimeout(() => {
+      setIsPageLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
   const [feedbackForm, setFeedbackForm] = useState({
     name: '',
     email: '',
@@ -167,6 +180,7 @@ const Feedback = () => {
 
   return (
     <div className="bg-white dark:bg-gray-900 min-h-screen transition-colors duration-200">
+      {isPageLoading && <Loader />}
       <Header />
      
 

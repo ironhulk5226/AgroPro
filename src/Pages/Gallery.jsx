@@ -5,6 +5,18 @@ import Loader from '../components/Loader';
 import { FaTimes, FaChevronLeft, FaChevronRight, FaImages, FaExpand } from 'react-icons/fa';
 
 const Gallery = () => {
+  const [isPageLoading, setIsPageLoading] = useState(true);
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    // Hide loader after delay
+    const timer = setTimeout(() => {
+      setIsPageLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
