@@ -35,7 +35,7 @@ function SignUp() {
      e.preventDefault();
      setIsLoading(true);
      try {
-         const response = await axios.post(`https://login-register-api-sn3f.onrender.com/api/user/register`,{
+         const response = await axios.post(`${import.meta.env.VITE_AUTH_API_BASE_URL}/api/user/register`,{
           name,
           email,
           city,

@@ -19,8 +19,8 @@ const MultiStepForm = () => {
   const [roadmapData, setRoadmapData] = useState(null);
   const [isGenerating, setIsGenerating] = useState(false);
 
-  const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent";
-  const GEMINI_API_KEY = "AIzaSyDvnJHX8zpD-WsC0OOzWHukQZpQHmvtWb0";
+  const GEMINI_API_URL = import.meta.env.VITE_GEMINI_API_URL;
+  const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
   const [inputs, setInputs] = useState({
     step1Ip: {

@@ -85,10 +85,20 @@ Plan the optimal planting layout for your land to maximize yield using smart spa
 
 ### 🤖 AgroChat — AI Agricultural Assistant
 An AI-powered chatbot that answers farming questions in real time.
-- Powered by **Google Gemini 2.0 Flash** API
+- Powered by **Google Gemini 2.5 Flash Lite** API for faster responses
 - Specialized in agriculture: crops, soil health, water management, pest control, and more
 - Conversational chat UI with markdown-rendered responses
 - Example questions to help users get started
+- Secure API key management through environment variables
+
+### 🗺️ TIFAN Roadmap Generator
+Create AI-generated, customized farming roadmaps based on your specific crop and conditions.
+- **Multi-step input form** collecting crop details, soil conditions, and water management
+- **AI-powered roadmap generation** using Google Gemini API
+- **Phase-based planning** with detailed tasks for each growth stage
+- **Interactive roadmap** with task completion tracking
+- Covers complete crop cycle from land preparation to harvesting
+- Personalized recommendations based on crop type, soil conditions, and farming practices
 
 ### 📋 Schemes & Subsidies
 Access a comprehensive, searchable directory of government and private agricultural schemes.
@@ -156,37 +166,45 @@ AgroPro/
 │   │       └── weather-wise.png
 │   ├── components/                  # Reusable UI components
 │   │   ├── formSteps/               # Multi-step TIFAN form steps
-│   │   │   ├── Step1.jsx
-│   │   │   ├── Step2.jsx
-│   │   │   └── Step3.jsx
+│   │   │   ├── Step1.jsx            # Crop and planting details
+│   │   │   ├── Step2.jsx            # Soil analysis input
+│   │   │   └── Step3.jsx            # Water management setup
 │   │   ├── Footer.jsx               # Site footer
 │   │   ├── Header.jsx               # Navigation bar with theme toggle & Google Translate
+│   │   ├── Loader.jsx               # Loading spinner component
 │   │   ├── StickyButtons.jsx        # Floating action buttons
 │   │   └── ToastStyles.css          # Custom agricultural toast styles
 │   ├── data/                        # Static data
 │   │   └── schemes.js               # Government schemes dataset
 │   ├── features/                    # Feature page components
 │   │   ├── GrowSmart.jsx            # Crop cultivation calculator
-│   │   ├── MultiStepForm.jsx        # TIFAN multi-step input form
+│   │   ├── MultiStepForm.jsx        # TIFAN multi-step input form with AI roadmap
+│   │   ├── Roadmap.jsx              # Interactive farming roadmap component
 │   │   ├── Schemes.jsx              # Schemes listing with search
 │   │   └── WeatherWise.jsx          # Weather dashboard
 │   ├── Pages/                       # Route-level page components
 │   │   ├── AboutTifan.jsx           # About TIFAN page
+│   │   ├── Achievements.jsx         # Team achievements page
 │   │   ├── Chatbot.jsx              # AgroChat AI assistant
 │   │   ├── ContactUs.jsx            # Contact form & location map
 │   │   ├── Features.jsx             # Feature discovery page
+│   │   ├── Feedback.jsx             # User feedback and testimonials
+│   │   ├── Gallery.jsx              # Project gallery
 │   │   ├── Hero.jsx                 # Landing/home page
 │   │   ├── Login.jsx                # User login
 │   │   └── SignUp.jsx               # User registration
 │   ├── App.jsx                      # Root component with routing
 │   ├── index.css                    # Global styles (Tailwind directives)
 │   └── main.jsx                     # Application entry point
+├── .env                             # Environment variables (not in git)
+├── .env.example                     # Environment variables template
 ├── .gitattributes
-├── .gitignore
+├── .gitignore                       # Git ignore rules (includes .env)
 ├── eslint.config.js                 # ESLint configuration
 ├── index.html                       # HTML template with theme init script
 ├── package.json                     # Dependencies and scripts
 ├── package-lock.json
+├── README.md                        # This documentation
 └── vite.config.js                   # Vite + Tailwind + React plugin config
 ```
 
@@ -232,26 +250,42 @@ npm --version
 
 ### Environment Variables
 
-The project currently uses API keys directly in the source code for development purposes. For a production deployment, it is strongly recommended to move these to environment variables.
+**AgroPro now follows security best practices with proper environment variable management.** All API keys have been moved from source code to environment variables.
 
-Create a `.env` file in the project root:
+#### Quick Setup:
 
-```env
-# OpenWeatherMap API Key (used in WeatherWise)
-VITE_OPENWEATHER_API_KEY=your_openweathermap_api_key
+1. **Copy the example environment file:**
+   ```bash
+   cp .env.example .env
+   ```
 
-# Google Gemini API Key (used in AgroChat)
-VITE_GEMINI_API_KEY=your_google_gemini_api_key
+2. **Add your API keys to `.env` file:**
+   ```env
+   # Google Gemini API Key for AgroChat and Roadmap Generation
+   VITE_GEMINI_API_KEY=your_google_gemini_api_key_here
+   
+   # OpenWeatherMap API Key for WeatherWise feature
+   VITE_OPENWEATHER_API_KEY=your_openweathermap_api_key_here
+   
+   # Backend Authentication API Base URL
+   VITE_AUTH_API_BASE_URL=https://login-register-api-sn3f.onrender.com
+   
+   # Gemini API URLs (usually don't need to change these)
+   VITE_GEMINI_API_URL=https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent
+   VITE_GEMINI_API_URL_FULL=https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent
+   ```
 
-# Backend Authentication API Base URL
-VITE_AUTH_API_BASE_URL=https://your-backend-api-url.com
-```
+> **🔒 Security Features:**
+> - ✅ All API keys stored in environment variables
+> - ✅ `.env` files excluded from version control
+> - ✅ `.env.example` provided for easy setup
+> - ✅ No hardcoded credentials in source code
 
-> **Note:** Variables must be prefixed with `VITE_` to be exposed to the Vite client bundle.
+#### API Key Sources:
+- **OpenWeatherMap**: [openweathermap.org/api](https://openweathermap.org/api) — Free tier: 1,000 calls/day
+- **Google Gemini**: [Google AI Studio](https://aistudio.google.com/) — Free tier: 15 RPM, 1 million tokens/day
 
-To obtain API keys:
-- **OpenWeatherMap**: [openweathermap.org](https://openweathermap.org/api) — Free tier available
-- **Google Gemini**: [Google AI Studio](https://aistudio.google.com/) — Free tier available
+> **⚠️ Important:** Variables must be prefixed with `VITE_` to be exposed to the Vite client bundle. After adding environment variables, restart your development server.
 
 ---
 
@@ -275,12 +309,15 @@ npm run lint      # Run ESLint to check for code issues
 | `/signup` | `SignUp` | User registration page |
 | `/features` | `Features` | Feature discovery page with search |
 | `/about` | `AboutTifan` | About TIFAN and Team INDRA |
+| `/achievements` | `Achievements` | Team achievements and milestones |
 | `/contact` | `ContactUs` | Contact form and campus location |
+| `/feedback` | `Feedback` | User feedback and testimonials |
+| `/gallery` | `Gallery` | Project gallery and media |
 | `/chatbot` | `Chatbot` | AgroChat AI assistant |
 | `/weatherwise` | `WeatherWise` | Weather-based farming insights |
 | `/growsmart` | `GrowSmart` | Crop cultivation calculator |
 | `/schemes` | `Schemes` | Government schemes directory |
-| `/form` | `MultiStepForm` | TIFAN multi-step input form |
+| `/form` | `MultiStepForm` | TIFAN multi-step input form with AI roadmap |
 | `*` | `Hero` | Fallback redirect to home |
 
 ---
@@ -304,12 +341,38 @@ AgroPro features a fully responsive design with a **light/dark mode toggle** ava
 
 ## 🔌 API Integrations
 
-| Service | Purpose | Endpoint |
-|---|---|---|
-| **OpenWeatherMap** | Current weather data by city | `https://api.openweathermap.org/data/2.5/weather` |
-| **Google Gemini 2.0 Flash** | AI-powered agricultural chatbot | `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent` |
-| **Backend Auth API** | User login, registration, logout | `https://login-register-api-sn3f.onrender.com/api/user` |
-| **Google Translate** | Full-page language translation | Injected via `translate.google.com` widget |
+| Service | Purpose | Endpoint | Security |
+|---|---|---|---|
+| **OpenWeatherMap** | Current weather data by city | `https://api.openweathermap.org/data/2.5/weather` | 🔒 API key via env vars |
+| **Google Gemini 2.5 Flash Lite** | AI chatbot and roadmap generation | `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent` | 🔒 API key via env vars |
+| **Backend Auth API** | User login, registration, logout | `https://login-register-api-sn3f.onrender.com/api/user` | 🔒 URL via env vars |
+| **Google Translate** | Full-page language translation | Injected via `translate.google.com` widget | ✅ No auth required |
+
+---
+
+## 🔒 Security & Best Practices
+
+AgroPro follows modern security standards and development best practices:
+
+### 🛡️ **Environment Variable Management**
+- ✅ All API keys stored securely in `.env` files
+- ✅ `.env` files excluded from version control via `.gitignore`
+- ✅ `.env.example` templates provided for development setup
+- ✅ No hardcoded credentials in source code
+
+### 🔐 **API Security**
+- ✅ Secure HTTP-only cookie authentication for user sessions
+- ✅ Environment-based API endpoint configuration
+- ✅ API rate limiting through service providers
+- ✅ Input validation and sanitization
+
+### 📋 **Development Guidelines**
+- ✅ ESLint configuration for code quality
+- ✅ Consistent code formatting and structure
+- ✅ Component-based architecture for maintainability
+- ✅ Responsive design patterns
+
+> **Important:** After cloning the repository, always copy `.env.example` to `.env` and add your API keys before starting development.
 
 ---
 

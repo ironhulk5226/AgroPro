@@ -32,7 +32,7 @@ const Login = () => {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        `https://login-register-api-sn3f.onrender.com/api/user/login`,
+        `${import.meta.env.VITE_AUTH_API_BASE_URL}/api/user/login`,
         { email, password },
         {
           headers: {

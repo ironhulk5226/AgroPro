@@ -6,8 +6,6 @@ import { BiLeaf, BiWater, BiSun, BiSend } from "react-icons/bi";
 import axios from "axios";
 import { SyncLoader } from "react-spinners";
 import ReactMarkdown from "react-markdown";
-// Gemini API KEY : AIzaSyAdTDHfDBd0OsXkOJWPXzJ4dmC1uqOOc24
-//'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent'
 
 function Chatbot() {
   const [isPageLoading, setIsPageLoading] = useState(true);
@@ -22,9 +20,8 @@ function Chatbot() {
     return () => clearTimeout(timer);
   }, []);
 
-  const url =
-    "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent";
-  const API_KEY = "AIzaSyDvnJHX8zpD-WsC0OOzWHukQZpQHmvtWb0";
+  const url = import.meta.env.VITE_GEMINI_API_URL;
+  const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
   const [question, setQuestion] = useState("");
   const [ans, setAns] = useState("");

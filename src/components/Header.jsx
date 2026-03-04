@@ -57,7 +57,7 @@ function Header() {
   const handleLogout = async () => {
     try {
       const response = await axios.get(
-        `https://login-register-api-sn3f.onrender.com/api/user/logout`,
+        `${import.meta.env.VITE_AUTH_API_BASE_URL}/api/user/logout`,
         {
           withCredentials: true,
         }
