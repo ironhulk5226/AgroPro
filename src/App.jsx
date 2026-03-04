@@ -8,7 +8,7 @@ import Schemes from "./features/Schemes";
 import { BrowserRouter, Route, Routes,Navigate} from "react-router-dom";
 import WeatherWise from "./features/WeatherWise";
 import GrowSmart from "./features/GrowSmart";
-import MultiStepForm from "./features/multiStepForm";
+import MultiStepForm from "./features/MultiStepForm";
 import ContactUs from "./Pages/ContactUs";
 import Feedback from "./Pages/Feedback";
 import Achievements from "./Pages/Achievements";
