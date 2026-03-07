@@ -178,22 +178,22 @@ const Login = () => {
         }}
       />
       <div className="layout-container flex h-full grow flex-col">
-        <div className="flex flex-1 justify-center items-center py-5">
-          <div className="layout-content-container flex flex-col w-[512px] max-w-[512px] py-5 flex-1 items-center">
-            <h2 className="text-[#131613] dark:text-white tracking-light text-[28px] font-bold leading-tight px-4 text-center pb-3 pt-5 transition-colors duration-200">
+        <div className="flex flex-1 justify-center items-center py-4 sm:py-5 px-4">
+          <div className="layout-content-container flex flex-col w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl py-5 flex-1 items-center">
+            <h2 className="text-[#131613] dark:text-white tracking-light text-xl sm:text-2xl md:text-3xl font-bold leading-tight px-4 text-center pb-3 pt-5 transition-colors duration-200">
               Welcome Back
             </h2>
 
             <form onSubmit={handleSubmit} className="w-full">
-              <div className="flex max-w-[480px] w-full justify-center flex-wrap items-center gap-4 px-4 py-3 mx-auto">
+              <div className="flex max-w-full w-full justify-center flex-wrap items-center gap-4 px-4 py-3 mx-auto">
                 <label className="flex flex-col min-w-40 flex-1">
-                  <p className="text-[#131613] dark:text-white text-base font-medium leading-normal pb-2 transition-colors duration-200">
+                  <p className="text-[#131613] dark:text-white text-sm sm:text-base font-medium leading-normal pb-2 transition-colors duration-200">
                     Email
                   </p>
                   <input
                     type="email"
                     placeholder="Enter your email"
-                    className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#131613] dark:text-white focus:outline-0 focus:ring-0 border border-[#dee3de] dark:border-gray-700 bg-white dark:bg-gray-800 focus:border-[#4caf50] dark:focus:border-green-500 h-14 placeholder:text-[#6c7f6c] dark:placeholder:text-gray-400 p-[15px] text-base font-normal leading-normal transition-colors duration-200"
+                    className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#131613] dark:text-white focus:outline-0 focus:ring-0 border border-[#dee3de] dark:border-gray-700 bg-white dark:bg-gray-800 focus:border-[#4caf50] dark:focus:border-green-500 h-12 sm:h-14 placeholder:text-[#6c7f6c] dark:placeholder:text-gray-400 p-3 sm:p-[15px] text-sm sm:text-base font-normal leading-normal transition-colors duration-200"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required

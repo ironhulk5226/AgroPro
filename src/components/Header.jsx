@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BsSun, BsMoon } from "react-icons/bs";
+import { HiMenu, HiX } from "react-icons/hi";
 import axios from "axios";
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -52,6 +53,7 @@ if (typeof document !== 'undefined') {
 function Header() {
   const location = useLocation();
   const [darkMode, setDarkMode] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -152,6 +154,50 @@ function Header() {
     };
   }, []);
 
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isMenuOpen && !event.target.closest('header') && !event.target.closest('.mobile-menu-container')) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMenuOpen]);
+
+  // Handle mobile menu on resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'visible';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'visible';
+    };
+  }, [isMenuOpen]);
+
   const toggleTheme = () => {
     if (darkMode) {
       setDarkMode(false);
@@ -206,20 +252,21 @@ function Header() {
       />
 
       {/* Header */}
-      <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f1f3f1] dark:border-b-gray-800 px-10 py-3 bg-white dark:bg-gray-900 transition-colors duration-200">
-        <div className="flex items-center gap-4 text-[#131613] dark:text-white transition-colors duration-200">
+      <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f1f3f1] dark:border-b-gray-700 px-4 md:px-6 lg:px-10 py-3 bg-white dark:bg-gray-900 transition-colors duration-200 relative z-[60] h-16">
+        <div className="flex items-center gap-2 md:gap-4 text-[#131613] dark:text-white transition-colors duration-200">
           {/* Logo  */}
           <img 
             src="/Team-Indra-Logo.png" 
             alt="Team Indra Logo" 
-            className="w-15 h-15 object-contain rounded-lg hover:scale-110 transition-all duration-200 cursor-pointer shadow-md border border-gray-200 dark:border-gray-600 p-1 bg-white dark:bg-gray-700"
+            className="w-10 h-10 md:w-12 md:h-12 lg:w-15 lg:h-15 object-contain rounded-lg hover:scale-110 transition-all duration-200 cursor-pointer shadow-md border border-gray-200 dark:border-gray-600 p-1 bg-white dark:bg-gray-700"
             onClick={()=>navigate('/home')}
           />
-          <h2 className="text-[#131613] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] transition-colors duration-200">
+          <h2 className="text-[#131613] dark:text-white text-sm md:text-lg font-bold leading-tight tracking-[-0.015em] transition-colors duration-200">
             TEAM INDRA
           </h2>
         </div>
-        <div className="flex flex-1 justify-end gap-8">
+        {/* Desktop Navigation */}
+        <div className="hidden lg:flex flex-1 justify-end gap-8">
           <div className="flex items-center gap-9">
             <nav className="flex space-x-4">
               {navItems.map(({ label, path }) => (
@@ -241,29 +288,84 @@ function Header() {
           <div className="flex items-center">
             <div id="google_element" className="translate-widget"></div>
           </div>
-          <div className="flex gap-2 mt-5">
+          <div className="flex gap-2">
             <div className="flex gap-2">
               <button
                 onClick={() => handleLogout()}
                 className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#daf0da] dark:bg-green-700 text-[#131613] dark:text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-green-600 dark:hover:bg-green-600 transition-colors duration-200"
               >
-                logout
+                Logout
               </button>
             </div>
             <div className="flex max-w-[480px] items-center justify-center overflow-hidden rounded-full h-10 bg-[#f1f3f1] dark:bg-gray-800 text-[#131613] dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 transition-colors duration-200">
               <div className="text-[#131613] dark:text-white transition-colors duration-200">
-                {/* Sun SVG - light/dark mode */}
                 <button
                   onClick={toggleTheme}
                   className="p-1 cursor-pointer text-green-600 dark:text-green-400 hover:bg-green-300 dark:hover:bg-green-700 rounded-full transition-all duration-200"
                 >
-                  {darkMode ? <BsMoon size={24} /> : <BsSun size={24} />}
+                  {darkMode ? <BsMoon size={20} /> : <BsSun size={20} />}
                 </button>
               </div>
             </div>
           </div>
         </div>
+        {/* Mobile Controls */}
+        <div className="flex lg:hidden items-center gap-2">
+          {/* Theme Toggle on Mobile */}
+          <button
+            onClick={toggleTheme}
+            className="p-2 cursor-pointer text-green-600 dark:text-green-400 hover:bg-green-100 dark:hover:bg-gray-700 rounded-full transition-all duration-200"
+          >
+            {darkMode ? <BsMoon size={20} /> : <BsSun size={20} />}
+          </button>
+          {/* Hamburger Menu */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="p-2 text-[#131613] dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500"
+            aria-label="Toggle navigation menu"
+            aria-expanded={isMenuOpen}
+          >
+            {isMenuOpen ? <HiX size={24} /> : <HiMenu size={24} />}
+          </button>
+        </div>
       </header>
+
+      {/* Mobile Menu */}
+      <div className={`mobile-menu-container lg:hidden fixed inset-x-0 top-16 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 transition-all duration-300 ease-in-out z-50 shadow-lg ${
+        isMenuOpen ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-full invisible"
+      }`}>
+        <nav className="flex flex-col px-4 py-4 space-y-2">
+          {navItems.map(({ label, path }) => (
+            <Link
+              key={label}
+              to={path}
+              onClick={() => setIsMenuOpen(false)}
+              className={`text-[#131613] dark:text-white text-base font-medium py-3 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 ${
+                location.pathname === path
+                  ? "text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-900/20"
+                  : ""
+              }`}
+            >
+              {label}
+            </Link>
+          ))}
+          <div className="pt-4 border-t border-gray-200 dark:border-gray-700 mt-4">
+            {/* Google Translate on Mobile */}
+            <div className="mb-4">
+              <div id="google_element_mobile" className="translate-widget"></div>
+            </div>
+            <button
+              onClick={() => {
+                handleLogout();
+                setIsMenuOpen(false);
+              }}
+              className="w-full flex items-center justify-center rounded-lg h-12 px-4 bg-[#daf0da] dark:bg-green-700 text-[#131613] dark:text-white text-base font-bold hover:bg-green-600 dark:hover:bg-green-600 transition-colors duration-200"
+            >
+              Logout
+            </button>
+          </div>
+        </nav>
+      </div>
     </>
   );
 }

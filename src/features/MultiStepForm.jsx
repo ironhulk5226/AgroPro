@@ -256,38 +256,38 @@ Include phases like: Land Preparation, Sowing/Transplanting, Vegetative Growth, 
       <div className="layout-container flex h-full grow flex-col">
 
         {/* Content */}
-        <div className="px-40 flex flex-1 justify-center py-5 bg-white dark:bg-gray-900 transition-colors duration-200">
-          <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
+        <div className="px-4 sm:px-6 md:px-8 lg:px-16 xl:px-20 2xl:px-40 flex flex-1 justify-center py-5 bg-white dark:bg-gray-900 transition-colors duration-200">
+          <div className="layout-content-container flex flex-col max-w-4xl w-full flex-1">
             <div className="flex flex-wrap justify-between gap-3 p-4">
-              <div className="flex min-w-72 flex-col gap-3">
-                <p className="text-[#151811] dark:text-white tracking-light text-[32px] font-bold leading-tight transition-colors duration-200">
+              <div className="flex min-w-0 flex-col gap-3 w-full">
+                <p className="text-[#151811] dark:text-white tracking-light text-2xl sm:text-3xl md:text-4xl font-bold leading-tight transition-colors duration-200">
                   CropCalender
                 </p>
-                <p className="text-[#788863] dark:text-gray-400 text-sm font-normal leading-normal transition-colors duration-200">
+                <p className="text-[#788863] dark:text-gray-400 text-sm sm:text-base font-normal leading-normal transition-colors duration-200">
                   Follow these steps to input your crop and field data.
                 </p>
               </div>
             </div>
             {/* Tabs */}
             <div className="pb-3">
-              <div className="flex border-b border-[#e1e5dc] dark:border-gray-700 px-4 gap-8 transition-colors duration-200">
+              <div className="flex border-b border-[#e1e5dc] dark:border-gray-700 px-4 gap-4 sm:gap-8 transition-colors duration-200 overflow-x-auto">
                 <a onClick={() => setCurrentStep(Page.Step1)}
-                  className={` flex flex-col items-center justify-center pb-[13px] pt-4 transition-colors duration-200
+                  className={`flex flex-col items-center justify-center pb-[13px] pt-4 transition-colors duration-200 whitespace-nowrap min-w-0
                   ${currentStep === Page.Step1 ? "border-b-[3px] border-b-[#151811] dark:border-b-white text-[#151811] dark:text-white" : "text-[#788863] dark:text-gray-400"}`}
                 >
-                  <p className="text-sm font-bold hover: cursor-pointer hover:text-[#151811] dark:hover:text-white transition-colors duration-200">Crop</p>
+                  <p className="text-xs sm:text-sm font-bold hover: cursor-pointer hover:text-[#151811] dark:hover:text-white transition-colors duration-200">Crop</p>
                 </a>
                 <a onClick={() => setCurrentStep(Page.Step2)}
-                  className={` flex flex-col items-center justify-center pb-[13px] pt-4 transition-colors duration-200
+                  className={`flex flex-col items-center justify-center pb-[13px] pt-4 transition-colors duration-200 whitespace-nowrap min-w-0
                   ${currentStep === Page.Step2 ? "border-b-[3px] border-b-[#151811] dark:border-b-white text-[#151811] dark:text-white" : "text-[#788863] dark:text-gray-400"}`}
                 >
-                  <p className="hover: cursor-pointer text-sm font-bold hover:text-[#151811] dark:hover:text-white transition-colors duration-200">Soil</p>
+                  <p className="hover: cursor-pointer text-xs sm:text-sm font-bold hover:text-[#151811] dark:hover:text-white transition-colors duration-200">Soil</p>
                 </a>
                 <a onClick={() => setCurrentStep(Page.Step3)}
-                  className={` flex flex-col items-center justify-center pb-[13px] pt-4 transition-colors duration-200
+                  className={`flex flex-col items-center justify-center pb-[13px] pt-4 transition-colors duration-200 whitespace-nowrap min-w-0
                   ${currentStep === Page.Step3 ? "border-b-[3px] border-b-[#151811] dark:border-b-white text-[#151811] dark:text-white" : "text-[#788863] dark:text-gray-400"}`}
                 >
-                  <p className="hover: cursor-pointer text-sm font-bold hover:text-[#151811] dark:hover:text-white transition-colors duration-200">Irrigation</p>
+                  <p className="hover: cursor-pointer text-xs sm:text-sm font-bold hover:text-[#151811] dark:hover:text-white transition-colors duration-200">Irrigation</p>
                 </a>
               </div>
             </div>
@@ -300,14 +300,14 @@ Include phases like: Land Preparation, Sowing/Transplanting, Vegetative Growth, 
                 {currentStep > 1 && (
                   <button
                     onClick={handleBack}
-                    className="hover:bg-[#91e619b9] dark:hover:bg-green-600 hover: cursor-pointer flex min-w-[84px] items-center justify-center rounded-xl h-10 px-4 bg-[#f3f4f0] dark:bg-gray-700 font-bold text-gray-800 dark:text-white transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1"
+                    className="hover:bg-[#91e619b9] dark:hover:bg-green-600 hover: cursor-pointer flex min-w-[84px] items-center justify-center rounded-xl h-10 sm:h-12 px-4 sm:px-6 bg-[#f3f4f0] dark:bg-gray-700 font-bold text-sm sm:text-base text-gray-800 dark:text-white transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1"
                   >
                     Back
                   </button>
                 )}
                 <button
                   onClick={handleNext}
-                  className="hover:bg-[#91e619b9] dark:hover:bg-green-600 hover: cursor-pointer flex min-w-[84px] items-center justify-center rounded-xl h-10 px-4 bg-[#91e619] dark:bg-green-600 font-bold text-gray-800 dark:text-white transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1"
+                  className="hover:bg-[#91e619b9] dark:hover:bg-green-600 hover: cursor-pointer flex min-w-[84px] items-center justify-center rounded-xl h-10 sm:h-12 px-4 sm:px-6 bg-[#91e619] dark:bg-green-600 font-bold text-sm sm:text-base text-gray-800 dark:text-white transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1"
                 >
                   {submitButtonText}
                 </button>

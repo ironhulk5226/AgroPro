@@ -1,16 +1,17 @@
 import { useState, useRef, useCallback, useEffect } from "react";
-
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
 const SEV_MAP = {
-  none:     { label:"Healthy",  arc:"#22c55e", bg:"#dcfce7", text:"#15803d", ring:"#86efac", glow:"rgba(34,197,94,0.28)"  },
-  low:      { label:"Low",      arc:"#84cc16", bg:"#f7fee7", text:"#4d7c0f", ring:"#bef264", glow:"rgba(132,204,22,0.25)" },
+  none:     { label:"Healthy",  arc:"#14b714", bg:"#f0f8e6", text:"#0e8e0e", ring:"#14b714", glow:"rgba(20,183,20,0.28)"  },
+  low:      { label:"Low",      arc:"#14b714", bg:"#f0f8e6", text:"#0e8e0e", ring:"#14b714", glow:"rgba(20,183,20,0.25)" },
   moderate: { label:"Moderate", arc:"#f59e0b", bg:"#fef3c7", text:"#b45309", ring:"#fcd34d", glow:"rgba(245,158,11,0.25)" },
   high:     { label:"High",     arc:"#ef4444", bg:"#fee2e2", text:"#b91c1c", ring:"#fca5a5", glow:"rgba(239,68,68,0.25)"  },
 };
 const SPREAD_MAP = {
-  low:      { label:"Low Spread Risk",      color:"#15803d", bg:"#f0fdf4", border:"#bbf7d0" },
+  low:      { label:"Low Spread Risk",      color:"#0e8e0e", bg:"#f0f8e6", border:"#14b714" },
   moderate: { label:"Moderate Spread Risk", color:"#b45309", bg:"#fffbeb", border:"#fde68a" },
   high:     { label:"High Spread Risk",     color:"#b91c1c", bg:"#fef2f2", border:"#fecaca" },
 };
@@ -27,7 +28,6 @@ const TABS = [
 ];
 
 const CSS = `
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap');
   *,*::before,*::after{box-sizing:border-box;}
   @keyframes spin    { to{transform:rotate(360deg)} }
   @keyframes spinR   { to{transform:rotate(-360deg)} }
@@ -38,13 +38,13 @@ const CSS = `
   @keyframes fadeIn  { from{opacity:0} to{opacity:1} }
   @keyframes popIn   { from{opacity:0;transform:scale(.93)} to{opacity:1;transform:scale(1)} }
   @keyframes chipPulse{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.07)} }
-  .dd-analyze:hover:not(:disabled){ transform:translateY(-2px)!important; box-shadow:0 12px 38px rgba(22,163,74,.58)!important; }
-  .dd-tab:hover   { background:#f0fdf4!important; color:#15803d!important; }
-  .dd-hist:hover  { background:#f0fdf4!important; border-color:#86efac!important; }
+  .dd-analyze:hover:not(:disabled){ transform:translateY(-2px)!important; box-shadow:0 12px 38px rgba(20,183,20,.58)!important; }
+  .dd-tab:hover   { background:#f0f8e6!important; color:#0e8e0e!important; }
+  .dd-hist:hover  { background:#f0f8e6!important; border-color:#14b714!important; }
   .dd-tog:hover   { background:#f9fafb!important; }
   .dd-copy:hover  { background:#eff6ff!important; }
   .dd-prnt:hover  { background:#f0f0f0!important; }
-  .dd-new:hover   { background:#f0fdf4!important; }
+  .dd-new:hover   { background:#f0f8e6!important; }
   @media(max-width:820px){
     .dd-grid{ grid-template-columns:1fr!important; }
     .dd-h1  { font-size:1.45rem!important; }
@@ -68,8 +68,8 @@ const Arc = ({ pct, color, glow }) => {
       </svg>
       <div style={{position:"absolute",inset:0,display:"flex",flexDirection:"column",
         alignItems:"center",justifyContent:"center"}}>
-        <span style={{fontSize:"1.35rem",fontWeight:800,color:"#111827",fontFamily:"DM Sans,sans-serif",lineHeight:1}}>{pct}%</span>
-        <span style={{fontSize:"0.54rem",color:"#9ca3af",fontFamily:"DM Sans,sans-serif",textTransform:"uppercase",letterSpacing:"0.08em",marginTop:2}}>confidence</span>
+        <span className="text-xl font-extrabold text-gray-900 dark:text-white" style={{lineHeight:1}}>{pct}%</span>
+        <span className="text-xs text-green-700 dark:text-green-300 uppercase tracking-wider" style={{marginTop:2}}>confidence</span>
       </div>
     </div>
   );
@@ -77,21 +77,20 @@ const Arc = ({ pct, color, glow }) => {
 
 const Pill = ({children,bg,color,border}) => (
   <span style={{display:"inline-flex",alignItems:"center",gap:5,padding:"3px 11px",
-    borderRadius:20,fontSize:"0.71rem",fontWeight:600,fontFamily:"DM Sans,sans-serif",
+    borderRadius:20,fontSize:"0.71rem",fontWeight:600,
     background:bg,color,border:`1px solid ${border||bg}`}}>{children}</span>
 );
 
 const TItem = ({icon,text,delay=0}) => (
-  <li style={{display:"flex",alignItems:"flex-start",gap:10,padding:"10px 13px",
-    borderRadius:10,background:"rgba(0,0,0,.025)",border:"1px solid rgba(0,0,0,.055)",
-    animation:`fadeUp .28s ease ${delay}s both`}}>
-    <span style={{fontSize:"0.82rem",flexShrink:0,marginTop:1}}>{icon}</span>
-    <span style={{fontSize:"0.87rem",color:"#374151",fontFamily:"DM Sans,sans-serif",lineHeight:1.55}}>{text}</span>
+  <li className="flex items-start gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 transition-colors duration-200" 
+    style={{animation:`fadeUp .28s ease ${delay}s both`}}>
+    <span className="text-sm flex-shrink-0 mt-0.5">{icon}</span>
+    <span className="text-sm text-[#111811] dark:text-gray-200 leading-relaxed">{text}</span>
   </li>
 );
 
 const TList = ({items=[],icon}) => (
-  <ul style={{margin:0,padding:0,listStyle:"none",display:"flex",flexDirection:"column",gap:7}}>
+  <ul className="list-none space-y-2 m-0 p-0">
     {items.map((t,i)=><TItem key={i} text={t} icon={icon} delay={i*0.065}/>)}
   </ul>
 );
@@ -99,21 +98,24 @@ const TList = ({items=[],icon}) => (
 const HistRow = ({entry,active,onClick}) => {
   const s = SEV_MAP[entry.result?.severity]||SEV_MAP.low;
   return (
-    <button className="dd-hist" onClick={onClick} style={{
-      display:"flex",alignItems:"center",gap:10,padding:"9px 10px",
-      borderRadius:10,width:"100%",textAlign:"left",cursor:"pointer",
-      background:active?"#f0fdf4":"transparent",
-      border:`1px solid ${active?"#86efac":"transparent"}`,
-      transition:"all .15s ease",
-    }}>
-      <img src={entry.thumb} alt="" style={{width:40,height:40,borderRadius:8,objectFit:"cover",flexShrink:0,border:"1.5px solid #e5e7eb"}}/>
-      <div style={{flex:1,minWidth:0}}>
-        <p style={{margin:0,fontSize:"0.79rem",fontWeight:700,color:"#111827",fontFamily:"DM Sans,sans-serif",
-          overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{entry.result.diseaseName}</p>
-        <p style={{margin:0,fontSize:"0.68rem",color:"#6b7280",fontFamily:"DM Sans,sans-serif"}}>
-          {entry.result.plantName||"Unknown"} · {entry.time}</p>
+    <button className="dd-hist w-full text-left p-2 rounded-lg transition-colors duration-200 hover:bg-[#f0f8e6] dark:hover:bg-gray-700" 
+      onClick={onClick} 
+      style={{
+        background:active?"#f0f8e6":"transparent",
+        border:`1px solid ${active?"#14b714":"transparent"}`,
+      }}>
+      <div className="flex items-center gap-3">
+        <img src={entry.thumb} alt="" className="w-10 h-10 rounded-lg object-cover border-2 border-gray-200 dark:border-gray-600 flex-shrink-0"/>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-bold text-[#111811] dark:text-white truncate">
+            {entry.result.diseaseName}
+          </p>
+          <p className="text-xs text-[#618961] dark:text-gray-400">
+            {entry.result.plantName||"Unknown"} · {entry.time}
+          </p>
+        </div>
+        <span className="w-2 h-2 rounded-full flex-shrink-0" style={{background:s.arc}}/>
       </div>
-      <span style={{width:8,height:8,borderRadius:"50%",background:s.arc,flexShrink:0}}/>
     </button>
   );
 };
@@ -139,6 +141,14 @@ export default function DiseaseDetector() {
   const [copied,     setCopied]     = useState(false);
   const fileRef = useRef(null);
 
+  useEffect(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      // Hide loader after delay
+      const timer = setTimeout(() => {
+        setIsPageLoading(false);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }, []);
   // inject CSS once
   useEffect(()=>{
     if(document.getElementById("dd-css"))return;
@@ -188,6 +198,15 @@ export default function DiseaseDetector() {
   const onOver   = (e)=>{e.preventDefault();setDragging(true);};
   const onLeave  = ()=>setDragging(false);
   const onDrop   = (e)=>{e.preventDefault();setDragging(false);processFile(e.dataTransfer.files[0]);};
+
+  // recall function to load previous scan results
+  const recall = (entry) => {
+    setActiveHist(entry.id);
+    setImage(entry.thumb);
+    setResult(entry.result);
+    setTab(0);
+    setError("");
+  };
 
   // ── Anthropic Vision API (no external package needed) ────────────────────
 const analyze = async () => {
@@ -403,8 +422,9 @@ const sev  = result ? (SEV_MAP[result.severity] || SEV_MAP.low) : null;
 const sprd = result ? (SPREAD_MAP[result.spreadRisk] || SPREAD_MAP.low) : null;
   // ── RENDER ─────────────────────────────────────────────────────────────────
   return (
-    <div style={{minHeight:"100vh",background:"#73D498",
-      fontFamily:"'DM Sans',system-ui,sans-serif",paddingBottom:60}}>
+    <>
+      <Header />
+      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200" style={{paddingBottom:60}}>
 
       {/* LIGHTBOX */}
       {lightbox&&image&&(
@@ -423,34 +443,31 @@ const sprd = result ? (SPREAD_MAP[result.spreadRisk] || SPREAD_MAP.low) : null;
             display:"flex",alignItems:"center",justifyContent:"center",
           }}>✕</button>
           <p style={{position:"absolute",bottom:20,color:"rgba(255,255,255,.38)",
-            fontSize:"0.75rem",fontFamily:"DM Sans,sans-serif",letterSpacing:"0.05em"}}>
+            fontSize:"0.75rem",letterSpacing:"0.05em"}}>
             Press ESC or click to close
           </p>
         </div>
       )}
 
       {/* HEADER */}
-      <div style={{background:"rgba(43, 179, 99, 0.92)",borderBottom:"1px solid rgba(21, 141, 21, 0.12)",
-        backdropFilter:"blur(16px)",padding:"22px 28px"}}>
+      <div className="bg-[#14b714] dark:bg-gray-800 transition-colors duration-200" style={{borderBottom:"1px solid rgba(20,183,20,0.2)",
+        padding:"22px 28px"}}>
         <div style={{maxWidth:1220,margin:"0 auto",display:"flex",alignItems:"center",gap:16,flexWrap:"wrap"}}>
           <div style={{width:54,height:54,borderRadius:16,flexShrink:0,
-            background:"linear-gradient(135deg,#16a34a,#15803d)",
+            background:"linear-gradient(135deg,#0e8e0e,#14b714)",
             display:"flex",alignItems:"center",justifyContent:"center",fontSize:"1.75rem",
-            boxShadow:"0 6px 28px rgba(22,163,74,.38)",animation:"float 3.6s ease-in-out infinite"}}>🌿</div>
+            boxShadow:"0 6px 28px rgba(20,183,20,.38)",animation:"float 3.6s ease-in-out infinite"}}>🌿</div>
           <div>
-            <h1 className="dd-h1" style={{margin:0,fontFamily:"'Playfair Display',Georgia,serif",
-              fontSize:"1.9rem",fontWeight:900,color:"#fff",letterSpacing:"-0.4px",
-              textShadow:"0 2px 28px rgba(22,163,74,.38)"}}>
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
               Plant Disease Detector
             </h1>
-            <p style={{margin:"4px 0 0",fontSize:"0.83rem",color:"#02471b",fontWeight:400,letterSpacing:"0.02em"}}>
+            <p className="text-green-100 text-sm">
               AI-powered phytopathological diagnosis · Upload any plant photo
             </p>
           </div>
           {history.length>0&&(
             <div style={{marginLeft:"auto"}}>   
-              <span style={{background:"rgba(22,163,74,.18)",border:"1px solid rgba(134,239,172,.28)",
-                borderRadius:20,padding:"5px 16px",fontSize:"0.77rem",color:"#86efac",fontWeight:600}}>
+              <span className="bg-green-100 dark:bg-gray-700 border border-green-200 dark:border-gray-600 rounded-full px-3 py-1 text-xs font-semibold text-green-800 dark:text-green-300 transition-colors duration-200">
                 🔬 {history.length} scan{history.length>1?"s":""} this session
               </span>
             </div>
@@ -459,43 +476,45 @@ const sprd = result ? (SPREAD_MAP[result.spreadRisk] || SPREAD_MAP.low) : null;
       </div>
 
       {/* GRID */}
-      <div className="dd-grid" style={{display:"grid",gridTemplateColumns:"1fr 1fr",
-        gap:22,maxWidth:1220,margin:"26px auto 0",padding:"0 20px"}}>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-6xl mx-auto mt-6 px-5">
 
         {/* ══ LEFT COLUMN ══ */}
-        <div style={{display:"flex",flexDirection:"column",gap:18}}>
+        <div className="space-y-5">
 
           {/* Upload card */}
-          <div style={{background:"#fff",borderRadius:24,padding:24,
-            boxShadow:"0 12px 56px rgba(0,0,0,.35)",border:"1px solid rgba(134,239,172,.15)"}}>
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 transition-colors duration-200">
 
             {/* header row */}
             <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:13}}>
-              <span style={{fontSize:"0.7rem",fontWeight:700,color:"#6b7280",
-                textTransform:"uppercase",letterSpacing:"0.1em"}}>📷 Upload Plant Photo</span>
+              <span className="text-xs font-bold text-[#618961] dark:text-gray-400 uppercase tracking-wider transition-colors duration-200">📷 Upload Plant Photo</span>
               {fileName&&(
-                <div style={{display:"flex",alignItems:"center",gap:5,background:"#f0fdf4",
-                  border:"1px solid #bbf7d0",borderRadius:20,padding:"3px 10px",
-                  fontSize:"0.68rem",color:"#15803d",fontWeight:600,maxWidth:200,overflow:"hidden"}}>
+                <div className="flex items-center gap-2 bg-[#f0f8e6] dark:bg-gray-700 border border-[#14b714] dark:border-gray-600 rounded-full px-3 py-1 text-xs text-[#0e8e0e] dark:text-green-300 font-semibold max-w-48 overflow-hidden transition-colors duration-200">
                   <span>📁</span>
                   <span style={{overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{fileName}</span>
-                  <span style={{background:"#bbf7d0",borderRadius:10,padding:"1px 7px",flexShrink:0}}>{fileSize}</span>
+                  <span className="bg-[#14b714] dark:bg-gray-600 text-white rounded-lg px-2 py-0.5 text-xs flex-shrink-0">{fileSize}</span>
                 </div>
               )}
             </div>
 
             {/* drop zone */}
             <div
+              className={`${
+                dragging 
+                  ? "border-green-500 bg-green-50 dark:bg-green-900/20 shadow-green-200 dark:shadow-green-800" 
+                  : "border-green-200 bg-green-25 dark:bg-gray-800/50"
+              } hover:border-green-300 dark:hover:border-green-600 transition-all duration-300`}
               style={{
-                border:dragging?"2.5px dashed #16a34a":"2.5px dashed #86efac",
-                borderRadius:16,minHeight:272,
-                display:"flex",alignItems:"center",justifyContent:"center",
-                cursor:image?"default":"pointer",
-                transition:"all .22s ease",
-                background:dragging?"#f0fdf4":"#fafff8",
-                transform:dragging?"scale(1.012)":"scale(1)",
-                boxShadow:dragging?"0 0 0 5px #bbf7d0":"none",
-                overflow:"hidden",position:"relative",
+                border: dragging ? "2.5px dashed" : "2.5px dashed",
+                borderRadius: 16,
+                minHeight: 272,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: image ? "default" : "pointer",
+                transform: dragging ? "scale(1.012)" : "scale(1)",
+                boxShadow: dragging ? "0 0 0 5px rgba(187, 247, 208, 0.3)" : "none",
+                overflow: "hidden",
+                position: "relative",
               }}
               onDragOver={onOver} onDragLeave={onLeave} onDrop={onDrop}
               onClick={()=>!image&&fileRef.current?.click()}
@@ -532,7 +551,7 @@ const sprd = result ? (SPREAD_MAP[result.spreadRisk] || SPREAD_MAP.low) : null;
                       <div style={{position:"absolute",inset:10,border:"2.5px solid transparent",
                         borderTop:"2.5px solid #86efac",borderRadius:"50%",animation:"spinR .5s linear infinite"}}/>
                     </div>
-                    <p style={{color:"#86efac",fontSize:"0.76rem",fontWeight:700,margin:0,letterSpacing:"0.12em"}}>SCANNING</p>
+                    <p className="text-green-300 dark:text-green-400 text-xs font-bold m-0 tracking-wider">SCANNING</p>
                   </div>
                 </div>
               )}
@@ -554,12 +573,12 @@ const sprd = result ? (SPREAD_MAP[result.spreadRisk] || SPREAD_MAP.low) : null;
               ):(
                 <div style={{textAlign:"center",padding:28,pointerEvents:"none"}}>
                   <div style={{fontSize:56,marginBottom:14,animation:"float 3.6s ease-in-out infinite"}}>🍃</div>
-                  <p style={{margin:"0 0 6px",fontSize:"1.02rem",fontWeight:600,color:"#15803d"}}>Drag &amp; drop a plant photo</p>
-                  <p style={{margin:"0 0 14px",fontSize:"0.85rem",color:"#6b7280"}}>
-                    or <span style={{color:"#16a34a",fontWeight:600}}>click to browse</span>
+                  <p className="text-green-700 dark:text-green-300 mb-1.5 text-lg font-semibold transition-colors duration-200">Drag &amp; drop a plant photo</p>
+                  <p className="text-gray-600 dark:text-gray-400 mb-3.5 text-sm transition-colors duration-200">
+                    or <span className="text-green-600 dark:text-green-400 font-semibold">click to browse</span>
                   </p>
-                  <span style={{fontSize:"0.69rem",color:"#9ca3af",background:"#f3f4f6",
-                    borderRadius:6,padding:"4px 12px",fontFamily:"monospace"}}>
+                  <span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 transition-colors duration-200"
+                    style={{borderRadius:6,padding:"4px 12px",fontFamily:"monospace"}}>
                     JPG · PNG · WEBP · GIF · up to 15 MB
                   </span>
                 </div>
@@ -568,15 +587,12 @@ const sprd = result ? (SPREAD_MAP[result.spreadRisk] || SPREAD_MAP.low) : null;
 
             {/* analyze button */}
             {image&&(
-              <button className="dd-analyze" onClick={analyze} disabled={loading} style={{
-                marginTop:13,width:"100%",
-                background:loading?"#d1d5db":"linear-gradient(135deg,#16a34a 0%,#166534 100%)",
-                color:"#fff",border:"none",borderRadius:14,padding:"15px 20px",
-                fontSize:"1rem",fontWeight:700,cursor:loading?"not-allowed":"pointer",
-                display:"flex",alignItems:"center",justifyContent:"center",gap:10,
-                transition:"all .2s ease",fontFamily:"DM Sans,sans-serif",letterSpacing:"0.02em",
-                boxShadow:loading?"none":"0 4px 22px rgba(22,163,74,.38)",
-              }}>
+              <button className="dd-analyze w-full mt-4 bg-[#14b714] hover:bg-[#0e8e0e] disabled:bg-gray-400 dark:disabled:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-200 flex items-center justify-center gap-3" 
+                onClick={analyze} disabled={loading} 
+                style={{
+                  cursor:loading?"not-allowed":"pointer",
+                  boxShadow:loading?"none":"0 4px 22px rgba(20,183,20,.38)",
+                }}>
                 {loading?(
                   <>
                     <span style={{width:18,height:18,display:"inline-block",
@@ -590,30 +606,27 @@ const sprd = result ? (SPREAD_MAP[result.spreadRisk] || SPREAD_MAP.low) : null;
 
             {/* error */}
             {error&&(
-              <div style={{marginTop:11,background:"#fef2f2",color:"#b91c1c",
-                border:"1px solid #fecaca",borderRadius:12,padding:"12px 14px",
-                display:"flex",alignItems:"flex-start",gap:10}}>
-                <span style={{flexShrink:0}}>⚠️</span>
-                <div style={{flex:1}}>
-                  <p style={{margin:"0 0 2px",fontWeight:700,fontSize:"0.875rem"}}>Analysis Failed</p>
-                  <p style={{margin:0,fontSize:"0.8rem",opacity:.9}}>{error}</p>
+              <div className="mt-4 bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-300 border border-red-200 dark:border-red-800 rounded-lg p-3 transition-colors duration-200">
+                <div className="flex items-start gap-3">
+                  <span className="flex-shrink-0">⚠️</span>
+                  <div className="flex-1">
+                    <p className="font-bold text-sm mb-1">Analysis Failed</p>
+                    <p className="text-sm opacity-90">{error}</p>
+                  </div>
+                  <button onClick={()=>setError("")} className="flex-shrink-0 text-red-800 dark:text-red-300 hover:text-red-600 dark:hover:text-red-200 transition-colors">✕</button>
                 </div>
-                <button onClick={()=>setError("")} style={{background:"none",border:"none",
-                  cursor:"pointer",color:"#b91c1c",fontSize:"1rem",padding:0,flexShrink:0}}>✕</button>
               </div>
             )}
           </div>
 
           {/* tips */}
-          <div style={{background:"rgba(255,251,235,.95)",borderRadius:16,padding:"14px 17px",
-            border:"1px solid #fde68a",boxShadow:"0 4px 20px rgba(0,0,0,.14)"}}>
-            <p style={{margin:"0 0 9px",fontSize:"0.7rem",fontWeight:700,color:"#92400e",
-              textTransform:"uppercase",letterSpacing:"0.09em"}}>📌 Tips for Best Results</p>
-            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"6px 14px"}}>
+          <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4 transition-colors duration-200">
+            <p className="text-xs font-bold text-yellow-800 dark:text-yellow-300 uppercase tracking-wider mb-3">📌 Tips for Best Results</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               {["Close-up of a single leaf","Sharp focus, good lighting",
                 "Show visible symptoms clearly","Avoid shadows or blur"].map((t,i)=>(
-                <div key={i} style={{display:"flex",alignItems:"center",gap:6,fontSize:"0.78rem",color:"#78350f"}}>
-                  <span style={{width:5,height:5,borderRadius:"50%",background:"#d97706",flexShrink:0}}/>
+                <div key={i} className="flex items-center gap-2 text-sm text-yellow-800 dark:text-yellow-300">
+                  <span className="w-1.5 h-1.5 rounded-full bg-yellow-600 dark:bg-yellow-400 flex-shrink-0"/>
                   {t}
                 </div>
               ))}
@@ -622,22 +635,17 @@ const sprd = result ? (SPREAD_MAP[result.spreadRisk] || SPREAD_MAP.low) : null;
 
           {/* HISTORY PANEL */}
           {history.length>0&&(
-            <div style={{background:"#fff",borderRadius:16,overflow:"hidden",
-              border:"1px solid rgba(134,239,172,.2)",boxShadow:"0 4px 22px rgba(0,0,0,.16)"}}>
-              <button className="dd-tog" onClick={()=>setShowHist(v=>!v)} style={{
-                display:"flex",alignItems:"center",justifyContent:"space-between",
-                width:"100%",padding:"13px 16px",background:"transparent",border:"none",
-                cursor:"pointer",transition:"background .15s",fontFamily:"DM Sans,sans-serif"}}>
-                <span style={{fontSize:"0.71rem",fontWeight:700,color:"#374151",
-                  textTransform:"uppercase",letterSpacing:"0.09em"}}>
+            <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 transition-colors duration-200">
+              <button className="dd-tog flex items-center justify-between w-full p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" 
+                onClick={()=>setShowHist(v=>!v)}>
+                <span className="text-xs font-bold text-[#111811] dark:text-gray-300 uppercase tracking-wider">
                   🕘 Scan History ({history.length}/5)
                 </span>
-                <span style={{fontSize:"0.75rem",color:"#9ca3af",display:"inline-block",
-                  transition:"transform .2s",transform:showHist?"rotate(180deg)":"rotate(0deg)"}}>▾</span>
+                <span className="text-gray-500 dark:text-gray-400 transform transition-transform duration-200" 
+                  style={{transform:showHist?"rotate(180deg)":"rotate(0deg)"}}>▾</span>
               </button>
               {showHist&&(
-                <div style={{padding:"4px 10px 12px",display:"flex",flexDirection:"column",gap:4,
-                  animation:"fadeUp .2s ease"}}>
+                <div className="p-2 space-y-2" style={{animation:"fadeUp .2s ease"}}>
                   {history.map(e=>(
                     <HistRow key={e.id} entry={e} active={activeHist===e.id} onClick={()=>recall(e)}/>
                   ))}
@@ -648,29 +656,23 @@ const sprd = result ? (SPREAD_MAP[result.spreadRisk] || SPREAD_MAP.low) : null;
         </div>
 
         {/* ══ RIGHT COLUMN ══ */}
-        <div style={{background:"#fff",borderRadius:24,padding:24,
-          boxShadow:"0 12px 56px rgba(0,0,0,.35)",border:"1px solid rgba(134,239,172,.15)",
-          display:"flex",flexDirection:"column",minHeight:520}}>
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 min-h-[520px] flex flex-col transition-colors duration-200">
 
-          <p style={{margin:"0 0 15px",fontSize:"0.7rem",fontWeight:700,color:"#6b7280",
-            textTransform:"uppercase",letterSpacing:"0.1em"}}>📋 Diagnosis Report</p>
+          <p className="text-xs font-bold text-[#618961] dark:text-gray-400 uppercase tracking-wider mb-4">📋 Diagnosis Report</p>
 
           {/* empty */}
           {!result&&!loading&&(
-            <div style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",
-              justifyContent:"center",textAlign:"center",padding:24,gap:14}}>
-              <div style={{fontSize:66,opacity:.55,animation:"float 4s ease-in-out infinite"}}>🌱</div>
-              <h3 style={{margin:0,fontSize:"1.12rem",fontWeight:700,color:"#374151",
-                fontFamily:"'Playfair Display',serif"}}>Awaiting Analysis</h3>
-              <p style={{margin:0,fontSize:"0.87rem",color:"#9ca3af",maxWidth:260,lineHeight:1.65}}>
+            <div className="flex-1 flex flex-col items-center justify-center text-center p-6 space-y-4">
+              <div className="text-6xl opacity-60" style={{animation:"float 4s ease-in-out infinite"}}>🌱</div>
+              <h3 className="text-lg font-bold text-[#111811] dark:text-white">Awaiting Analysis</h3>
+              <p className="text-sm text-[#618961] dark:text-gray-400 max-w-64 leading-relaxed">
                 Upload a plant photo and click{" "}
-                <strong style={{color:"#16a34a"}}>Detect Disease</strong>{" "}
+                <strong className="text-[#14b714]">Detect Disease</strong>{" "}
                 to get a full AI diagnosis.
               </p>
-              <div style={{display:"flex",gap:7,flexWrap:"wrap",justifyContent:"center",marginTop:6}}>
+              <div className="flex flex-wrap gap-2 justify-center mt-2">
                 {["Early Blight","Powdery Mildew","Leaf Spot","Root Rot","Rust"].map(d=>(
-                  <span key={d} style={{fontSize:"0.69rem",padding:"4px 11px",borderRadius:20,
-                    background:"#f0fdf4",color:"#15803d",border:"1px solid #bbf7d0"}}>{d}</span>
+                  <span key={d} className="text-xs px-3 py-1 rounded-full bg-green-50 dark:bg-gray-700 text-green-700 dark:text-green-300 border border-green-300 dark:border-gray-600">{d}</span>
                 ))}
               </div>
             </div>
@@ -678,40 +680,29 @@ const sprd = result ? (SPREAD_MAP[result.spreadRisk] || SPREAD_MAP.low) : null;
 
           {/* DUAL SPINNER LOADING */}
           {loading&&(
-            <div style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",
-              justifyContent:"center",textAlign:"center",padding:24,gap:18}}>
-              <div style={{position:"relative",width:90,height:90}}>
-                <div style={{position:"absolute",inset:0,border:"4.5px solid #f3f4f6",
-                  borderTop:"4.5px solid #16a34a",borderRadius:"50%",animation:"spin .9s linear infinite"}}/>
-                <div style={{position:"absolute",inset:14,border:"3px solid transparent",
-                  borderTop:"3px solid #86efac",borderRadius:"50%",animation:"spinR .55s linear infinite"}}/>
-                <div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",
-                  justifyContent:"center",fontSize:"1.7rem"}}>🔬</div>
+            <div className="flex-1 flex flex-col items-center justify-center text-center p-6 space-y-5">
+              <div className="relative w-20 h-20">
+                <div className="absolute inset-0 border-4 border-gray-200 dark:border-gray-700 border-t-[#14b714] rounded-full animate-spin"/>
+                <div className="absolute inset-3 border-2 border-transparent border-t-green-400 rounded-full" style={{animation:"spinR .55s linear infinite"}}/>
+                <div className="absolute inset-0 flex items-center justify-center text-xl">🔬</div>
               </div>
               <div>
-                <h3 style={{margin:"0 0 6px",fontSize:"1.08rem",fontWeight:700,color:"#374151"}}>
-                  Analyzing Image…</h3>
-                <p style={{margin:0,fontSize:"0.84rem",color:"#9ca3af",minHeight:20,transition:"opacity .3s"}}>
-                  {LOAD_STEPS[step]}
-                </p>
+                <h3 className="text-lg font-bold text-[#111811] dark:text-white mb-2">Analyzing Image…</h3>
+                <p className="text-sm text-[#618961] dark:text-gray-400 min-h-5 transition-opacity">{LOAD_STEPS[step]}</p>
               </div>
-              <div style={{width:"70%",height:4,background:"#f3f4f6",borderRadius:4,overflow:"hidden"}}>
-                <div style={{height:"100%",width:"38%",borderRadius:4,
-                  background:"linear-gradient(90deg,#16a34a,#86efac,#16a34a)",
-                  animation:"shimmer 1.75s ease infinite"}}/>
+              <div className="w-3/4 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                <div className="h-full w-2/5 rounded-full bg-gradient-to-r from-[#14b714] via-green-400 to-[#14b714]" 
+                  style={{animation:"shimmer 1.75s ease infinite"}}/>
               </div>
-              <div style={{display:"flex",gap:6,flexWrap:"wrap",justifyContent:"center"}}>
+              <div className="flex flex-wrap gap-2 justify-center">
                 {LOAD_STEPS.map((s,i)=>(
-                  <span key={i} style={{
-                    fontSize:"0.67rem",padding:"3px 10px",borderRadius:10,
-                    fontFamily:"DM Sans,sans-serif",
-                    background:i===step?"#f0fdf4":"#f9fafb",
-                    color:i===step?"#15803d":"#9ca3af",
-                    border:`1px solid ${i===step?"#86efac":"#e5e7eb"}`,
-                    fontWeight:i===step?700:400,
-                    transition:"all .3s ease",
-                    animation:i===step?"chipPulse .9s ease infinite":"none",
-                  }}>{s}</span>
+                  <span key={i} className={`text-xs px-2 py-1 rounded-lg transition-all ${
+                    i===step 
+                      ? "bg-green-50 dark:bg-gray-700 text-green-700 dark:text-green-300 border border-green-300 dark:border-gray-600 font-semibold" 
+                      : "bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700"
+                  }`} style={{animation:i===step?"chipPulse .9s ease infinite":"none"}}>
+                    {s}
+                  </span>
                 ))}
               </div>
             </div>
@@ -731,15 +722,13 @@ const sprd = result ? (SPREAD_MAP[result.spreadRisk] || SPREAD_MAP.low) : null;
                 boxShadow:`0 4px 24px ${sev.glow}`}}>
                 <Arc pct={result.confidence} color={sev.arc} glow={sev.glow}/>
                 <div style={{flex:1,minWidth:0}}>
-                  <p style={{margin:"0 0 2px",fontSize:"0.68rem",fontWeight:600,color:"#9ca3af",
-                    textTransform:"uppercase",letterSpacing:"0.07em",fontStyle:"italic"}}>
+                  <p className="text-xs font-semibold text-green-700 dark:text-gray-400 uppercase tracking-wide italic mb-1">
                     {result.scientificName||"Unknown species"}
                   </p>
-                  <p style={{margin:"0 0 4px",fontSize:"0.87rem",fontWeight:700,color:"#374151"}}>
+                  <p className="text-sm font-bold text-gray-900 dark:text-white mb-1">
                     🌿 {result.plantName||"Plant"}
                   </p>
-                  <h2 style={{margin:"0 0 10px",fontFamily:"'Playfair Display',Georgia,serif",
-                    fontSize:"1.15rem",fontWeight:800,color:"#111827",lineHeight:1.25}}>
+                  <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-3 leading-tight">
                     {result.diseaseName}
                   </h2>
                   <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
@@ -761,15 +750,17 @@ const sprd = result ? (SPREAD_MAP[result.spreadRisk] || SPREAD_MAP.low) : null;
 
               {/* stats */}
               {!result.isHealthy&&(
-                <div className="dd-st" style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:9}}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {[
                     {icon:"⏰",label:"Urgency",val:result.urgency,bg:"#fff7ed",border:"#fed7aa",col:"#9a3412"},
                     {icon:"📊",label:"Est. Damage",val:result.estimatedDamage,bg:"#faf5ff",border:"#e9d5ff",col:"#6d28d9"},
                   ].map(({icon,label,val,bg,border,col})=>(
-                    <div key={label} style={{background:bg,border:`1px solid ${border}`,borderRadius:12,padding:"11px 13px"}}>
-                      <p style={{margin:"0 0 3px",fontSize:"0.67rem",fontWeight:700,color:col,
-                        textTransform:"uppercase",letterSpacing:"0.07em"}}>{icon} {label}</p>
-                      <p style={{margin:0,fontSize:"0.83rem",color:col,fontWeight:500,lineHeight:1.4}}>{val}</p>
+                    <div key={label} className="p-3 rounded-lg border transition-colors duration-200 dark:bg-gray-700 dark:border-gray-600" 
+                      style={{background:bg,borderColor:border}}>
+                      <p className="text-xs font-bold uppercase tracking-wide mb-1 text-gray-800 dark:text-gray-300">
+                        {icon} {label}
+                      </p>
+                      <p className="text-sm font-medium leading-snug text-gray-800 dark:text-gray-200">{val}</p>
                     </div>
                   ))}
                 </div>
@@ -777,44 +768,40 @@ const sprd = result ? (SPREAD_MAP[result.spreadRisk] || SPREAD_MAP.low) : null;
 
               {/* expert note */}
               {result.notes&&(
-                <div style={{background:"#f8fafc",border:"1px solid #e2e8f0",borderRadius:12,
-                  padding:"11px 14px",display:"flex",gap:10,alignItems:"flex-start"}}>
-                  <span style={{fontSize:"1rem",flexShrink:0}}>💡</span>
-                  <p style={{margin:0,fontSize:"0.83rem",color:"#475569",lineHeight:1.55,fontStyle:"italic"}}>
-                    {result.notes}
-                  </p>
+                <div className="bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-3 flex gap-3 items-start transition-colors duration-200">
+                  <span className="text-base flex-shrink-0">💡</span>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed italic">{result.notes}</p>
                 </div>
               )}
 
               {/* TABS */}
               <div>
-                <div style={{display:"flex",gap:4,background:"#f9fafb",borderRadius:13,padding:4,marginBottom:11}}>
+                <div className="flex gap-1 bg-gray-100 dark:bg-gray-700 rounded-lg p-1 mb-4 transition-colors duration-200">
                   {TABS.map((t,i)=>(
-                    <button key={i} className="dd-tab" onClick={()=>setTab(i)} style={{
-                      flex:1,padding:"8px 5px",borderRadius:10,border:"none",
-                      background:tab===i?"#fff":"transparent",
-                      color:tab===i?"#15803d":"#6b7280",
-                      fontWeight:tab===i?700:500,fontSize:"0.79rem",cursor:"pointer",
-                      boxShadow:tab===i?"0 1px 6px rgba(0,0,0,.09)":"none",
-                      transition:"all .15s ease",fontFamily:"DM Sans,sans-serif",whiteSpace:"nowrap",
-                    }}>{t.icon} {t.label}</button>
+                    <button key={i} className={`dd-tab flex-1 py-2 px-3 rounded-md text-sm font-medium transition-colors duration-200 whitespace-nowrap ${
+                      tab===i 
+                        ? "bg-white dark:bg-gray-600 text-green-700 dark:text-green-300 font-bold shadow-sm" 
+                        : "bg-transparent text-gray-600 dark:text-gray-400 font-medium hover:bg-green-50 dark:hover:bg-gray-600"
+                    }`} 
+                      onClick={()=>setTab(i)}>{t.icon} {t.label}</button>
                   ))}
                 </div>
 
                 <div style={{animation:"fadeUp .22s ease"}}>
                   {tab===0&&<TList items={result.symptoms} icon="🔍"/>}
                   {tab===1&&(
-                    <div style={{display:"flex",flexDirection:"column",gap:11}}>
-                      <p style={{margin:"0 0 5px",fontSize:"0.68rem",fontWeight:700,color:"#15803d",
-                        textTransform:"uppercase",letterSpacing:"0.08em"}}>🌿 Organic Treatments</p>
+                    <div className="space-y-4">
+                      <p className="text-xs font-bold text-green-700 dark:text-green-400 uppercase tracking-wide">
+                        🌿 Organic Treatments
+                      </p>
                       <TList items={result.organicTreatments} icon="🌿"/>
                       {result.chemicalTreatments?.length>0&&(
                         <>
-                          <p style={{margin:"8px 0 5px",fontSize:"0.68rem",fontWeight:700,color:"#b45309",
-                            textTransform:"uppercase",letterSpacing:"0.08em"}}>
+                          <p className="text-xs font-bold text-yellow-700 dark:text-yellow-400 uppercase tracking-wide">
                             ⚗️ Chemical Options{" "}
-                            <span style={{fontSize:"0.62rem",fontWeight:400,color:"#9ca3af",
-                              textTransform:"none",letterSpacing:0}}>(last resort only)</span>
+                            <span className="text-xs font-normal text-gray-500 dark:text-gray-400 normal-case">
+                              (last resort only)
+                            </span>
                           </p>
                           <TList items={result.chemicalTreatments} icon="⚗️"/>
                         </>
@@ -826,29 +813,20 @@ const sprd = result ? (SPREAD_MAP[result.spreadRisk] || SPREAD_MAP.low) : null;
               </div>
 
               {/* ACTION BAR */}
-              <div className="dd-act" style={{display:"flex",gap:8,marginTop:4}}>
-                <button className="dd-copy" onClick={copyReport} style={{
-                  flex:1,padding:"10px 8px",
-                  background:copied?"#f0fdf4":"#eff6ff",
-                  border:`1px solid ${copied?"#86efac":"#bfdbfe"}`,
-                  borderRadius:11,cursor:"pointer",fontSize:"0.78rem",fontWeight:600,
-                  color:copied?"#15803d":"#1d4ed8",
-                  transition:"all .15s ease",fontFamily:"DM Sans,sans-serif",
-                }}>{copied?"✅ Copied!":"📋 Copy Report"}</button>
+              <div className="flex flex-col md:flex-row gap-2 mt-4">
+                <button className="dd-copy flex-1 py-2 px-4 rounded-lg text-sm font-semibold transition-colors duration-200" 
+                  onClick={copyReport} 
+                  style={{
+                    background:copied?"#f0f8e6":"#eff6ff",
+                    border:`1px solid ${copied?"#14b714":"#bfdbfe"}`,
+                    color:copied?"#0e8e0e":"#1d4ed8",
+                  }}>{copied?"✅ Copied!":"📋 Copy Report"}</button>
 
-                <button className="dd-prnt" onClick={()=>window.print()} style={{
-                  flex:1,padding:"10px 8px",background:"#f9fafb",
-                  border:"1px solid #e5e7eb",borderRadius:11,cursor:"pointer",
-                  fontSize:"0.78rem",fontWeight:600,color:"#374151",
-                  transition:"all .15s ease",fontFamily:"DM Sans,sans-serif",
-                }}>🖨️ Print</button>
+                <button className="dd-prnt flex-1 py-2 px-4 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200" 
+                  onClick={()=>window.print()}>🖨️ Print</button>
 
-                <button className="dd-new" onClick={reset} style={{
-                  flex:1,padding:"10px 8px",background:"transparent",
-                  border:"2px solid #86efac",borderRadius:11,cursor:"pointer",
-                  fontSize:"0.78rem",fontWeight:700,color:"#15803d",
-                  transition:"all .15s ease",fontFamily:"DM Sans,sans-serif",
-                }}>↩ New Scan</button>
+                <button className="dd-new flex-1 py-2 px-4 bg-transparent border-2 border-[#14b714] dark:border-green-500 rounded-lg text-sm font-bold text-[#0e8e0e] dark:text-green-400 hover:bg-[#f0f8e6] dark:hover:bg-gray-800 transition-colors duration-200" 
+                  onClick={reset}>↩ New Scan</button>
               </div>
 
             </div>
@@ -859,6 +837,8 @@ const sprd = result ? (SPREAD_MAP[result.spreadRisk] || SPREAD_MAP.low) : null;
       </div>
       {/* end grid */}
 
-    </div>
+      </div>
+      <Footer />
+    </>
   );
 }

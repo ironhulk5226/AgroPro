@@ -1,7 +1,16 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Header from "../components/Header.jsx";
+import Footer from "../components/Footer.jsx";
 
 const Roadmap = ({ formData, roadmapData }) => {
+  useEffect(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      // Hide loader after delay
+      const timer = setTimeout(() => {
+        setIsPageLoading(false);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }, []);
   // Dummy roadmap data - used as fallback if API data is not available
   const dummyRoadmapData = {
     cropName: formData?.step1Ip?.cropType || "Tomato",
@@ -626,6 +635,7 @@ const Roadmap = ({ formData, roadmapData }) => {
           )}
         </div>
       </div>
+    <Footer/>
     </>
   );
 };

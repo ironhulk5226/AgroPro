@@ -248,35 +248,35 @@ const Hero = () => {
       {/* StickyButtons */}
       <StickyButtons />
       {/*Hero Section*/}
-      <div className="px-40 flex flex-1 justify-center py-5 bg-white dark:bg-gray-900 transition-colors duration-200">
-        <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
+      <div className="px-4 sm:px-6 md:px-8 lg:px-16 xl:px-20 2xl:px-40 flex flex-1 justify-center py-5 bg-white dark:bg-gray-900 transition-colors duration-200">
+        <div className="layout-content-container flex flex-col max-w-7xl w-full flex-1">
           {/* Hero Section */}
-          <div className="@container">
-            <div className="@[480px]:p-4">
+          <div className="w-full">
+            <div className="p-2 sm:p-4">
               <div
-                className="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-xl items-center justify-center p-4"
+                className="flex min-h-[300px] sm:min-h-[400px] md:min-h-[480px] flex-col gap-4 sm:gap-6 md:gap-8 bg-cover bg-center bg-no-repeat rounded-lg sm:rounded-xl items-center justify-center p-4 sm:p-6 md:p-8"
                 style={{
                   backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)), url("https://lh3.googleusercontent.com/aida-public/AB6AXuCEqxc6ybMrFwcqUxFjEJLD3i5NrEvWREXXMjMuY1LU6k6chEat0688O2EssCBDC9-5rfnVNkOWEcEA5dIaEzlPxCUzlsAziIchFerntMJKhGVz2ExZ-IreE7nCVkGwfjnotsZG7zAJFuzJPKyevJqkbOdZW3_XUaUYIUJWkxMkJAKw6ewRnfY2CH0JuEJMW3r_egJX_vMCXSEKPSyJ4dLmSDd_uAD3Vpf7kQie6Y656ccbzthUn0_6JIPFRXyyjpQlb-WjG9E0B0P2")`,
                 }}
               >
-                <div className="flex flex-col gap-2 text-center">
-                  <h1 className="text-white dark:text-gray-100 text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em] transition-colors duration-200">
+                <div className="flex flex-col gap-2 text-center max-w-4xl mx-auto">
+                  <h1 className="text-white dark:text-gray-100 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-tight tracking-[-0.033em] transition-colors duration-200">
                     Revolutionizing Farming with AI and Mechanization
                   </h1>
-                  <h2 className="text-white dark:text-gray-200 text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal transition-colors duration-200">
+                  <h2 className="text-white dark:text-gray-200 text-sm sm:text-base md:text-lg font-normal leading-normal transition-colors duration-200 px-4">
                     Team INDRA's TIFAN agricultural machine combines artificial
                     intelligence and advanced mechanics to transform farming
                     practices.
                   </h2>
                 </div>
-                <div className="flex-wrap gap-3 flex justify-center">
+                <div className="flex flex-col sm:flex-row flex-wrap gap-3 justify-center items-center">
                   <Link to="/about">
-                    <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#11d411] dark:bg-green-600 text-[#111811] dark:text-white text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em] transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:bg-green-600 dark:hover:bg-green-700">
-                      <span className="truncate">Explore TIFAN</span>
+                    <button className="flex min-w-[140px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 sm:h-12 px-4 sm:px-6 bg-[#11d411] dark:bg-green-600 text-[#111811] dark:text-white text-sm sm:text-base font-bold leading-normal tracking-[0.015em] transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:bg-green-600 dark:hover:bg-green-700 w-full sm:w-auto">
+                      <span className="truncate">Explore Indra</span>
                     </button>
                   </Link>
                   <Link to="/form">
-                    <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#f0f4f0] dark:bg-gray-700 text-[#111811] dark:text-white text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em] transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:bg-[#14b714] dark:hover:bg-green-600">
+                    <button className="flex min-w-[140px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 sm:h-12 px-4 sm:px-6 bg-[#f0f4f0] dark:bg-gray-700 text-[#111811] dark:text-white text-sm sm:text-base font-bold leading-normal tracking-[0.015em] transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:bg-[#14b714] dark:hover:bg-green-600 w-full sm:w-auto">
                       <span className="truncate">Try CropCalender</span>
                     </button>
                   </Link>
@@ -286,12 +286,12 @@ const Hero = () => {
           </div>
 
           {/* Services We Offer Section */}
-          <div className="flex flex-col gap-10 px-4 py-10 @container">
+          <div className="flex flex-col gap-6 md:gap-10 px-4 py-6 md:py-10">
             <div className="flex flex-col gap-4">
-              <h1 className="text-[#111811] dark:text-white tracking-light text-[32px] font-bold leading-tight @[480px]:text-4xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em] max-w-[720px] transition-colors duration-200">
+              <h1 className="text-[#111811] dark:text-white tracking-light text-2xl sm:text-3xl md:text-4xl font-bold leading-tight max-w-full transition-colors duration-200">
                 Services We Offer
               </h1>
-              <p className="text-[#111811] dark:text-gray-300 text-base font-normal leading-normal max-w-[720px] transition-colors duration-200">
+              <p className="text-[#111811] dark:text-gray-300 text-sm sm:text-base font-normal leading-normal max-w-full transition-colors duration-200">
                 Comprehensive agricultural solutions powered by AI and advanced
                 technology to revolutionize modern farming practices.
               </p>
@@ -328,7 +328,7 @@ const Hero = () => {
               )}
 
               <div
-                className={`grid grid-cols-1 @[640px]:grid-cols-2 gap-6 min-h-[520px] transition-all duration-300 ease-in-out transform ${
+                className={`grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 min-h-[400px] sm:min-h-[520px] transition-all duration-300 ease-in-out transform ${
                   isFeatureTransitioning
                     ? "opacity-0 scale-95"
                     : "opacity-100 scale-100"
@@ -336,13 +336,13 @@ const Hero = () => {
               >
                 {currentFeatures.map((item, idx) => (
                   <Link key={idx} to={item.path} className="group">
-                    <div className="flex flex-col gap-4 rounded-xl shadow-md p-6 bg-white dark:bg-gray-800 border border-transparent dark:border-gray-700 transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:bg-[#e7f7e7] dark:hover:bg-gray-700 h-full">
+                    <div className="flex flex-col gap-3 sm:gap-4 rounded-xl shadow-md p-4 sm:p-6 bg-white dark:bg-gray-800 border border-transparent dark:border-gray-700 transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:bg-[#e7f7e7] dark:hover:bg-gray-700 h-full">
                       <div
-                        className="w-full h-72 rounded-xl bg-cover bg-center shadow-sm flex-shrink-0"
+                        className="w-full aspect-square rounded-xl bg-cover bg-center shadow-sm flex-shrink-0"
                         style={{ backgroundImage: `url(${item.img})` }}
                       ></div>
-                      <div className="flex flex-col gap-3 flex-grow">
-                        <h3 className="text-[#111811] dark:text-white font-bold text-xl transition-colors duration-200">
+                      <div className="flex flex-col gap-2 sm:gap-3 flex-grow">
+                        <h3 className="text-[#111811] dark:text-white font-bold text-lg sm:text-xl transition-colors duration-200">
                           {item.title}
                         </h3>
                         <p className="text-[#618961] dark:text-gray-400 text-sm transition-colors duration-200 flex-grow leading-relaxed">
@@ -379,35 +379,35 @@ const Hero = () => {
           </div>
 
           {/* Features Overview Section */}
-          <div className="flex flex-col gap-10 px-4 py-10 @container bg-gray-50 dark:bg-gray-800 rounded-xl transition-colors duration-200">
+          <div className="flex flex-col gap-6 md:gap-10 px-4 py-6 md:py-10 bg-gray-50 dark:bg-gray-800 rounded-xl transition-colors duration-200 mt-6 md:mt-10">
             <div className="flex flex-col gap-4 text-center">
-              <h1 className="text-[#111811] dark:text-white tracking-light text-[32px] font-bold leading-tight @[480px]:text-4xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em] max-w-[720px] mx-auto transition-colors duration-200">
+              <h1 className="text-[#111811] dark:text-white tracking-light text-2xl sm:text-3xl md:text-4xl font-bold leading-tight max-w-4xl mx-auto transition-colors duration-200">
                 Explore Our Complete Solutions
               </h1>
-              <p className="text-[#111811] dark:text-gray-300 text-base font-normal leading-normal max-w-[620px] mx-auto transition-colors duration-200">
-                Discover how TIFAN and our agricultural solutions can transform
+              <p className="text-[#111811] dark:text-gray-300 text-sm sm:text-base font-normal leading-normal max-w-2xl mx-auto transition-colors duration-200">
+                Discover how our agricultural solutions can transform
                 your farming operations with cutting-edge technology and proven
                 results.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 @[640px]:grid-cols-2 @[960px]:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <Link to="/features" className="group block">
-                <div className="bg-white dark:bg-gray-700 rounded-lg p-6 text-center transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group-hover:bg-green-50 dark:group-hover:bg-green-900/20 border border-[#dbe6db] dark:border-gray-600">
+                <div className="bg-white dark:bg-gray-700 rounded-lg p-4 sm:p-6 text-center transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group-hover:bg-green-50 dark:group-hover:bg-green-900/20 border border-[#dbe6db] dark:border-gray-600">
                   <div className="p-2 text-green-700 dark:text-green-500 mb-3 transition-colors duration-200">
-                    <FaLeaf className="w-8 h-8 mx-auto" />
+                    <FaLeaf className="w-6 h-6 sm:w-8 sm:h-8 mx-auto" />
                   </div>
-                  <h3 className="text-[#111811] dark:text-white font-bold text-base mb-2 transition-colors duration-200">
+                  <h3 className="text-[#111811] dark:text-white font-bold text-sm sm:text-base mb-2 transition-colors duration-200">
                     Smart Features
                   </h3>
-                  <p className="text-[#618961] dark:text-gray-400 text-sm transition-colors duration-200">
+                  <p className="text-[#618961] dark:text-gray-400 text-xs sm:text-sm transition-colors duration-200">
                     Explore all intelligent features and capabilities
                   </p>
                 </div>
               </Link>
 
               <Link to="/about-tifan" className="group block">
-                <div className="bg-white dark:bg-gray-700 rounded-lg p-6 text-center transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group-hover:bg-green-50 dark:group-hover:bg-green-900/20 border border-[#dbe6db] dark:border-gray-600">
+                <div className="bg-white dark:bg-gray-700 rounded-lg p-4 sm:p-6 text-center transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group-hover:bg-green-50 dark:group-hover:bg-green-900/20 border border-[#dbe6db] dark:border-gray-600">
                   <div className="p-2 text-green-700 dark:text-green-500 mb-3 transition-colors duration-200">
                     <FaIndustry className="w-8 h-8 mx-auto" />
                   </div>
@@ -451,19 +451,19 @@ const Hero = () => {
           </div>
 
           {/* Achievements Section */}
-          <div className="flex flex-col gap-10 px-4 py-10 @container">
+          <div className="flex flex-col gap-6 md:gap-10 px-4 py-6 md:py-10">
             <div className="flex flex-col gap-4 text-center">
-              <h1 className="text-[#111811] dark:text-white tracking-light text-[32px] font-bold leading-tight @[480px]:text-4xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em] max-w-[720px] mx-auto transition-colors duration-200">
+              <h1 className="text-[#111811] dark:text-white tracking-light text-2xl sm:text-3xl md:text-4xl font-bold leading-tight max-w-4xl mx-auto transition-colors duration-200">
                 Our Latest Achievements
               </h1>
-              <p className="text-[#111811] dark:text-gray-300 text-base font-normal leading-normal max-w-[620px] mx-auto transition-colors duration-200">
+              <p className="text-[#111811] dark:text-gray-300 text-sm sm:text-base font-normal leading-normal max-w-2xl mx-auto transition-colors duration-200">
                 Celebrating our journey of innovation, recognition, and
                 excellence in agricultural technology
               </p>
             </div>
 
             {/* Achievement Cards */}
-            <div className="grid grid-cols-1 @[640px]:grid-cols-2 @[960px]:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
               {achievements.map((achievement, index) => (
                 <div
                   key={achievement.id}
