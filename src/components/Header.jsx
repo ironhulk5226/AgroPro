@@ -252,7 +252,7 @@ function Header() {
       />
 
       {/* Header */}
-      <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f1f3f1] dark:border-b-gray-700 px-4 md:px-6 lg:px-10 py-3 bg-white dark:bg-gray-900 transition-colors duration-200 relative z-[60] h-16">
+      <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f1f3f1] dark:border-b-gray-700 px-4 md:px-6 lg:px-10 py-4 bg-white dark:bg-gray-900 transition-colors duration-200 relative z-[60] h-20">
         <div className="flex items-center gap-2 md:gap-4 text-[#131613] dark:text-white transition-colors duration-200">
           {/* Logo  */}
           <img 
@@ -266,9 +266,9 @@ function Header() {
           </h2>
         </div>
         {/* Desktop Navigation */}
-        <div className="hidden lg:flex flex-1 justify-end gap-8">
-          <div className="flex items-center gap-9">
-            <nav className="flex space-x-4">
+        <div className="hidden lg:flex flex-1 justify-end">
+          <div className="flex items-center gap-6">
+            <nav className="flex items-center space-x-6">
               {navItems.map(({ label, path }) => (
                 <Link
                   key={label}
@@ -282,31 +282,25 @@ function Header() {
                   {label}
                 </Link>
               ))}
-            </nav>
-          </div>
-          {/* Google Translate */}
-          <div className="flex items-center">
-            <div id="google_element" className="translate-widget"></div>
-          </div>
-          <div className="flex gap-2">
-            <div className="flex gap-2">
+              {/* Google Translate */}
+              <div className="flex items-center">
+                <div id="google_element" className="translate-widget"></div>
+              </div>
+              {/* Logout Button */}
               <button
                 onClick={() => handleLogout()}
                 className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#daf0da] dark:bg-green-700 text-[#131613] dark:text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-green-600 dark:hover:bg-green-600 transition-colors duration-200"
               >
                 Logout
               </button>
-            </div>
-            <div className="flex max-w-[480px] items-center justify-center overflow-hidden rounded-full h-10 bg-[#f1f3f1] dark:bg-gray-800 text-[#131613] dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 transition-colors duration-200">
-              <div className="text-[#131613] dark:text-white transition-colors duration-200">
-                <button
-                  onClick={toggleTheme}
-                  className="p-1 cursor-pointer text-green-600 dark:text-green-400 hover:bg-green-300 dark:hover:bg-green-700 rounded-full transition-all duration-200"
-                >
-                  {darkMode ? <BsMoon size={20} /> : <BsSun size={20} />}
-                </button>
-              </div>
-            </div>
+              {/* Dark Mode Toggle */}
+              <button
+                onClick={toggleTheme}
+                className="p-2 cursor-pointer text-green-600 dark:text-green-400 hover:bg-green-100 dark:hover:bg-gray-700 rounded-full transition-all duration-200"
+              >
+                {darkMode ? <BsMoon size={20} /> : <BsSun size={20} />}
+              </button>
+            </nav>
           </div>
         </div>
         {/* Mobile Controls */}
@@ -331,7 +325,7 @@ function Header() {
       </header>
 
       {/* Mobile Menu */}
-      <div className={`mobile-menu-container lg:hidden fixed inset-x-0 top-16 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 transition-all duration-300 ease-in-out z-50 shadow-lg ${
+      <div className={`mobile-menu-container lg:hidden fixed inset-x-0 top-20 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 transition-all duration-300 ease-in-out z-50 shadow-lg ${
         isMenuOpen ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-full invisible"
       }`}>
         <nav className="flex flex-col px-4 py-4 space-y-2">
