@@ -9,6 +9,8 @@ import { useState, useEffect } from "react";
 import schemesImg from "../assets/Feature_Images/schemes.png";
 import weatherImg from "../assets/Feature_Images/weather-wise.png";
 import PlantDiseaseDetectorImg from "../assets/Feature_Images/PlantDiseaseDetector.png";
+import cropCalenderImg from "../assets/Feature_Images/CropCalender.jpeg";
+
 function Features() {
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -24,6 +26,12 @@ function Features() {
   }, []);
 
   const resources = [
+    {
+      title: "Crop Calender",
+      desc: "Plan your farming activities with our Crop Calendar, providing timely reminders for planting, fertilizing, and harvesting based on your location and crops.",
+      img: cropCalenderImg,
+      path: "/form",
+    },
     {
       title: "Weather Wise",
       desc: "Stay ahead with accurate weather forecasts and farming advice tailored to your crops and location.",

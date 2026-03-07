@@ -44,12 +44,12 @@ const Step1 = ({ inputs, onChange = () => {}, stepKey }) => {
             onChange={handleChange("cropType")}
             className="form-input rounded-xl bg-[#f3f4f0] h-14 p-4"
           >
-            <option hidden disabled value="">
+            <option hidden disabled value="" required>
               Select Crop
             </option>
             <option value="brinjal">Brinjal</option>
             <option value="chili">Chili</option>
-            <option value="onion">Onion</option>
+            <option value="onion">Tomato</option>
           </select>
         </label>
       </div>
@@ -63,6 +63,7 @@ const Step1 = ({ inputs, onChange = () => {}, stepKey }) => {
             onChange={handleChange("plantingDate")}
             placeholder="YYYY-MM-DD"
             className="form-input rounded-xl bg-[#f3f4f0] h-14 p-4"
+            required
           />
         </label>
       </div>
@@ -75,6 +76,7 @@ const Step1 = ({ inputs, onChange = () => {}, stepKey }) => {
             onChange={handleChange("area")}
             placeholder="Enter area"
             className="form-input rounded-xl bg-[#f3f4f0] h-14 p-4"
+            required
           />
         </label>
       </div>

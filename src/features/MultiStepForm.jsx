@@ -159,7 +159,39 @@ Include phases like: Land Preparation, Sowing/Transplanting, Vegetative Growth, 
     }
   }
 
+  function validateStep(step) {
+    const { step1Ip, step2Ip, step3Ip } = inputs;
+    const missing = [];
+
+    if (step === Page.Step1) {
+      if (!step1Ip.cropType) missing.push("Crop Type");
+      if (!step1Ip.plantingDate) missing.push("Planting Date");
+      if (!step1Ip.area) missing.push("Area");
+    } else if (step === Page.Step2) {
+      if (!step2Ip.soilType) missing.push("Soil Type");
+      if (step2Ip.soilTest) {
+        if (!step2Ip.nitrogen) missing.push("Nitrogen (N)");
+        if (!step2Ip.phosphorus) missing.push("Phosphorus (P)");
+        if (!step2Ip.potassium) missing.push("Potassium (K)");
+        if (!step2Ip.pH) missing.push("Soil pH");
+        if (!step2Ip.carbon) missing.push("Organic Carbon %");
+      }
+    } else if (step === Page.Step3) {
+      if (!step3Ip.waterSource) missing.push("Water Source");
+      if (!step3Ip.irrigationType) missing.push("Irrigation Type");
+      if (!step3Ip.wateringFreq) missing.push("Frequency of Watering");
+    }
+
+    if (missing.length > 0) {
+      alert(`Please fill in: ${missing.join(", ")}`);
+      return false;
+    }
+    return true;
+  }
+
   function handleNext() {
+    if (!validateStep(currentStep)) return;
+
     if (currentStep === Page.Step1) {
       setCurrentStep(currentStep + 1);
     } else if (currentStep === Page.Step2) {
@@ -229,7 +261,7 @@ Include phases like: Land Preparation, Sowing/Transplanting, Vegetative Growth, 
             <div className="flex flex-wrap justify-between gap-3 p-4">
               <div className="flex min-w-72 flex-col gap-3">
                 <p className="text-[#151811] dark:text-white tracking-light text-[32px] font-bold leading-tight transition-colors duration-200">
-                  Field Data Wizard
+                  CropCalender
                 </p>
                 <p className="text-[#788863] dark:text-gray-400 text-sm font-normal leading-normal transition-colors duration-200">
                   Follow these steps to input your crop and field data.
