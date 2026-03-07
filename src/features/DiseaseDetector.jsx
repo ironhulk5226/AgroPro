@@ -189,6 +189,10 @@ export default function DiseaseDetector() {
 
   // ── Anthropic Vision API (no external package needed) ────────────────────
   const analyze = async ()=>{
+
+    const GEMINI_API_URL = import.meta.env.VITE_GEMINI_API_URL;
+    const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+
     if(!b64)return;
     setLoading(true);setScanning(true);setError("");setResult(null);
     const scanT=setTimeout(()=>setScanning(false),2500);
