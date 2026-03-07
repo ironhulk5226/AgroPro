@@ -188,119 +188,178 @@ export default function DiseaseDetector() {
   const onDrop   = (e)=>{e.preventDefault();setDragging(false);processFile(e.dataTransfer.files[0]);};
 
   // ── Anthropic Vision API (no external package needed) ────────────────────
-  const analyze = async ()=>{
-    if(!b64)return;
-    setLoading(true);setScanning(true);setError("");setResult(null);
-    const scanT=setTimeout(()=>setScanning(false),2500);
+const analyze = async () => {
+  if (!b64) return;
 
-    const PROMPT = `You are a world-class agricultural plant pathologist. Analyze this plant image and respond ONLY with a raw JSON object — no markdown, no fences, no explanation.
+  setLoading(true);
+  setScanning(true);
+  setError("");
+  setResult(null);
 
-Schema:
+  const scanT = setTimeout(() => setScanning(false), 2500);
+
+ const PROMPT = `
+You are a professional plant disease expert.
+
+Analyze the plant leaf image and return ONLY valid JSON.
+
+Do NOT include explanations, markdown, or extra text.
+
+Return exactly this JSON schema:
+
 {
-  "isHealthy": boolean,
-  "plantName": string,
-  "scientificName": string,
-  "diseaseName": string,
-  "confidence": number (0-100),
-  "severity": "none"|"low"|"moderate"|"high",
-  "affectedPart": string,
-  "estimatedDamage": string,
-  "spreadRisk": "low"|"moderate"|"high",
-  "symptoms": [string,string,string],
-  "organicTreatments": [string,string,string],
-  "chemicalTreatments": [string,string],
-  "preventionTips": [string,string,string],
-  "urgency": string,
-  "notes": string
+"isHealthy": boolean,
+"plantName": string,
+"scientificName": string,
+"diseaseName": string,
+"confidence": number,
+"severity": "none"|"low"|"moderate"|"high",
+"affectedPart": string,
+"estimatedDamage": string,
+"spreadRisk": "low"|"moderate"|"high",
+"symptoms": [string,string,string],
+"organicTreatments": [string,string,string],
+"chemicalTreatments": [string,string],
+"preventionTips": [string,string,string],
+"urgency": string,
+"notes": string
 }
-If healthy: isHealthy=true, diseaseName="No Disease Detected", severity="none", spreadRisk="low". Be specific and scientific.`;
 
-    try {
-      const res = await fetch("https://api.anthropic.com/v1/messages",{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({
-          model:"claude-sonnet-4-20250514",
-          max_tokens:1000,
-          messages:[{
-            role:"user",
-            content:[
-              {type:"image",source:{type:"base64",media_type:mime,data:b64}},
-              {type:"text",text:PROMPT}
+Rules:
+- Always return valid JSON
+- No text outside JSON
+- If plant is healthy:
+  diseaseName = "No Disease Detected"
+  severity = "none"
+  spreadRisk = "low"
+`;
+
+  try {
+
+    const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer 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",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: "openai/gpt-4o",
+        max_tokens: 1000,
+        messages: [
+          {
+            role: "user",
+            content: [
+              {
+                type: "text",
+                text: PROMPT
+              },
+              {
+                type: "image_url",
+                image_url: {
+                  url: `data:${mime};base64,${b64}`
+                }
+              }
             ]
-          }]
-        })
-      });
-      const data = await res.json();
-      const raw  = data.content?.map(c=>c.text||"").join("").trim();
-      if(!raw)throw new Error("Empty response");
-      const clean = raw.replace(/```json|```/gi,"").trim();
-      const parsed= JSON.parse(clean);
-      setResult(parsed);
+          }
+        ]
+      })
+    });
 
-      const entry={
-        id:Date.now(), thumb:image, result:parsed,
-        time:new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}),
-      };
-      setHistory(p=>[entry,...p].slice(0,5));
-      setShowHist(true);
-    } catch(err){
-      console.error(err);
-      setError(
-        err.message?.includes("JSON")
-          ?"AI returned unexpected format — please try again."
-          :"Analysis failed. Please try again."
-      );
-    } finally {
-      clearTimeout(scanT);setLoading(false);setScanning(false);
-    }
-  };
+    const data = await res.json();
 
-  const reset=()=>{
-    setImage(null);setB64("");setResult(null);
-    setError("");setFileName("");setFileSize("");setActiveHist(null);
-    if(fileRef.current)fileRef.current.value="";
-  };
+   const content = data?.choices?.[0]?.message?.content;
 
-  const recall=(entry)=>{
-    setImage(entry.thumb);setResult(entry.result);
-    setActiveHist(entry.id);setTab(0);setError("");
-  };
+const raw =
+  typeof content === "string"
+    ? content
+    : content?.map(c => c.text || "").join("") || "";
 
-  const copyReport=()=>{
-    if(!result)return;
-    const r=result;
-    const txt=[
-      "══════════════════════════",
-      "  AgroPro · Disease Report",
-      "══════════════════════════",
-      `Plant      : ${r.plantName} (${r.scientificName})`,
-      `Diagnosis  : ${r.diseaseName}`,
-      `Severity   : ${r.severity}  |  Spread: ${r.spreadRisk}`,
-      `Confidence : ${r.confidence}%`,
-      `Affected   : ${r.affectedPart}  |  Damage: ${r.estimatedDamage}`,
-      `Urgency    : ${r.urgency}`,
-      "","── Symptoms ──",
-      ...(r.symptoms?.map(s=>"  • "+s)||[]),
-      "","── Organic Treatments ──",
-      ...(r.organicTreatments?.map(s=>"  • "+s)||[]),
-      "","── Chemical Options ──",
-      ...(r.chemicalTreatments?.map(s=>"  • "+s)||[]),
-      "","── Prevention ──",
-      ...(r.preventionTips?.map(s=>"  • "+s)||[]),
-      "","Expert Note: "+r.notes,
-      "══════════════════════════",
-    ].join("\n");
-    navigator.clipboard.writeText(txt).then(()=>{setCopied(true);setTimeout(()=>setCopied(false),2500);});
-  };
+    if (!raw) throw new Error("Empty response");
 
-  // derived
-  const sev  = result?(SEV_MAP[result.severity]   ||SEV_MAP.low)    :null;
-  const sprd = result?(SPREAD_MAP[result.spreadRisk]||SPREAD_MAP.low):null;
+    const clean = raw.replace(/```json|```/gi, "").trim();
 
+    const parsed = JSON.parse(clean);
+
+    
+
+    setResult(parsed);
+
+    const entry = {
+      id: Date.now(),
+      thumb: image,
+      result: parsed,
+      time: new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit"
+      })
+    };
+
+    setHistory(p => [entry, ...p].slice(0, 5));
+    setShowHist(true);
+
+  } catch (err) {
+
+    console.error(err);
+
+    setError(
+      err.message?.includes("JSON")
+        ? "AI returned unexpected format — please try again."
+        : "Analysis failed. Please try again."
+    );
+
+  } finally {
+
+    clearTimeout(scanT);
+    setLoading(false);
+    setScanning(false);
+
+  }
+};
+const reset = () => {
+  setImage(null);
+  setB64("");
+  setResult(null);
+  setError("");
+  setFileName("");
+  setFileSize("");
+  setActiveHist(null);
+
+  if (fileRef.current) fileRef.current.value = "";
+};
+const copyReport = () => {
+
+  if (!result) return;
+
+  const report = `
+Plant: ${result.plantName}
+Disease: ${result.diseaseName}
+Severity: ${result.severity}
+Confidence: ${result.confidence}%
+
+Symptoms:
+${result.symptoms?.join("\n") || ""}
+
+Organic Treatments:
+${result.organicTreatments?.join("\n") || ""}
+
+Prevention:
+${result.preventionTips?.join("\n") || ""}
+`;
+
+  navigator.clipboard.writeText(report);
+
+  setCopied(true);
+
+  setTimeout(() => {
+    setCopied(false);
+  }, 2000);
+
+};
+const sev  = result ? (SEV_MAP[result.severity] || SEV_MAP.low) : null;
+const sprd = result ? (SPREAD_MAP[result.spreadRisk] || SPREAD_MAP.low) : null;
   // ── RENDER ─────────────────────────────────────────────────────────────────
   return (
-    <div style={{minHeight:"100vh",background:"linear-gradient(150deg,#071a0d 0%,#0f2918 40%,#071a0d 100%)",
+    <div style={{minHeight:"100vh",background:"#73D498",
       fontFamily:"'DM Sans',system-ui,sans-serif",paddingBottom:60}}>
 
       {/* LIGHTBOX */}
@@ -327,7 +386,7 @@ If healthy: isHealthy=true, diseaseName="No Disease Detected", severity="none", 
       )}
 
       {/* HEADER */}
-      <div style={{background:"rgba(255,255,255,.04)",borderBottom:"1px solid rgba(134,239,172,.12)",
+      <div style={{background:"rgba(43, 179, 99, 0.92)",borderBottom:"1px solid rgba(21, 141, 21, 0.12)",
         backdropFilter:"blur(16px)",padding:"22px 28px"}}>
         <div style={{maxWidth:1220,margin:"0 auto",display:"flex",alignItems:"center",gap:16,flexWrap:"wrap"}}>
           <div style={{width:54,height:54,borderRadius:16,flexShrink:0,
@@ -340,12 +399,12 @@ If healthy: isHealthy=true, diseaseName="No Disease Detected", severity="none", 
               textShadow:"0 2px 28px rgba(22,163,74,.38)"}}>
               Plant Disease Detector
             </h1>
-            <p style={{margin:"4px 0 0",fontSize:"0.83rem",color:"#86efac",fontWeight:400,letterSpacing:"0.02em"}}>
+            <p style={{margin:"4px 0 0",fontSize:"0.83rem",color:"#02471b",fontWeight:400,letterSpacing:"0.02em"}}>
               AI-powered phytopathological diagnosis · Upload any plant photo
             </p>
           </div>
           {history.length>0&&(
-            <div style={{marginLeft:"auto"}}>
+            <div style={{marginLeft:"auto"}}>   
               <span style={{background:"rgba(22,163,74,.18)",border:"1px solid rgba(134,239,172,.28)",
                 borderRadius:20,padding:"5px 16px",fontSize:"0.77rem",color:"#86efac",fontWeight:600}}>
                 🔬 {history.length} scan{history.length>1?"s":""} this session
