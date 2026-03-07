@@ -1,5 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 
+
+const API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
 const SEV_MAP = {
   none:     { label:"Healthy",  arc:"#22c55e", bg:"#dcfce7", text:"#15803d", ring:"#86efac", glow:"rgba(34,197,94,0.28)"  },
@@ -234,12 +236,14 @@ Rules:
   spreadRisk = "low"
 `;
 
+
+
   try {
 
     const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
-        "Authorization": "Bearer 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",
+        "Authorization": `Bearer ${API_KEY}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
@@ -265,6 +269,19 @@ Rules:
       })
     });
 
+    // Check for HTTP errors
+    if (!res.ok) {
+      if (res.status === 401) {
+        throw new Error("API authentication failed. Please check your API key.");
+      } else if (res.status === 429) {
+        throw new Error("Rate limit exceeded. Please try again in a moment.");
+      } else if (res.status === 500) {
+        throw new Error("Server error. Please try again later.");
+      } else {
+        throw new Error(`API request failed with status ${res.status}`);
+      }
+    }
+
     const data = await res.json();
 
    const content = data?.choices?.[0]?.message?.content;
@@ -274,13 +291,28 @@ const raw =
     ? content
     : content?.map(c => c.text || "").join("") || "";
 
-    if (!raw) throw new Error("Empty response");
+    if (!raw) {
+      console.warn("API Response:", data);
+      throw new Error("No content received from AI. Please try again.");
+    }
 
     const clean = raw.replace(/```json|```/gi, "").trim();
 
-    const parsed = JSON.parse(clean);
+    if (!clean) {
+      throw new Error("Empty response after cleaning. Please try again.");
+    }
 
-    
+    let parsed;
+    try {
+      parsed = JSON.parse(clean);
+    } catch (parseError) {
+      console.warn("Failed to parse JSON:", clean);
+      throw new Error("Invalid response format from AI. Please try again.");
+    }
+
+    if (!parsed || typeof parsed !== 'object') {
+      throw new Error("Invalid analysis result. Please try again.");
+    }
 
     setResult(parsed);
 
@@ -299,13 +331,25 @@ const raw =
 
   } catch (err) {
 
-    console.error(err);
+    console.error("Analysis Error:", err);
 
-    setError(
-      err.message?.includes("JSON")
-        ? "AI returned unexpected format — please try again."
-        : "Analysis failed. Please try again."
-    );
+    let errorMessage = "Analysis failed. Please try again.";
+    
+    if (err.message?.includes("authentication")) {
+      errorMessage = "Authentication failed. The API key may be invalid or expired.";
+    } else if (err.message?.includes("Rate limit")) {
+      errorMessage = "Too many requests. Please wait a moment and try again.";
+    } else if (err.message?.includes("Server error")) {
+      errorMessage = "Server temporarily unavailable. Please try again later.";
+    } else if (err.message?.includes("JSON") || err.message?.includes("parse")) {
+      errorMessage = "AI returned unexpected format. Please try again.";
+    } else if (err.message?.includes("No content")) {
+      errorMessage = "No response from AI service. Please try again.";
+    } else if (err.name === "TypeError" && err.message?.includes("fetch")) {
+      errorMessage = "Network error. Please check your internet connection.";
+    }
+
+    setError(errorMessage);
 
   } finally {
 
@@ -818,4 +862,3 @@ const sprd = result ? (SPREAD_MAP[result.spreadRisk] || SPREAD_MAP.low) : null;
     </div>
   );
 }
-
