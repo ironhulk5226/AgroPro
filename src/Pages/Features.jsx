@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import schemesImg from "../assets/Feature_Images/schemes.png";
 import weatherImg from "../assets/Feature_Images/weather-wise.png";
-
+import PlantDiseaseDetectorImg from "../assets/Feature_Images/PlantDiseaseDetector.png";
 function Features() {
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -49,10 +49,10 @@ function Features() {
       path: "/chatbot",
     },
     {
-      title: "Title",
-      desc: "Description",
-      img: "",
-      path: "",
+      title: "Plant Diseases Detector",
+      desc: "Plant Disease Detector helps farmers identify crop diseases by analyzing images of plant leaves using AI.",
+      img: PlantDiseaseDetectorImg,
+      path: "/disease-detector",
     },
   ];
 

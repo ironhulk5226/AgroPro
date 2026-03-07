@@ -14,6 +14,7 @@ import Feedback from "./Pages/Feedback";
 import Achievements from "./Pages/Achievements";
 import Gallery from "./Pages/Gallery";
 import Roadmap from "./features/Roadmap";
+import DiseaseDetector from "./features/DiseaseDetector";
 
 
 
@@ -38,6 +39,7 @@ function App() {
         <Route path="/achievements" element={<Achievements/>}/>
         <Route path="/gallery" element={<Gallery/>}/>
         <Route path="/roadmap" element={<Roadmap/>}/>
+        <Route path="/disease-detector" element={<DiseaseDetector/>}/>
         <Route path="*" element={<Hero/>} />
       </Routes>
    </BrowserRouter>
