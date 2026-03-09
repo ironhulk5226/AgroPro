@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from "react";
-import Loader from '../components/Loader.jsx';
+import Loader from "../components/Loader";
 
 
 const API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
@@ -139,10 +139,15 @@ export default function DiseaseDetector() {
   const [activeHist, setActiveHist] = useState(null);
   const [showHist,   setShowHist]   = useState(false);
   const [copied,     setCopied]     = useState(false);
+  const [isPageLoading, setIsPageLoading] = useState(true);
   const fileRef = useRef(null);
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    const timer = setTimeout(() => {
+      setIsPageLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
   }, []);
 
   // inject CSS once
@@ -437,11 +442,9 @@ ${result.preventionTips?.join("\n") || ""}
 const sev  = result ? (SEV_MAP[result.severity] || SEV_MAP.low) : null;
 const sprd = result ? (SPREAD_MAP[result.spreadRisk] || SPREAD_MAP.low) : null;
   // ── RENDER ─────────────────────────────────────────────────────────────────
+  if (isPageLoading) return <Loader />;
   return (
     <>
-      {/* Show main loader during analysis */}
-      {loading && <Loader />}
-      
       <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200" style={{paddingBottom:60}}>
 
       {/* LIGHTBOX */}

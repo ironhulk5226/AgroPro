@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Step1 from "../components/formSteps/Step1.jsx";
 import Step2 from "../components/formSteps/Step2.jsx";
 import Step3 from "../components/formSteps/Step3.jsx";
 import Roadmap from "./Roadmap.jsx";
 import axios from "axios";
 import { SyncLoader } from "react-spinners";
+import Loader from "../components/Loader";
 
 const Page = {
   Step1: 1,
@@ -17,6 +18,15 @@ const MultiStepForm = () => {
   const [showRoadmap, setShowRoadmap] = useState(false);
   const [roadmapData, setRoadmapData] = useState(null);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isPageLoading, setIsPageLoading] = useState(true);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    const timer = setTimeout(() => {
+      setIsPageLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const GEMINI_API_URL = import.meta.env.VITE_GEMINI_API_URL;
   const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
@@ -215,6 +225,9 @@ Include phases like: Land Preparation, Sowing/Transplanting, Vegetative Growth, 
 
     setInputs(oldIp);
   }
+
+  // Show page loader on initial mount
+  if (isPageLoading) return <Loader />;
 
   // Show loading state while generating roadmap
   if (isGenerating) {

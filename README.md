@@ -57,6 +57,12 @@
 - **Optimized** positioning for mobile devices (slightly lower placement)
 - **Styled** with green/red color coding and appropriate animations
 
+#### ✅ **Page Loading Experience**
+- **Added** `Loader` component to **Disease Detector**, **Crop Calendar (MultiStepForm)**, and **Roadmap** pages
+- **Implemented** 1-second loading screen on initial page mount for smoother transitions
+- **Uses** the shared `Loader` component with animated leaf icon, spinning ring, bouncing dots, and progress bar
+- **Scroll-to-top** on page load for consistent user experience across all feature pages
+
 #### ✅ **Disease Detector AI Enhancements**
 - **Fixed** confidence percentage display (was showing fixed 0.95%, now dynamic)
 - **Improved** AI prompt for more realistic confidence calculations (45-98% range)
