@@ -9,7 +9,7 @@ const StickyButtons = () => {
       bg: 'bg-orange-500',
     },
     {
-      href: 'https://apkpure.com/agropro/com.example.agro_pro',
+      href: 'https://drive.google.com/file/d/1pfCR7FWsFkM7NuqcKEIDzAZdAmeiRSqs/view?usp=sharing',
       icon: '⬇️',
       label: 'Download',
       bg: 'bg-blue-500',

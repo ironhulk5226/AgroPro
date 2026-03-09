@@ -34,6 +34,49 @@
 
 ---
 
+## 🚀 Recent Updates & Improvements
+
+### Latest Changes (March 2026)
+
+#### ✅ **Google Translate Integration**
+- **Fixed** Google Translate dropdown functionality and styling
+- **Enhanced** language selector with proper theme integration (light/dark mode)
+- **Resolved** SPA navigation issues - translate widget now persists across route changes
+- **Added** support for multiple Indian languages with proper UI positioning
+
+#### ✅ **Navigation & UI Improvements**
+- **Moved** Header and Footer to App.jsx for consistent layout across all routes
+- **Fixed** mobile hamburger menu positioning issue (Home button now visible)
+- **Enhanced** z-index management for mobile menu overlays
+- **Improved** responsive design for mobile devices with proper spacing
+
+#### ✅ **Internet Connectivity Monitoring**
+- **Added** new `InternetStatus` component using `navigator.onLine`
+- **Implemented** real-time online/offline notifications
+- **Features** auto-dismiss (5 seconds) and manual close options
+- **Optimized** positioning for mobile devices (slightly lower placement)
+- **Styled** with green/red color coding and appropriate animations
+
+#### ✅ **Disease Detector AI Enhancements**
+- **Fixed** confidence percentage display (was showing fixed 0.95%, now dynamic)
+- **Improved** AI prompt for more realistic confidence calculations (45-98% range)
+- **Enhanced** confidence calculation based on image quality, lighting, and symptom clarity
+- **Added** proper error handling for undefined state variables
+
+#### ✅ **Code Quality & Performance**
+- **Removed** duplicate Header/Footer imports from individual page components
+- **Cleaned up** unused state references and improved error handling
+- **Optimized** component architecture for better maintainability
+- **Enhanced** TypeScript-like prop validation and error boundaries
+
+### Development Notes
+- All changes maintain backward compatibility
+- No breaking changes to existing API integrations
+- Improved mobile responsiveness across all components
+- Enhanced accessibility with proper ARIA labels and focus management
+
+---
+
 ## 🌱 About the Project
 
 **AgroPro** is a comprehensive, AI-driven web platform designed to empower farmers and agricultural professionals with smart tools, real-time data, and actionable insights. Built by **Team INDRA** at Government College of Engineering, Karad (Maharashtra, India), AgroPro bridges the gap between modern technology and traditional farming practices.
@@ -82,6 +125,17 @@ Plan the optimal planting layout for your land to maximize yield using smart spa
 - Input land dimensions (length, width, border) with support for **cm, m, ft, and acres**
 - Instantly calculates total plantable area and estimated plant count
 - Visual diagrams for each planting method
+
+### 🏥 Disease Detector — AI Plant Health Analyzer
+Advanced AI-powered disease detection system to help identify and treat plant health issues.
+- **Upload plant images** for instant AI analysis
+- **AI-powered diagnosis** using OpenRouter API with advanced vision models
+- **Dynamic confidence scoring** showing detection accuracy percentage
+- **Detailed disease information** including symptoms and treatment recommendations
+- **Real-time image preview** before analysis
+- **Loading states** with progress indicators for better user experience
+- Supports common plant diseases affecting major crops
+- Secure image processing with privacy protection
 
 ### 🤖 AgroChat — AI Agricultural Assistant
 An AI-powered chatbot that answers farming questions in real time.
@@ -171,6 +225,7 @@ AgroPro/
 │   │   │   └── Step3.jsx            # Water management setup
 │   │   ├── Footer.jsx               # Site footer
 │   │   ├── Header.jsx               # Navigation bar with theme toggle & Google Translate
+│   │   ├── InternetStatus.jsx       # Internet connectivity monitoring with notifications
 │   │   ├── Loader.jsx               # Loading spinner component
 │   │   ├── StickyButtons.jsx        # Floating action buttons
 │   │   └── ToastStyles.css          # Custom agricultural toast styles
