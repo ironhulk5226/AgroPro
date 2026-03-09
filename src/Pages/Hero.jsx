@@ -403,7 +403,7 @@ const Hero = () => {
                 </div>
               </Link>
 
-              <Link to="/about-tifan" className="group block">
+              <Link to="/about" className="group block">
                 <div className="bg-white dark:bg-gray-700 rounded-lg p-4 sm:p-6 text-center transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group-hover:bg-green-50 dark:group-hover:bg-green-900/20 border border-[#dbe6db] dark:border-gray-600">
                   <div className="p-2 text-green-700 dark:text-green-500 mb-3 transition-colors duration-200">
                     <FaIndustry className="w-8 h-8 mx-auto" />
