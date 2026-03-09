@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from "react";
+import Loader from '../components/Loader.jsx';
 
 
 const API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
@@ -438,6 +439,9 @@ const sprd = result ? (SPREAD_MAP[result.spreadRisk] || SPREAD_MAP.low) : null;
   // ── RENDER ─────────────────────────────────────────────────────────────────
   return (
     <>
+      {/* Show main loader during analysis */}
+      {loading && <Loader />}
+      
       <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200" style={{paddingBottom:60}}>
 
       {/* LIGHTBOX */}
