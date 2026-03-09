@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+
 import Loader from '../components/Loader';
 import { FaCalendarAlt, FaTrophy, FaMedal, FaAward } from 'react-icons/fa';
 
@@ -62,7 +61,6 @@ const Achievements = () => {
   return (
     <div className="bg-white dark:bg-gray-900 min-h-screen transition-colors duration-200">
       {isLoading && <Loader />}
-      <Header />
 
       <div className="px-2 sm:px-4 lg:px-8 xl:px-16 py-8">
         <div className="max-w-7xl mx-auto">
@@ -188,7 +186,6 @@ const Achievements = () => {
         </div>
       </div>
 
-      <Footer />
     </div>
   );
 };

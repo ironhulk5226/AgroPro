@@ -1,6 +1,5 @@
 import React, { useState,useEffect } from "react";
-import Header from "../components/Header.jsx";
-import Footer from "../components/Footer.jsx";
+
 
 const Roadmap = ({ formData, roadmapData }) => {
   useEffect(() => {
@@ -374,7 +373,6 @@ const Roadmap = ({ formData, roadmapData }) => {
 
   return (
     <>
-      <Header />
       <div className="min-h-screen bg-gradient-to-br from-green-50 to-white dark:from-gray-900 dark:to-gray-800 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header Section */}
@@ -635,7 +633,7 @@ const Roadmap = ({ formData, roadmapData }) => {
           )}
         </div>
       </div>
-    <Footer/>
+
     </>
   );
 };

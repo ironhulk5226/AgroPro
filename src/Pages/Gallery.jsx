@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+
 import Loader from '../components/Loader';
 import { FaTimes, FaChevronLeft, FaChevronRight, FaImages, FaExpand } from 'react-icons/fa';
 
@@ -108,8 +107,6 @@ const Gallery = () => {
     <div className="bg-white dark:bg-gray-900 min-h-screen transition-colors duration-200">
       {/* Loader */}
       {isLoading && <Loader />}
-      
-      <Header />
 
       <div className="px-2 sm:px-4 lg:px-8 xl:px-16 py-8">
         <div className="max-w-7xl mx-auto">
@@ -257,7 +254,6 @@ const Gallery = () => {
         </div>
       )}
 
-      <Footer />
     </div>
   );
 };

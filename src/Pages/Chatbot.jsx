@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+
 import Loader from "../components/Loader";
 import { BiLeaf, BiWater, BiSun, BiSend } from "react-icons/bi";
 import axios from "axios";
@@ -101,7 +100,6 @@ function Chatbot() {
   return (
     <div className="bg-white dark:bg-gray-900 transition-colors duration-200">
       {isPageLoading && <Loader />}
-      <Header />
 
       <div className="px-4 sm:px-6 md:px-8 lg:px-16 xl:px-20 2xl:px-40 flex flex-1 justify-center py-5 bg-white dark:bg-gray-900 transition-colors duration-200">
         <div className="layout-content-container flex flex-col max-w-4xl w-full flex-1">
@@ -237,7 +235,6 @@ function Chatbot() {
         </div>
       </div>
 
-      <Footer />
     </div>
   );
 }

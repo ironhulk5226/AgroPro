@@ -5,44 +5,79 @@ import { HiMenu, HiX } from "react-icons/hi";
 import axios from "axios";
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import InternetStatus from "./InternetStatus";
 
 // Custom CSS for Google Translate widget
 const translateStyles = `
-  .translate-widget .goog-te-combo {
-    background: #f1f3f1;
-    border: 1px solid #dce5dc;
-    border-radius: 6px;
-    padding: 4px 8px;
+  #google_element .goog-te-combo {
+    background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+    border: 1.5px solid #4caf50;
+    border-radius: 8px;
+    padding: 5px 10px;
     font-size: 12px;
-    color: #131613;
+    font-weight: 500;
+    color: #2e7d32;
     outline: none;
     cursor: pointer;
+    appearance: auto;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(76, 175, 80, 0.15);
   }
-  
-  .translate-widget .goog-te-combo:hover {
-    background: #e8f5e8;
+
+  #google_element .goog-te-combo:hover {
+    background: linear-gradient(135deg, #c8e6c9, #dcedc8);
+    border-color: #388e3c;
+    box-shadow: 0 2px 6px rgba(76, 175, 80, 0.25);
   }
-  
-  [data-theme="dark"] .translate-widget .goog-te-combo {
-    background: #374151;
-    border-color: #4b5563;
-    color: white;
+
+  #google_element .goog-te-combo:focus {
+    border-color: #2e7d32;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.3);
   }
-  
-  [data-theme="dark"] .translate-widget .goog-te-combo:hover {
-    background: #4b5563;
+
+  [data-theme="dark"] #google_element .goog-te-combo {
+    background: linear-gradient(135deg, #1b3a1b, #1a2e1a);
+    border-color: #4caf50;
+    color: #81c784;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   }
-  
+
+  [data-theme="dark"] #google_element .goog-te-combo:hover {
+    background: linear-gradient(135deg, #254025, #223822);
+    border-color: #66bb6a;
+    box-shadow: 0 2px 6px rgba(76, 175, 80, 0.3);
+  }
+
+  [data-theme="dark"] #google_element .goog-te-combo:focus {
+    border-color: #81c784;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.25);
+  }
+
   .goog-te-banner-frame.skiptranslate {
     display: none !important;
   }
-  
+
   body {
     top: 0 !important;
   }
+
+  /* Hide the Google Translate attribution */
+  .goog-logo-link,
+  .goog-te-gadget > span {
+    display: none !important;
+  }
+  .goog-te-gadget {
+    font-size: 0 !important;
+    line-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  #google_element {
+    line-height: 0;
+  }
 `;
 
-// Inject styles
+// Inject styles once
 if (typeof document !== 'undefined') {
   const style = document.createElement('style');
   style.textContent = translateStyles;
@@ -133,23 +168,20 @@ function Header() {
       localStorage.setItem("theme", "light");
     }
 
-    // Load Google Translate script
-    const script = document.createElement("script");
-    script.src = "https://translate.google.com/translate_a/element.js?cb=loadGoogleTranslate";
-    script.async = true;
-    document.head.appendChild(script);
+    // Load Google Translate script only once
+    if (!document.querySelector('script[src*="translate.google.com"]')) {
+      const script = document.createElement("script");
+      script.src = "https://translate.google.com/translate_a/element.js?cb=loadGoogleTranslate";
+      script.async = true;
+      document.head.appendChild(script);
+    }
 
-    // Define the callback function
-    window.loadGoogleTranslate = function() {
-      new window.google.translate.TranslateElement({ pageLanguage: 'en' }, "google_element");
+    // Simple callback — matches the old site's implementation
+    window.loadGoogleTranslate = function () {
+      new google.translate.TranslateElement("google_element");
     };
 
     return () => {
-      // Cleanup script on component unmount
-      const existingScript = document.querySelector('script[src*="translate.google.com"]');
-      if (existingScript) {
-        document.head.removeChild(existingScript);
-      }
       delete window.loadGoogleTranslate;
     };
   }, []);
@@ -221,6 +253,7 @@ function Header() {
 
   return (
     <>
+      <InternetStatus />
       <ToastContainer
         position="top-center"
         autoClose={5000}
@@ -252,7 +285,7 @@ function Header() {
       />
 
       {/* Header */}
-      <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f1f3f1] dark:border-b-gray-700 px-4 md:px-6 lg:px-10 py-4 bg-white dark:bg-gray-900 transition-colors duration-200 relative z-[60] h-20">
+      <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f1f3f1] dark:border-b-gray-700 px-4 md:px-6 lg:px-10 py-4 bg-white dark:bg-gray-900 transition-colors duration-200 relative z-[60] h-30 mt-5 max-md:mt-3">
         <div className="flex items-center gap-2 md:gap-4 text-[#131613] dark:text-white transition-colors duration-200">
           {/* Logo  */}
           <img 
@@ -282,10 +315,6 @@ function Header() {
                   {label}
                 </Link>
               ))}
-              {/* Google Translate */}
-              <div className="flex items-center">
-                <div id="google_element" className="translate-widget"></div>
-              </div>
               {/* Logout Button */}
               <button
                 onClick={() => handleLogout()}
@@ -324,8 +353,16 @@ function Header() {
         </div>
       </header>
 
+      {/* Language Selector — compact, top-right, below navbar */}
+      <div className={`flex justify-end bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 relative ${isMenuOpen ? 'z-[30]' : 'z-[60]'}`}>
+        <div className="inline-flex items-center py-1.5 gap-2">
+          <span className="text-xs text-green-700 dark:text-green-400 font-semibold whitespace-nowrap tracking-wide">🌐 Language:</span>
+          <div id="google_element"></div>
+        </div>
+      </div>
+
       {/* Mobile Menu */}
-      <div className={`mobile-menu-container lg:hidden fixed inset-x-0 top-20 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 transition-all duration-300 ease-in-out z-50 shadow-lg ${
+      <div className={`mobile-menu-container lg:hidden fixed inset-x-0 top-[160px] max-md:top-[140px] bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 transition-all duration-300 ease-in-out z-[70] shadow-lg overflow-y-auto max-h-[calc(100vh-160px)] max-md:max-h-[calc(100vh-140px)] ${
         isMenuOpen ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-full invisible"
       }`}>
         <nav className="flex flex-col px-4 py-4 space-y-2">
@@ -344,10 +381,6 @@ function Header() {
             </Link>
           ))}
           <div className="pt-4 border-t border-gray-200 dark:border-gray-700 mt-4">
-            {/* Google Translate on Mobile */}
-            <div className="mb-4">
-              <div id="google_element_mobile" className="translate-widget"></div>
-            </div>
             <button
               onClick={() => {
                 handleLogout();
@@ -363,4 +396,5 @@ function Header() {
     </>
   );
 }
+
 export default Header;

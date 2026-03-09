@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Header from "../components/Header";
 import Loader from "../components/Loader";
 import { schemesData } from "../data/schemes";
 import { FiFileText } from "react-icons/fi";
@@ -32,7 +31,6 @@ const Schemes = () => {
   return (
     <>
       {isPageLoading && <Loader />}
-      <Header />
     <div
       className="relative flex min-h-screen flex-col bg-white dark:bg-gray-900 overflow-x-hidden transition-colors duration-200"
       style={{ fontFamily: '"Public Sans", "Noto Sans", sans-serif' }}

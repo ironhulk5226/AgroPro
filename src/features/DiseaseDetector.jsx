@@ -1,6 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+
 
 const API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
@@ -142,13 +141,9 @@ export default function DiseaseDetector() {
   const fileRef = useRef(null);
 
   useEffect(() => {
-      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-      // Hide loader after delay
-      const timer = setTimeout(() => {
-        setIsPageLoading(false);
-      }, 1000);
-      return () => clearTimeout(timer);
-    }, []);
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, []);
+
   // inject CSS once
   useEffect(()=>{
     if(document.getElementById("dd-css"))return;
@@ -249,9 +244,15 @@ Return exactly this JSON schema:
 Rules:
 - Always return valid JSON
 - No text outside JSON
+- confidence: Percentage (0-100) based on:
+  * Image quality and clarity (higher = more confident)
+  * Symptom visibility and distinctiveness (clear symptoms = higher confidence)
+  * Lighting and focus (good lighting = higher confidence)
+  * Disease identification certainty (common diseases = higher confidence)
+  * Examples: blurry image = 45-65%, clear symptoms = 80-95%, perfect conditions = 90-98%
 - If plant is healthy:
   diseaseName = "No Disease Detected"
-  severity = "none"
+  severity = "none"  
   spreadRisk = "low"
 `;
 
@@ -331,6 +332,20 @@ const raw =
 
     if (!parsed || typeof parsed !== 'object') {
       throw new Error("Invalid analysis result. Please try again.");
+    }
+
+    // Ensure confidence is within valid range (0-100)
+    if (parsed.confidence) {
+      if (parsed.confidence <= 1) {
+        // Convert decimal to percentage if needed
+        parsed.confidence = Math.round(parsed.confidence * 100);
+      } else if (parsed.confidence > 100) {
+        // Cap at 100% if somehow above
+        parsed.confidence = 100;
+      } else {
+        // Round to whole number
+        parsed.confidence = Math.round(parsed.confidence);
+      }
     }
 
     setResult(parsed);
@@ -423,7 +438,6 @@ const sprd = result ? (SPREAD_MAP[result.spreadRisk] || SPREAD_MAP.low) : null;
   // ── RENDER ─────────────────────────────────────────────────────────────────
   return (
     <>
-      <Header />
       <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200" style={{paddingBottom:60}}>
 
       {/* LIGHTBOX */}
@@ -838,7 +852,7 @@ const sprd = result ? (SPREAD_MAP[result.spreadRisk] || SPREAD_MAP.low) : null;
       {/* end grid */}
 
       </div>
-      <Footer />
+
     </>
   );
 }

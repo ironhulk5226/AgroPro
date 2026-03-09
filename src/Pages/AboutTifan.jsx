@@ -1,5 +1,4 @@
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+
 import Loader from "../components/Loader";
 import React, { useEffect, useState } from "react";
 import MainImg from "../assets/About/Main.png";
@@ -21,8 +20,6 @@ function AboutTifan() {
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
       {isLoading && <Loader />}
-      {/* Header */}
-      <Header />
 
       {/* Main Content */}
       <main className="px-4 sm:px-6 md:px-8 lg:px-16 xl:px-20 2xl:px-40 flex flex-1 justify-center py-5 bg-white dark:bg-gray-900 transition-colors duration-200">
@@ -215,8 +212,7 @@ function AboutTifan() {
         </div>
       </main>
 
-      {/* Footer */}
-      <Footer />
+
     </div>
   );
 }

@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import { HiOutlineChartBar } from "react-icons/hi";
 import {
   FaLeaf,
@@ -243,8 +241,7 @@ const Hero = () => {
 
   return (
     <div className="bg-white dark:bg-gray-900 transition-colors duration-200">
-      {/*Nav Bar*/}
-      <Header />
+
       {/* StickyButtons */}
       <StickyButtons />
       {/*Hero Section*/}
@@ -669,8 +666,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      {/*Footer*/}
-      <Footer />
+
     </div>
   );
 };

@@ -1,5 +1,4 @@
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+
 import Loader from "../components/Loader";
 import { FaSearch } from "react-icons/fa";
 import GrowSmart from "../assets/Feature_Images/GrowSmart.png";
@@ -71,7 +70,6 @@ function Features() {
   return (
     <div className="bg-white dark:bg-gray-900 transition-colors duration-200">
       {isLoading && <Loader />}
-      <Header />
       <div className="px-4 sm:px-6 md:px-8 lg:px-10 xl:px-16 2xl:px-20 flex flex-1 justify-center py-5 bg-white dark:bg-gray-900 transition-colors duration-200">
         <div className="flex flex-col max-w-6xl w-full flex-1">
           {/* Header */}
@@ -127,7 +125,6 @@ function Features() {
             ))}
           </div>
 
-          <Footer />
         </div>
       </div>
     </div>

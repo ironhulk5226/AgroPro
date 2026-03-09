@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
+
 import Loader from '../components/Loader'
 
 const ContactUs = () => {
@@ -19,7 +18,6 @@ const ContactUs = () => {
   return (
     <div className="bg-white dark:bg-gray-900 transition-colors duration-200">
       {isLoading && <Loader />}
-      <Header />
       <div className="min-h-screen bg-white dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           {/* Header Section */}
@@ -128,7 +126,7 @@ const ContactUs = () => {
           </div>
         </div>
       </div>
-      <Footer />
+
     </div>
   )
 }

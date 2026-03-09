@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { SyncLoader } from "react-spinners";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+
 import Loader from "../components/Loader";
 // url : https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
 // API key : 6758d9c84d9f9d0f2a48d6cf155e670d
@@ -90,7 +89,6 @@ const WeatherWise = () => {
   return (
    <>
     {isPageLoading && <Loader />}
-    <Header/>
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-800 dark:text-white p-6 transition-colors duration-200">
       <div className="max-w-3xl mx-auto">
         <h1 className="text-3xl md:text-4xl font-bold text-center text-[#111811] dark:text-white mb-6 transition-colors duration-200">
@@ -183,7 +181,7 @@ const WeatherWise = () => {
         )}
       </div>
     </div>
-    <Footer/>
+
    </>
   );
 };

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Header from "../components/Header.jsx";
 import Step1 from "../components/formSteps/Step1.jsx";
 import Step2 from "../components/formSteps/Step2.jsx";
 import Step3 from "../components/formSteps/Step3.jsx";
@@ -221,7 +220,6 @@ Include phases like: Land Preparation, Sowing/Transplanting, Vegetative Growth, 
   if (isGenerating) {
     return (
       <>
-        <Header />
         <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-green-50 to-white dark:from-gray-900 dark:to-gray-800">
           <div className="text-center">
             <SyncLoader color="#14b714" size={15} margin={5} />
@@ -244,7 +242,6 @@ Include phases like: Land Preparation, Sowing/Transplanting, Vegetative Growth, 
 
   return (
     <>
-      <Header />
     <div
       className="relative flex size-full min-h-screen flex-col bg-white dark:bg-gray-900 group/design-root overflow-x-hidden transition-colors duration-200"
       style={{

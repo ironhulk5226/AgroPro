@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+
 import Loader from '../components/Loader';
 import { FaStar, FaQuoteLeft, FaUser, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { IoMdSend } from 'react-icons/io';
@@ -181,7 +180,6 @@ const Feedback = () => {
   return (
     <div className="bg-white dark:bg-gray-900 min-h-screen transition-colors duration-200">
       {isPageLoading && <Loader />}
-      <Header />
      
 
       {/* Success Message */}
@@ -435,7 +433,6 @@ const Feedback = () => {
         </div>
       </div>
 
-      <Footer />
     </div>
   );
 };
