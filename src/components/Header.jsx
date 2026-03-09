@@ -285,7 +285,7 @@ function Header() {
       />
 
       {/* Header */}
-      <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f1f3f1] dark:border-b-gray-700 px-4 md:px-6 lg:px-10 py-4 bg-white dark:bg-gray-900 transition-colors duration-200 relative z-[60] h-30 mt-5 max-md:mt-3">
+      <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f1f3f1] dark:border-b-gray-700 px-4 md:px-6 lg:px-10 py-4 bg-white dark:bg-gray-900 transition-colors duration-200 relative z-[60] h-37 max-md:h-35">
         <div className="flex items-center gap-2 md:gap-4 text-[#131613] dark:text-white transition-colors duration-200">
           {/* Logo  */}
           <img 
