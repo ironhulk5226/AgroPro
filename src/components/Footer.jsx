@@ -16,12 +16,12 @@ const Footer = () => {
               >
                 Gallery
               </a>
-              <a
+              {/* <a
                 className="text-black dark:text-white text-sm sm:text-base font-bold leading-normal min-w-32 sm:min-w-40 hover:text-green-700 dark:hover:text-green-400 transition-colors duration-200"
                 href="#"
               >
                 Terms of Service
-              </a>
+              </a> */}
               <a
                 className="text-black dark:text-white text-sm sm:text-base font-bold leading-normal min-w-32 sm:min-w-40 hover:text-green-700 dark:hover:text-green-400 transition-colors duration-200"
                 href="/contact"
