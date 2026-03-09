@@ -23,7 +23,7 @@ const StickyButtons = () => {
   ];
 
   return (
-    <div className="fixed bottom-20 sm:bottom-24 md:bottom-36 right-2 sm:right-3 z-[9999] space-y-2 sm:space-y-3">
+    <div className="fixed bottom-20 sm:bottom-24 md:bottom-36 right-2 sm:right-3 z-[100] space-y-2 sm:space-y-3">
       {buttons.map((btn, index) => (
         <a
           key={index}

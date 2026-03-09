@@ -315,13 +315,13 @@ function Header() {
                   {label}
                 </Link>
               ))}
-              {/* Logout Button */}
+              {/* Logout Button
               <button
                 onClick={() => handleLogout()}
                 className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#daf0da] dark:bg-green-700 text-[#131613] dark:text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-green-600 dark:hover:bg-green-600 transition-colors duration-200"
               >
                 Logout
-              </button>
+              </button> */}
               {/* Dark Mode Toggle */}
               <button
                 onClick={toggleTheme}
@@ -362,7 +362,7 @@ function Header() {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`mobile-menu-container lg:hidden fixed inset-x-0 top-[160px] max-md:top-[140px] bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 transition-all duration-300 ease-in-out z-[70] shadow-lg overflow-y-auto max-h-[calc(100vh-160px)] max-md:max-h-[calc(100vh-140px)] ${
+      <div className={`mobile-menu-container lg:hidden fixed inset-x-0 top-[160px] max-md:top-[140px] bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 transition-all duration-300 ease-in-out z-[101] shadow-lg overflow-y-auto max-h-[calc(100vh-160px)] max-md:max-h-[calc(100vh-140px)] ${
         isMenuOpen ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-full invisible"
       }`}>
         <nav className="flex flex-col px-4 py-4 space-y-2">
@@ -380,7 +380,7 @@ function Header() {
               {label}
             </Link>
           ))}
-          <div className="pt-4 border-t border-gray-200 dark:border-gray-700 mt-4">
+          {/* <div className="pt-4 border-t border-gray-200 dark:border-gray-700 mt-4">
             <button
               onClick={() => {
                 handleLogout();
@@ -390,7 +390,7 @@ function Header() {
             >
               Logout
             </button>
-          </div>
+          </div> */}
         </nav>
       </div>
     </>
