@@ -211,7 +211,7 @@ const Gallery = () => {
           {/* Close Button */}
           <button
             onClick={closeLightbox}
-            className="absolute top-4 right-4 text-gray-800 dark:text-white hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200 z-10 bg-white dark:bg-gray-800 rounded-full p-2 shadow-lg"
+            className="absolute top-4 max-md:top-10 right-4 text-gray-800 dark:text-white hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200 z-10 bg-white dark:bg-gray-800 rounded-full p-2 shadow-lg"
           >
             <FaTimes className="w-6 h-6" />
           </button>
