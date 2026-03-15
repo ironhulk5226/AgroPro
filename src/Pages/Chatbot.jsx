@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 
 import Loader from "../components/Loader";
 import { BiLeaf, BiWater, BiSun, BiSend } from "react-icons/bi";
+import { IoMdInformationCircleOutline } from "react-icons/io";
 import axios from "axios";
 import { SyncLoader } from "react-spinners";
 import ReactMarkdown from "react-markdown";
@@ -11,7 +12,7 @@ function Chatbot() {
 
   // Scroll to top when component mounts
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     // Hide loader after delay
     const timer = setTimeout(() => {
       setIsPageLoading(false);
@@ -42,7 +43,7 @@ function Chatbot() {
         role: "system",
         parts: [
           {
-            text: "You are a helpful agricultural specialist AI. Always answer questions with expertise in farming, crops, soil, water management, and related agriculture topics, answer in clear concise but detailed and simple manner so that any user can understand easily",
+            text: "You are an AI assistant for INDRA Agrotech and an agricultural specialist. Answer questions about farming, crops, soil, irrigation, and agricultural practices in clear, simple language that farmers and general users can easily understand. You also know about the INDRA Agrotech website, team, and products from the provided knowledge base. Products include Airawat-12, Vajra, and Sahastra transplanting machines used for sapling transplanting (tray conveying, sapling picking, conveying for planting, digging, and soil covering). Sahastra is the latest single-row transplanter with features like integrated water tank, low electronics complexity, high productivity, and farmer-friendly design. When asked about the company, products, comparison, or operation, answer using the provided information. Use concise explanations and bullet points when helpful. If information is not available in the knowledge base, politely say you do not have that information. INDRA Agrotech Team:A team of engineers and innovators focused on agricultural technology and mechanized transplanting solutions to improve farmer productivity and reduce labor effort.",
           },
         ],
       },
@@ -118,7 +119,9 @@ function Chatbot() {
           >
             {messages.length === 0 ? (
               <div className="flex items-center justify-center h-full text-black dark:text-white text-base sm:text-lg transition-colors duration-200">
-                <p className="text-center px-2">Ask a question to get started!</p>
+                <p className="text-center px-2">
+                  Ask a question to get started!
+                </p>
               </div>
             ) : (
               messages.map((message, index) => (
@@ -174,7 +177,10 @@ function Chatbot() {
                   <SyncLoader color="#ffffff" size={3} margin={1} />
                 ) : (
                   <>
-                    <BiSend size={16} className="sm:w-[18px] sm:h-[18px] md:w-5 md:h-5" />
+                    <BiSend
+                      size={16}
+                      className="sm:w-[18px] sm:h-[18px] md:w-5 md:h-5"
+                    />
                   </>
                 )}
               </button>
@@ -220,7 +226,7 @@ function Chatbot() {
               className="flex flex-1 gap-3 rounded-lg border border-[#dce5dc] dark:border-gray-700 bg-white dark:bg-gray-800 p-3 sm:p-4 items-center transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:bg-[#e7f7e7] dark:hover:bg-gray-700 cursor-pointer"
               onClick={() =>
                 setQuestion(
-                  "What's the optimal sunlight exposure for tomatoes?"
+                  "What's the optimal sunlight exposure for tomatoes?",
                 )
               }
             >
@@ -231,10 +237,27 @@ function Chatbot() {
                 What's the optimal sunlight exposure for tomatoes?
               </h2>
             </div>
+
+          {/* Example 4 */}
+            <div
+              className="flex lg:col-span-3 gap-3 rounded-lg border border-[#dce5dc] dark:border-gray-700 bg-white dark:bg-gray-800 p-3 sm:p-4 items-center transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:bg-[#e7f7e7] dark:hover:bg-gray-700 cursor-pointer"
+              onClick={() =>
+                setQuestion(
+                  "Tell me about INDRA Agrotech — the team behind it, the products developed, their features, and the technology used.",
+                )
+              }
+            >
+              <div className="text-[#14b714] dark:text-green-500 text-xl sm:text-2xl md:text-3xl transition-colors duration-200 flex-shrink-0">
+                <IoMdInformationCircleOutline />
+              </div>
+              <h2 className="text-[#111811] dark:text-white text-xs sm:text-sm md:text-base font-bold leading-snug transition-colors duration-200">
+                Tell me about INDRA Agrotech — the team behind it, the products developed, their features, and the technology used.
+              </h2>
+            </div>
+            
           </div>
         </div>
       </div>
-
     </div>
   );
 }
